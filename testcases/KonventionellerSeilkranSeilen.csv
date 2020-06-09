@@ -1,0 +1,32 @@
+#Arbeitsobjekt;;;;;;;;;;;;;;Arbeitssystem;;;;;;;;Faktoren;;;Ergebnis: Zeitaufwand;;;;Ergebnis: Kosten pro m3;;;;Ergebnis: Kosten total;;;;Produktivität
+#Mittleres Stückvolumen;Holzmenge;Rindenabzug manuell;Rindenabzug manuell;Stücklänge;Eingriffsart;Holz wird geseilt;Hangneigung;Hindernisse;Fahrtrichtung;Fahrdistanz;Seitlicher Zuzug;Tragseilhöhe Lagerplatz;Tragseilhöhe Bestand;Personal Ansatz;Personal Anzahl;Seilkran Ansatz;Seilkran Laufzeit;Tägliche Arbeitszeit;Wegzeiten und Pausen;Weitere Aufwände CHF;Weitere Aufwände Std.;Risiko/Verwaltung/Gewinn;Währungskürzel;Korrekturfaktor;Dauer der Arbeit;Personal;Seilkran;Weitere Aufwände;Personal;Seilkran;Weitere Aufwände;Total;Personal;Seilkran;Weitere Aufwände;Total;Produktivität
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;117;351.01;91.59;0;24.13;8.01;0;32.15;19305.76;6411.21;0;25716.97;7.86
+0.8;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;92.95;278.85;72.76;0;19.17;6.37;0;25.54;15336.6;5093.1;0;20429.71;9.9
+0.4;1200;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;175.51;526.52;137.38;0;24.13;8.01;0;32.15;28958.64;9616.82;0;38575.45;7.86
+0.4;800;false;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;117;351.01;91.59;0;27.11;9;0;36.12;19305.76;6411.21;0;25716.97;7
+0.4;800;true;0.9;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;117;351.01;91.59;0;26.81;8.9;0;35.72;19305.76;6411.21;0;25716.97;7.08
+0.4;800;true;1;8;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;120.85;362.56;94.6;0;24.93;8.28;0;33.2;19940.8;6622.1;0;26562.9;7.61
+0.4;800;true;1;5;Lichtung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;116.55;349.65;91.23;0;24.04;7.98;0;32.02;19230.48;6386.21;0;25616.7;7.89
+0.4;800;true;1;5;Raeumung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;116.09;348.28;90.87;0;23.94;7.95;0;31.9;19155.21;6361.21;0;25516.42;7.92
+0.4;800;true;1;5;Durchforstung;AbHaufen;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;95.53;286.58;74.78;0;19.7;6.54;0;26.24;15761.68;5234.26;0;20995.95;9.63
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;20;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;111.07;333.2;86.94;0;22.91;7.61;0;30.52;18326.18;6085.91;0;24412.09;8.28
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Erschwert;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;117.55;352.66;92.02;0;24.25;8.05;0;32.3;19396.53;6441.35;0;25837.88;7.82
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Extrem;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;118.1;354.31;92.45;0;24.36;8.09;0;32.45;19487.3;6471.5;0;25958.8;7.79
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;80;3;70;90;540;60;0;0;0;SFr.;1;117;351.01;91.59;0;35.1;8.01;0;43.12;28081.1;6411.21;0;34492.31;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;2;70;90;540;60;0;0;0;SFr.;1;125.44;250.87;98.19;0;17.25;8.59;0;25.84;13797.97;6873.21;0;20671.18;7.33
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;4;70;90;540;60;0;0;0;SFr.;1;117;468.02;91.59;0;32.18;8.01;0;40.19;25741.01;6411.21;0;32152.22;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;100;90;540;60;0;0;0;SFr.;1;117;351.01;91.59;0;24.13;11.45;0;35.58;19305.76;9158.87;0;28464.63;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;70;540;60;0;0;0;SFr.;1;117;351.01;71.24;0;24.13;6.23;0;30.37;19305.76;4986.5;0;24292.25;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergauf;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;131.14;393.42;102.65;0;27.05;8.98;0;36.03;21638.15;7185.77;0;28823.93;7.01
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;600;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;136.47;409.4;106.82;0;28.15;9.35;0;37.49;22516.93;7477.6;0;29994.53;6.74
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;60;10;12;55;3;70;90;540;60;0;0;0;SFr.;1;160.48;481.44;125.62;0;33.1;10.99;0;44.09;26478.96;8793.34;0;35272.3;5.73
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;20;12;55;3;70;90;540;60;0;0;0;SFr.;1;121.84;365.51;95.37;0;25.13;8.34;0;33.47;20102.78;6675.89;0;26778.67;7.55
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;8;55;3;70;90;540;60;0;0;0;SFr.;1;115.66;346.99;90.54;0;23.86;7.92;0;31.78;19084.36;6337.69;0;25422.05;7.95
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;300;60;0;0;0;SFr.;1;130.01;390.02;91.59;0;26.81;8.01;0;34.83;21450.84;6411.21;0;27862.05;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;120;0;0;0;SFr.;1;133.72;401.16;91.59;0;27.58;8.01;0;35.59;22063.72;6411.21;0;28474.93;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;1000;0;0;SFr.;1;117;351.01;91.59;0;24.13;8.01;1.25;33.4;19305.76;6411.21;1000;26716.97;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;10;0;SFr.;1;117;351.01;91.59;10;24.13;8.01;0;32.15;19305.76;6411.21;0;25716.97;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;10;SFr.;1;117;351.01;91.59;0;24.13;8.01;0;35.36;19305.76;6411.21;0;28288.66;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;0;0;0;SFr.;1.2;140.41;421.22;109.91;0;28.96;9.62;0;38.58;23166.91;7693.45;0;30860.36;6.55
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;1000;0;10;SFr.;1;117;351.01;91.59;0;24.13;8.01;1.25;36.74;19305.76;6411.21;1000;29388.66;7.86
+0.4;800;true;1;5;Durchforstung;AusSchlagflaeche;50;Normal;Bergab;350;20;10;12;55;3;70;90;540;60;1000;0;0;SFr.;1.2;140.41;421.22;109.91;0;28.96;9.62;1.25;39.83;23166.91;7693.45;1000;31860.36;6.55

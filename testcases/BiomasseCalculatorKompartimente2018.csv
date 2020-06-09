@@ -1,0 +1,21 @@
+#Eingaben;;;;;Ergebnis;;;;;;
+#Volumen Schaftholz eines mittleren Baumes (m3iR);Baumart;Standort;Mittlerer BHD (cm);Anzahl Stämme;Verhältnis Astderbholz zu Schaftholz (%);Verhältnis Reisig zu Schaftholz (%);Volumen Schaftholz (m3iR);Volumen Astderbholz (m3iR);Volumen Reisig (m3iR);Volumen oberirdische Biomasse ohne Nadeln und Blätter;Masse Nadeln und Blätter (kg)
+0.85;Nadelholz;Nadel_Alpen_Hoehe1000bis1500m;20;10;0;16.94;8.5;0;1.44;9.94;109.16
+1.3;Nadelholz;Nadel_Alpen_Hoehe1000bis1500m;20;10;0;16.94;13;0;2.2;15.2;109.16
+0.85;Nadelholz;Nadel_Alpen_Hoehe1501bis3000m;20;10;0;24.1;8.5;0;2.05;10.55;109.16
+0.85;Nadelholz;Nadel_Jura_Hoehe0bis1250m;20;10;0;16.94;8.5;0;1.44;9.94;109.16
+0.85;Nadelholz;Nadel_Jura_Hoehe1251bis3000m;20;10;0;24.1;8.5;0;2.05;10.55;109.16
+0.85;Nadelholz;Nadel_Mittelland_Hoehe0bis1250m;20;10;0;16.94;8.5;0;1.44;9.94;109.16
+0.85;Nadelholz;Nadel_Mittelland_Hoehe1251bis3000m;20;10;0;24.1;8.5;0;2.05;10.55;109.16
+0.85;Nadelholz;Nadel_Voralpen_Hoehe0bis1250m;20;10;0;16.94;8.5;0;1.44;9.94;109.16
+0.85;Nadelholz;Nadel_Voralpen_Hoehe1251bis3000m;20;10;0;24.1;8.5;0;2.05;10.55;109.16
+0.85;Nadelholz;Nadel_AlpenSuedseite_Hoehe0bis1250m;20;10;0;16.94;8.5;0;1.44;9.94;109.16
+0.85;Nadelholz;Nadel_AlpenSuedseite_Hoehe1251bis3000m;20;10;0;24.1;8.5;0;2.05;10.55;109.16
+0.85;Laubholz;Laub_Jura_Hoehe0bis3000m;20;10;2.4;0;8.5;0.2;0;8.7;31.9
+0.85;Laubholz;Laub_Mittelland_Hoehe0bis3000m;20;10;1.88;0;8.5;0.16;0;8.66;31.9
+0.85;Laubholz;Laub_Voralpen_Hoehe0bis1250m;20;10;2.91;0;8.5;0.25;0;8.75;31.9
+0.85;Laubholz;Laub_Voralpen_Hoehe1251bis3000m;20;10;1.46;0;8.5;0.12;0;8.62;31.9
+0.85;Laubholz;Laub_AlpenSuedseite_Hoehe0bis1250m;20;10;2.91;0;8.5;0.25;0;8.75;31.9
+0.85;Laubholz;Laub_AlpenSuedseite_Hoehe1251bis3000m;20;10;1.46;0;8.5;0.12;0;8.62;31.9
+0.85;Nadelholz;Nadel_Alpen_Hoehe1000bis1500m;35;10;0;13.26;8.5;0;1.13;9.63;294.35
+0.85;Nadelholz;Nadel_Alpen_Hoehe1000bis1500m;20;25;0;16.94;21.25;0;3.6;24.85;272.89

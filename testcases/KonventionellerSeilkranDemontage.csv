@@ -1,0 +1,27 @@
+#Arbeitsobjekt;;;;;;;;;;Arbeitssystem;;;;;;;;Faktoren;;;Ergebnis: Zeitaufwand;;;;Ergebnis: Kosten pro m3;;;;Ergebnis: Kosten total;;;
+#Holzmenge;Rindenabzug manuell;Rindenabzug manuell;Linienlänge;Anzahl Stützen;Anzahl Endmasten;Ist Seilverlegung;WindenTransport;WindenStandort;Distanz;Personal;Anzahl;Seilkran;Laufzeit;Tägliche Arbeitszeit;Wegzeiten und Pausen;Weitere Aufwände CHF;Weitere Aufwände Std.;Risiko/Verwaltung/Gewinn;Währungskürzel;Korrekturfaktor;Dauer der Arbeit;Personal;Seilkran;Weitere Aufwände;Personal;Seilkran;Weitere Aufwände;Total;Personal;Seilkran;Weitere Aufwände;Total
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;1868.49;101.38;0;1969.87;1868.49;101.38;0;1969.87
+123;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;15.19;0.82;0.00;16.02;1868.49;101.38;0;1969.87
+1;false;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;2099.43;113.91;0.00;2213.34;1868.49;101.38;0;1969.87
+1;true;0.9;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;2076.10;112.65;0.00;2188.74;1868.49;101.38;0;1969.87
+1;true;1;1200;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;13.2;39.59;1.69;0;2177.53;118.15;0;2295.69;2177.53;118.15;0;2295.69
+1;true;1;800;3;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;12.28;36.84;1.57;0;2026.16;109.94;0;2136.1;2026.16;109.94;0;2136.1
+1;true;1;800;2;2;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;12.28;36.84;1.57;0;2026.16;109.94;0;2136.1;2026.16;109.94;0;2136.1
+1;true;1;800;2;1;TRUE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;8.05;24.14;1.03;0;1327.65;72.04;0;1399.69;1327.65;72.04;0;1399.69
+1;true;1;800;2;1;FALSE;SelbstfahrtBergauf;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;13.02;39.05;1.66;0;2147.58;116.53;0;2264.1;2147.58;116.53;0;2264.1
+1;true;1;800;2;1;FALSE;SelbstfahrtBergab;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;13.03;39.1;1.67;0;2150.73;116.7;0;2267.43;2150.73;116.7;0;2267.43
+1;true;1;800;2;1;FALSE;MitHeli;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1;14.46;43.38;1.85;0;2385.67;129.45;0;2515.12;2385.67;129.45;0;2515.12
+1;true;1;800;2;1;TRUE;KeinWindenTransport;Wechselt;0;55;3;70;20;540;60;0;0;0;SFr.;1;9.29;27.87;1.19;0;1532.63;83.16;0;1615.79;1532.63;83.16;0;1615.79
+1;true;1;800;2;1;FALSE;SelbstfahrtBergauf;Bleibt;250;55;3;70;20;540;60;0;0;0;SFr.;1;13.74;41.23;1.76;0;2267.41;123.03;0;2390.44;2267.41;123.03;0;2390.44
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;80;3;70;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;2717.8;101.38;0;2819.18;2717.8;101.38;0;2819.18
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;2;70;20;540;60;0;0;0;SFr.;1;16.99;33.97;2.17;0;1868.49;152.08;0;2020.56;1868.49;152.08;0;2020.56
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;100;20;540;60;0;0;0;SFr.;1;11.32;33.97;1.45;0;1868.49;144.83;0;2013.32;1868.49;144.83;0;2013.32
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;40;540;60;0;0;0;SFr.;1;11.32;33.97;2.9;0;1868.49;202.77;0;2071.25;1868.49;202.77;0;2071.25
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;400;60;0;0;0;SFr.;1;11.84;35.53;1.45;0;1953.97;101.38;0;2055.36;1953.97;101.38;0;2055.36
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;30;0;0;0;SFr.;1;10.66;31.97;1.45;0;1758.57;101.38;0;1859.96;1758.57;101.38;0;1859.96
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;1000;0;0;SFr.;1;11.32;33.97;1.45;0;1868.49;101.38;1000;2969.87;1868.49;101.38;1000;2969.87
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;10;0;SFr.;1;11.32;33.97;1.45;10;1868.49;101.38;0;1969.87;1868.49;101.38;0;1969.87
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;10;SFr.;1;11.32;33.97;1.45;0;1868.49;101.38;0;2166.86;1868.49;101.38;0;2166.86
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;0;0;0;SFr.;1.2;13.59;40.77;1.74;0;2242.18;121.66;0;2363.84;2242.18;121.66;0;2363.84
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;1000;0;20;SFr.;1;11.32;33.97;1.45;0;1868.49;101.38;1000;3563.84;1868.49;101.38;1000;3563.84
+1;true;1;800;2;1;FALSE;KeinWindenTransport;Bleibt;0;55;3;70;20;540;60;1000;0;0;SFr.;1.4;15.85;47.56;2.03;0;2615.88;141.94;1000;3757.82;2615.88;141.94;1000;3757.82

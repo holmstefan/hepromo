@@ -1,0 +1,21 @@
+#Eingaben;;;;;Ergebnis
+#Tarifnummer;BHD_cm;Gesamtwuchsleistung;Entwicklungsstufe;Höhe über Meer (m);Volumen Schaftholz m3iR
+201;20;Gering;Stangenholz_12bis30cm;500;0.274
+202;20;Gering;Stangenholz_12bis30cm;500;0.259
+203;20;Gering;Stangenholz_12bis30cm;500;0.276
+204;20;Gering;Stangenholz_12bis30cm;500;0.256
+205;20;Gering;Stangenholz_12bis30cm;500;0.204
+216;20;Gering;Stangenholz_12bis30cm;500;0.25
+217;20;Gering;Stangenholz_12bis30cm;500;0.231
+218;20;Gering;Stangenholz_12bis30cm;500;0.23
+220;20;Gering;Stangenholz_12bis30cm;500;0.218
+201;15;Gering;Stangenholz_12bis30cm;500;0.132
+201;25;Gering;Stangenholz_12bis30cm;500;0.473
+201;20;Maessig;Stangenholz_12bis30cm;500;0.28
+201;20;Gut;Stangenholz_12bis30cm;500;0.289
+201;20;SehrGut;Stangenholz_12bis30cm;500;0.298
+201;35;Gering;Baumholz1_31bis40cm;500;1.127
+201;45;Gering;Baumholz2_41bis50cm;500;2.067
+201;55;Gering;Baumholz3_ueber50cm;500;3.303
+201;20;Gering;Stangenholz_12bis30cm;1000;0.249
+201;20;Gering;Stangenholz_12bis30cm;1500;0.227

@@ -1,0 +1,16 @@
+#Arbeitsobjekt;;;;;;;Arbeitssystem;;;;Faktoren;;;Ergebnis: Zeitaufwand;;;Ergebnis: Kosten pro Srm;;;Ergebnis: Kosten total;;;Produktivität;Anzahl Zyklen;Zeiten pro Zyklus (PMH15);;;;
+#Holzmenge [SRm];Hacken in Mulde;Poltersortiment;Motorleistung Hacker [kW];Distanz Waldstrasse;Distanz inner-/ausserorts;Distanz Autobahn;Muldeninhalt [Srm];LKW inkl. Fahrer Kosten pro PMH15;Weitere Aufwände CHF;Weitere Aufwände Std.;Risiko/Verwaltung/Gewinn;Währungskürzel;Korrekturfaktor;Total;LKW inkl. Fahrer;Weitere Aufwände;LKW inkl. Fahrer;Weitere Aufwände;Total;LKW inkl. Fahrer;Weitere Aufwände;Total;SrmProPMH15;Anzahl Zyklen;Laden;Lastfahrt;Entladen;Leerfahrt;Gesamt
+100;false;Waldrestholz;82;10;10;0;40;200;0;0;0;Fr.;1;6.2;5.64;0;11.28;0;11.28;1127.5;0;1127.5;17.74;3;0.17;0.75;0.25;0.71;1.88
+500;false;Waldrestholz;82;10;10;0;40;200;0;0;0;Fr.;1;26.87;24.43;0;9.77;0;9.77;4885.83;0;4885.83;20.47;13;0.17;0.75;0.25;0.71;1.88
+100;true;Waldrestholz;82;10;10;0;40;200;0;0;0;Fr.;1;10.7;9.73;0;19.46;0;19.46;1945.6;0;1945.6;10.28;3;1.53;0.75;0.25;0.71;3.24
+100;true;Energierundholz;82;10;10;0;40;200;0;0;0;Fr.;1;9.82;8.93;0;17.86;0;17.86;1785.82;0;1785.82;11.2;3;1.26;0.75;0.25;0.71;2.98
+100;true;Waldrestholz;455;10;10;0;40;200;0;0;0;Fr.;1;6.83;6.21;0;12.42;0;12.42;1241.97;0;1241.97;16.1;3;0.36;0.75;0.25;0.71;2.07
+100;false;Waldrestholz;82;15;10;0;40;200;0;0;0;Fr.;1;7.81;7.1;0;14.2;0;14.2;1420;0;1420;14.08;3;0.17;1;0.25;0.95;2.37
+100;false;Waldrestholz;82;10;20;0;40;200;0;0;0;Fr.;1;7.81;7.1;0;14.2;0;14.2;1420;0;1420;14.08;3;0.17;1;0.25;0.95;2.37
+100;false;Waldrestholz;82;10;10;10;40;200;0;0;0;Fr.;1;7.12;6.48;0;12.95;0;12.95;1295.2;0;1295.2;15.44;3;0.17;0.89;0.25;0.85;2.16
+100;false;Waldrestholz;82;10;10;0;10;200;0;0;0;Fr.;1;20.67;18.79;0;37.58;0;37.58;3758.33;0;3758.33;5.32;10;0.17;0.75;0.25;0.71;1.88
+100;false;Waldrestholz;82;10;10;0;40;150;0;0;0;Fr.;1;6.2;5.64;0;8.46;0;8.46;845.62;0;845.62;17.74;3;0.17;0.75;0.25;0.71;1.88
+100;false;Waldrestholz;82;10;10;0;40;200;500;0;0;Fr.;1;6.2;5.64;0;11.28;5;16.28;1127.5;500;1627.5;17.74;3;0.17;0.75;0.25;0.71;1.88
+100;false;Waldrestholz;82;10;10;0;40;200;0;2;0;Fr.;1;6.2;5.64;2;11.28;0;11.28;1127.5;0;1127.5;17.74;3;0.17;0.75;0.25;0.71;1.88
+100;false;Waldrestholz;82;10;10;0;40;200;0;0;2.5;Fr.;1;6.2;5.64;0;11.28;0;11.56;1127.5;0;1155.69;17.74;3;0.17;0.75;0.25;0.71;1.88
+100;false;Waldrestholz;82;10;10;0;40;200;0;0;0;Fr.;1.28;7.94;7.22;0;14.43;0;14.43;1443.2;0;1443.2;13.86;3;0.17;0.75;0.25;0.71;1.88

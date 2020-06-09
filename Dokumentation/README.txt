@@ -1,0 +1,1 @@
+Die Dateien in diesem Ordner werden automatisch generiert beim ersten Aufruf der entsprechenden Dokumentation aus HeProMo heraus. Die Dateien werden überschrieben, falls eine neuere Version der Dokumentation vorliegt.

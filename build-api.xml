@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_jar" name="HeProMo-Library">
+    <target name="create_jar">
+        <jar destfile="hepromo-api-v0.4.jar">
+            <fileset dir="bin">
+            	<include name="ch/wsl/fps/hepromo/api/**"/>
+            	<include name="ch/wsl/fps/hepromo/model/**"/>
+            </fileset>
+        </jar>
+    </target>
+</project>

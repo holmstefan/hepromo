@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+  
+<suite name="SuiteAllTestsInAllPackages" verbose="1" >
+
+	<test name="Alle Modelle (ohne APIs und Biomasseschätzer)">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.model.modelle"/>
+		</packages>
+	</test>
+
+	<test name="Alle Biomasseschätzer">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.model.calc"/>
+		</packages>
+	</test>
+	
+	<test name="Alle Klassen im package hepromo.api">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.api"/>
+		</packages>
+	</test>
+	
+	<test name="Alle Klassen im package hepromo.api.en">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.api.en"/>
+		</packages>
+	</test>
+	
+	<test name="GUI-Test">  
+		<classes>
+			<class name="ch.wsl.fps.hepromo.gui.ProdEinheitLabelTest"/>
+		</classes>
+	</test>
+</suite>

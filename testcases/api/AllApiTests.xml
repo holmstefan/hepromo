@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="HeProMo API Test Suite" verbose="1" >
+	<test name="All test classes in package hepromo.api">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.api"/>
+		</packages>
+	</test>
+</suite>
