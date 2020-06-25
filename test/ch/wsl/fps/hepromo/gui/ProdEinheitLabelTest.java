@@ -508,34 +508,34 @@ public class ProdEinheitLabelTest {
 		case Radharvester2014:
 			return 2;
 			
-		case Schlepper2014:
+		case Hacker2018:
 			return 3;
 			
-		case Hacker2018:
+		case HackschnitzelTransport2018:
 			return 4;
 			
-		case HackschnitzelTransport2018:
+		case Vorruecken2018:
 			return 5;
+			
+		case Schlepper2014:
+			return 6;
+
+		case Forwarder2018_Rundholz:
+			return 7;
+			
+		case Forwarder2018_Energieholz:
+			return 8;
+			
+		case KonventionellerSeilkranGesamt:
+			return 9;
+			
+		case MobilseilkranGesamt:
+			return 10;
 
 		case Kombiseilgeraet2018_MontageDemontage:
 		case Kombiseilgeraet2018_FaellenRuecken:
 		case Kombiseilgeraet2018_VortransportierenLagern:
 		case Kombiseilgeraet2018_Gesamt:
-			return 6;
-			
-		case Vorruecken2018:
-			return 7;
-
-		case Forwarder2018_Rundholz:
-			return 8;
-			
-		case Forwarder2018_Energieholz:
-			return 9;
-			
-		case KonventionellerSeilkranGesamt:
-			return 10;
-			
-		case MobilseilkranGesamt:
 			return 11;
 			
 		default:
