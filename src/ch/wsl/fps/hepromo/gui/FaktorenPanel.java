@@ -19,11 +19,12 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
@@ -31,6 +32,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
@@ -51,7 +53,16 @@ public class FaktorenPanel extends JPanel {
 	
 	private final HeProMoWindow parent;
 
+	private JToggleButton btnExpand;
+	private JLabel lblRisikoVerwaltungGewinn;
+	private JSpinner txtRisikoVerwaltungGewinn;
+	private JLabel lblRisiko;
 	private JSpinner txtRisiko;
+	private JLabel lblVerwaltung;
+	private JSpinner txtVerwaltung;
+	private JLabel lblGewinn;
+	private JSpinner txtGewinn;
+	
 	private JSpinner txtMehrwertsteuer;
 	private JTextField txtWaehrungskuerzel;
 	private JCheckBox chkRindenabzugAutomatisch;
@@ -103,54 +114,115 @@ public class FaktorenPanel extends JPanel {
 		row1.setLayout(new BoxLayout(row1, BoxLayout.X_AXIS));
 		this.add(row1, c);
 		
+		//Button "+"
+		btnExpand = new JToggleButton("+"); //$NON-NLS-1$
+		btnExpand.setMargin(new Insets(1, 5, 1, 5));
+		btnExpand.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				changeExpandRisikoVerwaltungGewinn();
+			}
+		});
+		parent.addDefaultItemListener(btnExpand);
+		row1.add(btnExpand);
+		row1.add(Box.createHorizontalStrut(5));
+		
 		//Label Risiko, Verwaltung, Gewinn
-		JLabel lblRisiko = new JLabel(GuiStrings.getString("FaktorenPanel.RisikoVerwaltungGewinn")); //$NON-NLS-1$
-		row1.add(lblRisiko);
+		lblRisikoVerwaltungGewinn = new JLabel(GuiStrings.getString("FaktorenPanel.RisikoVerwaltungGewinn")); //$NON-NLS-1$
+		row1.add(lblRisikoVerwaltungGewinn);
 		row1.add(Box.createHorizontalStrut(5));
 		
 		//Text Risiko, Verwaltung, Gewinn
+		txtRisikoVerwaltungGewinn = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
+		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtRisikoVerwaltungGewinn);
+		txtRisikoVerwaltungGewinn.setMaximumSize(new Dimension(60, 20));
+		row1.add(txtRisikoVerwaltungGewinn);
+		row1.add(Box.createHorizontalStrut(15));
+		
+		//Label Risiko
+		lblRisiko = new JLabel(GuiStrings.getString("FaktorenPanel.Risiko")); //$NON-NLS-1$
+		row1.add(lblRisiko);
+		row1.add(Box.createHorizontalStrut(5));
+		
+		//Text Risiko
 		txtRisiko = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtRisiko);
 		txtRisiko.setMaximumSize(new Dimension(60, 20));
 		row1.add(txtRisiko);
 		row1.add(Box.createHorizontalStrut(15));
 		
-		//Label Mehrwertsteuer
-		JLabel lblMehrwertsteuer = new JLabel(GuiStrings.getString("FaktorenPanel.Mehrwertsteuer")); //$NON-NLS-1$
-		row1.add(lblMehrwertsteuer);
+		//Label Verwaltung
+		lblVerwaltung = new JLabel(GuiStrings.getString("FaktorenPanel.Verwaltung")); //$NON-NLS-1$
+		row1.add(lblVerwaltung);
 		row1.add(Box.createHorizontalStrut(5));
 		
-		//Text Mehrwertsteuer
-		txtMehrwertsteuer = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
-		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtMehrwertsteuer);
-		txtMehrwertsteuer.setMaximumSize(new Dimension(60, 20));
-		row1.add(txtMehrwertsteuer);
+		//Text Verwaltung
+		txtVerwaltung = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
+		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtVerwaltung);
+		txtVerwaltung.setMaximumSize(new Dimension(60, 20));
+		row1.add(txtVerwaltung);
 		row1.add(Box.createHorizontalStrut(15));
 		
-		//Label Waehrungskuerzel
-		JLabel lblWaehrungsKuerzel = new JLabel(GuiStrings.getString("FaktorenPanel.Waehrungskuerzel")); //$NON-NLS-1$
-		row1.add(lblWaehrungsKuerzel);
+		//Label Gewinn
+		lblGewinn = new JLabel(GuiStrings.getString("FaktorenPanel.Gewinn")); //$NON-NLS-1$
+		row1.add(lblGewinn);
 		row1.add(Box.createHorizontalStrut(5));
 		
-		//Text Waehrungskuerzel
-		txtWaehrungskuerzel = new JTextField();
-		txtWaehrungskuerzel.setMaximumSize(new Dimension(60, 20));
-		parent.addDefaultDocumentListener(txtWaehrungskuerzel);
-		row1.add(txtWaehrungskuerzel);
+		//Text Gewinn
+		txtGewinn = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
+		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtGewinn);
+		txtGewinn.setMaximumSize(new Dimension(60, 20));
+		row1.add(txtGewinn);
+		row1.add(Box.createHorizontalStrut(15));
 		
 		
 		
-
 		//Zweite Reihe
 		c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
-		c.insets = new Insets(10,5,0,5);
+		c.insets = new Insets(10,10,0,5);
 		JPanel row2 = new JPanel();
 		row2.setLayout(new BoxLayout(row2, BoxLayout.X_AXIS));
 		this.add(row2, c);
+		
+		//Label Mehrwertsteuer
+		JLabel lblMehrwertsteuer = new JLabel(GuiStrings.getString("FaktorenPanel.Mehrwertsteuer")); //$NON-NLS-1$
+		row2.add(lblMehrwertsteuer);
+		row2.add(Box.createHorizontalStrut(5));
+		
+		//Text Mehrwertsteuer
+		txtMehrwertsteuer = new JSpinner(new SpinnerNumberModel(0, 0, 200, 0.1));
+		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtMehrwertsteuer);
+		txtMehrwertsteuer.setMaximumSize(new Dimension(60, 20));
+		row2.add(txtMehrwertsteuer);
+		row2.add(Box.createHorizontalStrut(15));
+		
+		//Label Waehrungskuerzel
+		JLabel lblWaehrungsKuerzel = new JLabel(GuiStrings.getString("FaktorenPanel.Waehrungskuerzel")); //$NON-NLS-1$
+		row2.add(lblWaehrungsKuerzel);
+		row2.add(Box.createHorizontalStrut(5));
+		
+		//Text Waehrungskuerzel
+		txtWaehrungskuerzel = new JTextField();
+		txtWaehrungskuerzel.setMaximumSize(new Dimension(60, 20));
+		parent.addDefaultDocumentListener(txtWaehrungskuerzel);
+		row2.add(txtWaehrungskuerzel);
+		
+		
+		
+		//Dritte Reihe
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 2;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 100;
+		c.insets = new Insets(10,5,0,5);
+		JPanel row3 = new JPanel();
+		row3.setLayout(new BoxLayout(row3, BoxLayout.X_AXIS));
+		this.add(row3, c);
 		
 		//Checkbox Rindenabzug
 		chkRindenabzugAutomatisch = new JCheckBox(GuiStrings.getString("FaktorenPanel.Umrechnungsfaktor_iR_oR_automatisch")); //$NON-NLS-1$
@@ -162,14 +234,14 @@ public class FaktorenPanel extends JPanel {
 			}
 		});
 		chkRindenabzugAutomatisch.setSelected(true);
-		row2.add(chkRindenabzugAutomatisch);
-		row2.add(Box.createHorizontalStrut(5));
+		row3.add(chkRindenabzugAutomatisch);
+		row3.add(Box.createHorizontalStrut(5));
 		
 		//Text Rindenabzug
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtRindenabzug);
 		txtRindenabzug.setMaximumSize(new Dimension(60, 20));
 		txtRindenabzug.setEnabled(false);
-		row2.add(txtRindenabzug);
+		row3.add(txtRindenabzug);
 		
 
 		
@@ -177,7 +249,7 @@ public class FaktorenPanel extends JPanel {
 		//Panel Weitere Faktoren
         c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
 		c.insets = new Insets(20,0,0,0);
@@ -188,7 +260,7 @@ public class FaktorenPanel extends JPanel {
 		//placeholder
         c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 100;
 		c.weighty = 100;
@@ -198,7 +270,7 @@ public class FaktorenPanel extends JPanel {
 	
 	private JPanel initPanelWeitereFaktoren() {
 		JPanel pnlWeitereFaktoren = new JPanel();
-		pnlWeitereFaktoren.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("FaktorenPanel.TitleWeitereFaktoren"))); //$NON-NLS-1$
+		pnlWeitereFaktoren.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("FaktorenPanel.TitleWeitereFaktoren"))); //$NON-NLS-1$
 		
 
 		//set layout
@@ -362,10 +434,16 @@ public class FaktorenPanel extends JPanel {
 	 * Lädt die veränderbaren Faktoren ins GUI
 	 */
 	public void loadFaktoren(HeProMoInputData data) {
-		txtRisiko.setValue(				data.getFaktoren().getMargin()				);
-		txtMehrwertsteuer.setValue(		data.getFaktoren().getMehrwertsteuer()		);
-		txtWaehrungskuerzel.setText( 	data.getFaktoren().getWaehrungskuerzel()	);
-		txtKorrekturfaktor.setValue(	data.getFaktoren().getKorrekturFaktor()		);
+		btnExpand.setSelected(				data.getFaktoren().isRisikoVerwaltungGewinnMerged() == false);
+		txtRisikoVerwaltungGewinn.setValue(	data.getFaktoren().getMargin()				);
+		txtRisiko.setValue(					data.getFaktoren().getRisiko()				);
+		txtVerwaltung.setValue(				data.getFaktoren().getVerwaltung()			);
+		txtGewinn.setValue(					data.getFaktoren().getGewinn()				);
+		txtMehrwertsteuer.setValue(			data.getFaktoren().getMehrwertsteuer()		);
+		txtWaehrungskuerzel.setText( 		data.getFaktoren().getWaehrungskuerzel()	);
+		txtKorrekturfaktor.setValue(		data.getFaktoren().getKorrekturFaktor()		);
+		
+		changeExpandRisikoVerwaltungGewinn();
 
 		if (data instanceof AbstractModel2014 || data instanceof PersistentInputData && AbstractModel2014.class.isAssignableFrom(((PersistentInputData)data).getModelClass()) ) {
 			Arbeitsobjekt ao = data.getArbeitsobjekt();
@@ -434,7 +512,11 @@ public class FaktorenPanel extends JPanel {
 	 * Updated die veränderbaren Faktoren im Model entsprechend den aktuellen Eingaben im GUI
 	 */
 	public void loadGUIToModel(AbstractModel model) {
-		model.getFaktoren().setMargin(				(Double) txtRisiko.getValue()			);
+		model.getFaktoren().setRisikoVerwaltungGewinnMerged( btnExpand.isSelected() == false	);
+		model.getFaktoren().setMargin(				(Double) txtRisikoVerwaltungGewinn.getValue() );
+		model.getFaktoren().setRisiko(				(Double) txtRisiko.getValue() 			);
+		model.getFaktoren().setVerwaltung(			(Double) txtVerwaltung.getValue() 		);
+		model.getFaktoren().setGewinn(				(Double) txtGewinn.getValue() 			);
 		model.getFaktoren().setMehrwertsteuer(		(Double) txtMehrwertsteuer.getValue()	);
 		model.getFaktoren().setWaehrungskuerzel(	txtWaehrungskuerzel.getText()			);
 		model.getFaktoren().setKorrekturFaktor(		(Double) txtKorrekturfaktor.getValue()	);
@@ -460,4 +542,17 @@ public class FaktorenPanel extends JPanel {
 		lblFaktorWegzeitenUndPausen_Info.setVisible(flag);
 	}
 	
+	
+	private void changeExpandRisikoVerwaltungGewinn() {
+		boolean isExpanded = btnExpand.isSelected();
+		
+		lblRisikoVerwaltungGewinn.setVisible(!isExpanded);
+		txtRisikoVerwaltungGewinn.setVisible(!isExpanded);
+		lblRisiko.setVisible(isExpanded);
+		txtRisiko.setVisible(isExpanded);
+		lblVerwaltung.setVisible(isExpanded);
+		txtVerwaltung.setVisible(isExpanded);
+		lblGewinn.setVisible(isExpanded);
+		txtGewinn.setVisible(isExpanded);
+	}
 }

@@ -15,8 +15,14 @@
  ******************************************************************************/
 package ch.wsl.fps.hepromo.gui;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
@@ -37,9 +43,7 @@ public class HeProMoExceptionHandler {
 
 	public static void handle(Throwable e, String msgPrefix) {
 		if (DIALOG && STACKTRACE) {
-			StringWriter sw = new StringWriter();
-			e.printStackTrace(new PrintWriter(sw));
-			JOptionPane.showMessageDialog(null, (msgPrefix != null ? msgPrefix : "") + sw.toString());
+			JOptionPane.showMessageDialog(null, getErrorMsgWithStackTrace(e, msgPrefix));
 		}
 		else if (DIALOG) {
 			JOptionPane.showMessageDialog(null, (msgPrefix != null ? msgPrefix : "") + e);
@@ -51,6 +55,8 @@ public class HeProMoExceptionHandler {
 			}
 			e.printStackTrace();
 		}
+		
+		appendToErrorLogFile(e, msgPrefix);
 	}
 	
 	public static void setLogDialog(boolean flag) {
@@ -59,5 +65,30 @@ public class HeProMoExceptionHandler {
 	
 	public static void setLogStackTrace(boolean flag) {
 		STACKTRACE = flag;
+	}
+	
+	
+	private static void appendToErrorLogFile(Throwable e, String msgPrefix) {
+		File file = new File("hepromo-error.log");
+		try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
+			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()); //TODO: switch to new Java 8 date/time classes.
+			printWriter.append(timeStamp + "\n");
+			
+			String errorMsg = getErrorMsgWithStackTrace(e, msgPrefix);
+			printWriter.append(errorMsg + "\n");
+			
+			printWriter.flush();
+			printWriter.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	private static String getErrorMsgWithStackTrace(Throwable e, String msgPrefix) {
+		StringWriter sw = new StringWriter();
+		e.printStackTrace(new PrintWriter(sw));
+		String errorMsg = (msgPrefix == null ? "" : msgPrefix) + sw.toString();
+		return errorMsg;
 	}
 }

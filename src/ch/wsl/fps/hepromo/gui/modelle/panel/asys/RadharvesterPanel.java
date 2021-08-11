@@ -19,13 +19,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester.MaschinenKategorie;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester.MaschinenTyp;
 
@@ -54,7 +54,7 @@ public class RadharvesterPanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Radharvester"));		 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Radharvester"));		 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

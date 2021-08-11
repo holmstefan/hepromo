@@ -197,6 +197,7 @@ public class BiomasseCalculatorSchaftholztarif2018 {
 				case Nadel_AlpenSuedseite_Hoehe1251bis3000m:
 					return new Tarifnummer[]{T205};
 					
+					//$CASES-OMITTED$
 				default:
 					throw new IllegalArgumentException(standort.toString());		
 				}
@@ -230,6 +231,7 @@ public class BiomasseCalculatorSchaftholztarif2018 {
 				case Laub_AlpenSuedseite_Hoehe1251bis3000m:
 					return new Tarifnummer[]{T220};
 					
+					//$CASES-OMITTED$
 				default:
 					throw new IllegalArgumentException(standort.toString());		
 				}
@@ -262,6 +264,7 @@ public class BiomasseCalculatorSchaftholztarif2018 {
 			case Allg_AlpenSuedseite_Hoehe1251bis3000m:
 				return new Tarifnummer[]{T205, T220};
 
+				//$CASES-OMITTED$
 			default:
 				throw new IllegalArgumentException(standort.toString());		
 			}

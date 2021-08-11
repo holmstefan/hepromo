@@ -16,7 +16,6 @@
 package ch.wsl.fps.hepromo.gui.modelle;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -28,7 +27,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,7 +42,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -55,6 +52,7 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorAnteilEnergieholz2018.Zopfklasse;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorKompartimente2018;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorKompartimente2018.ErgebnisEnergieholz;
@@ -349,16 +347,7 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 	
 	
 	private void initPanelInput(JPanel pnlInput) {
-		pnlInput.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("BiomasseschaetzerEnergie2018.Eingaben"))); //$NON-NLS-1$
-		
-		//set title font to bold
-		TitledBorder border = (TitledBorder) pnlInput.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
+		pnlInput.setBorder(TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("BiomasseschaetzerEnergie2018.Eingaben"))); //$NON-NLS-1$
 		
 		
 		//set layout
@@ -760,18 +749,8 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 	
 	
 	private void initPanelOutput(JPanel pnlOutput) {
-		pnlOutput.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("BiomasseschaetzerEnergie2018.Ergebnis"))); //$NON-NLS-1$
+		pnlOutput.setBorder(TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("BiomasseschaetzerEnergie2018.Ergebnis"))); //$NON-NLS-1$
 		pnlOutput.setBackground(ErgebnisPanel.ERGEBNIS_PANEL_BACKGROUND_COLOR);
-		
-		//set title font to bold
-		TitledBorder border = (TitledBorder) pnlOutput.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
-		
 		
 		//set layout
 		pnlOutput.setLayout( new GridBagLayout() );

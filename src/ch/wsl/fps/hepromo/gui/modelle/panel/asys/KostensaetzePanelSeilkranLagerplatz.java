@@ -19,13 +19,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 
 /**
  * 
@@ -58,7 +58,7 @@ public class KostensaetzePanelSeilkranLagerplatz extends JPanel implements IWaeh
 
 
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Kostensätze"));		
+		this.setBorder(TitledBorderFactory.createTitledBorder("Kostensätze"));		
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

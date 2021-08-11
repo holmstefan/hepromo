@@ -47,7 +47,7 @@ public class ModelKombiseilgeraet2018VerziehenTest extends ModelKombiseilgeraet2
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkProduktivitaet(String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
+	public void checkProduktivitaet(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getProduktivitaet(), expectedValues.getProduktivitaet_m3ProPsh15());
 	}
 	

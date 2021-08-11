@@ -21,15 +21,17 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektSchlepper2014.Beizugsdistanz;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektSchlepper2014.BeizugsdistanzArrayWithSelection;
 
@@ -59,7 +61,7 @@ public class ZuschlaegePanelSchlepper2014 extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ZuschlaegePanelSchlepper2014.Title")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ZuschlaegePanelSchlepper2014.Title")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );
@@ -116,7 +118,6 @@ public class ZuschlaegePanelSchlepper2014 extends JPanel {
 	
 	
 	public void onInputChangedBeforeCalculation(Object eventSource) {
-		
 		if (txtBeizugsdistanz.equals(eventSource)) {
 			Beizugsdistanz selection = (Beizugsdistanz) cmbBeizugsdistanz.getSelectedItem();
 			if ( selection.isBenutzerdefiniert() ) {
@@ -125,16 +126,11 @@ public class ZuschlaegePanelSchlepper2014 extends JPanel {
 			}
 		}
 	}
-	
-	
-	
-	
 
 
 	public BeizugsdistanzArrayWithSelection getBeizugsdistanzArrayWithSelection() {
 		return beizugsdistanzArrayWithSelection;
 	}
-
 
 
 	public void setBeizugsdistanzArrayWithSelection(BeizugsdistanzArrayWithSelection beizugsdistanzArrayWithSelection) {
@@ -160,6 +156,16 @@ public class ZuschlaegePanelSchlepper2014 extends JPanel {
 					ZuschlaegePanelSchlepper2014.this.beizugsdistanzArrayWithSelection.setSelection(selectedItem);
 					txtBeizugsdistanz.setEnabled(  selectedItem.isBenutzerdefiniert() );
 					txtBeizugsdistanz.setValue( selectedItem.getWert() );
+					
+					if (selectedItem.isBenutzerdefiniert() && parent.isLoadingModelFromFile == false) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								String message = GuiStrings.getString("Schlepper2014.WarnungBeizugsdistanz"); //$NON-NLS-1$
+								JOptionPane.showMessageDialog(ZuschlaegePanelSchlepper2014.this, message, GuiStrings.getString("Schlepper2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
+							}
+						});
+					}
 				}
 			}
 		});

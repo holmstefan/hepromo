@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="create_jar" name="HeProMo-Library">
+	
+    <property name="version" value="2.5.0"/>
+	
     <target name="create_jar">
-        <jar destfile="hepromo-api-v0.4.jar">
+    	
+        <jar destfile="hepromo-api-v${version}.jar">
             <fileset dir="bin">
             	<include name="ch/wsl/fps/hepromo/api/**"/>
             	<include name="ch/wsl/fps/hepromo/model/**"/>
             </fileset>
+            <mappedresources>
+            	<fileset dir=".">
+            	    <include name="LICENSE"/>
+            	</fileset>
+                <globmapper from="*" to="META-INF/*"/>
+            </mappedresources>
         </jar>
+    	
+        <jar destfile="hepromo-api-v${version}-sources.jar">
+            <fileset dir="src">
+            	<include name="ch/wsl/fps/hepromo/api/**"/>
+            	<include name="ch/wsl/fps/hepromo/model/**"/>
+            </fileset>
+            <mappedresources>
+            	<fileset dir=".">
+            	    <include name="LICENSE"/>
+            	</fileset>
+                <globmapper from="*" to="META-INF/*"/>
+            </mappedresources>
+        </jar>
+    	
+        <jar destfile="hepromo-api-v${version}-javadoc.jar">
+            <fileset dir="javadoc">
+            	<include name="/**"/>
+            </fileset>
+            <mappedresources>
+            	<fileset dir=".">
+            	    <include name="LICENSE"/>
+            	</fileset>
+                <globmapper from="*" to="META-INF/*"/>
+            </mappedresources>
+
+        </jar>
+    	
     </target>
 </project>

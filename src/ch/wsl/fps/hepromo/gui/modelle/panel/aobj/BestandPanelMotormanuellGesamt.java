@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +26,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektEntastenMotormanuell.KronenLaengenKlasse;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMotormanuell.Baumartgruppe;
 
@@ -60,7 +60,7 @@ public class BestandPanelMotormanuellGesamt extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Bestand"));		 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Bestand"));		 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

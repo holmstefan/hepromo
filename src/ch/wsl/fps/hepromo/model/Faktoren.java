@@ -29,7 +29,11 @@ public class Faktoren implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	private boolean risikoVerwaltungGewinnMerged = true;
 	private double margin; //Risiko, Verwaltung, Gewinn (Prozentsatz)
+	private double risiko;
+	private double verwaltung;
+	private double gewinn;
 	private double mehrwertsteuer = 0;
 	private String waehrungskuerzel;
 	private double korrekturFaktor; //Betriebsspezifischer Korrekturfaktor
@@ -39,12 +43,49 @@ public class Faktoren implements Serializable {
 	 * GETTERS AND SETTERS
 	 */
 
+	public boolean isRisikoVerwaltungGewinnMerged() {
+		return risikoVerwaltungGewinnMerged;
+	}
+
+	public void setRisikoVerwaltungGewinnMerged(boolean risikoVerwaltungGewinnMerged) {
+		this.risikoVerwaltungGewinnMerged = risikoVerwaltungGewinnMerged;
+	}
+
 	public double getMargin() {
-		return margin;
+		if (isRisikoVerwaltungGewinnMerged()) {
+			return margin;
+		}
+		else {
+			return (((1 + risiko/100d) * (1 + verwaltung/100d) * (1 + gewinn/100d)) - 1) *100d;
+		}
 	}
 
 	public void setMargin(double margin) {
 		this.margin = margin;
+	}
+
+	public double getRisiko() {
+		return risiko;
+	}
+
+	public void setRisiko(double risiko) {
+		this.risiko = risiko;
+	}
+
+	public double getVerwaltung() {
+		return verwaltung;
+	}
+
+	public void setVerwaltung(double verwaltung) {
+		this.verwaltung = verwaltung;
+	}
+
+	public double getGewinn() {
+		return gewinn;
+	}
+
+	public void setGewinn(double gewinn) {
+		this.gewinn = gewinn;
 	}
 
 	public double getMehrwertsteuer() {
@@ -77,7 +118,14 @@ public class Faktoren implements Serializable {
 	public LabelValuePairList getLabelValuePairList(DecimalFormat decimalFormat) {
 		LabelValuePairList list = new LabelValuePairList(decimalFormat);
 
-		list.add(PdfLabels.Faktoren_RisikoVerwaltungGewinn, margin);
+		if (isRisikoVerwaltungGewinnMerged()) {
+			list.add(PdfLabels.Faktoren_RisikoVerwaltungGewinn, margin);
+		}
+		else {
+			list.add(PdfLabels.Faktoren_Risiko, risiko);
+			list.add(PdfLabels.Faktoren_Verwaltung, verwaltung);
+			list.add(PdfLabels.Faktoren_Gewinn, gewinn);
+		}
 		list.add(PdfLabels.Faktoren_Mehrwertsteuer, mehrwertsteuer);
 		list.add(PdfLabels.Faktoren_Waehrungskuerzel, waehrungskuerzel);
 		list.add(PdfLabels.Faktoren_Korrekturfaktor, korrekturFaktor);

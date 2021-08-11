@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -41,6 +40,7 @@ import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel2014;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektVorruecken2018;
@@ -76,7 +76,7 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 
 	public Vorruecken2018() {	
 		super.setTitle(GuiStrings.getString("Vorruecken2018.Title")); //$NON-NLS-1$
-		super.setSize((int) (645 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (630 * MainWindow.SIZE));
+		super.setSize((int) (645 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (650 * MainWindow.SIZE));
 		
 		super.initalize();
 	}
@@ -84,7 +84,7 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 
 	@Override
 	protected void initPanelArbeitsobjekt(JPanel panel) {
-		panel.setBorder(BorderFactory.createTitledBorder("")); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder("")); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );

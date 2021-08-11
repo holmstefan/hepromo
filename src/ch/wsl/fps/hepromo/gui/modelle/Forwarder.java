@@ -58,7 +58,7 @@ public class Forwarder extends HeProMoWindow {
 	
 	public Forwarder() {
 		super.setTitle(GuiStrings.getString("Forwarder.Title")); //$NON-NLS-1$
-		super.setSize((int) (690 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (790 * MainWindow.SIZE));
+		super.setSize((int) (690 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (768 * MainWindow.SIZE));
 		
 		super.initalize();
 	}

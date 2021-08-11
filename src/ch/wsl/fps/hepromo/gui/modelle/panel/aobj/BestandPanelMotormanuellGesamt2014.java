@@ -20,7 +20,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,8 +29,9 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMotormanuellGesamt2014.Region;
 
 /**
@@ -63,7 +63,7 @@ public class BestandPanelMotormanuellGesamt2014 extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("BestandPanelMotormanuellGesamt2014.lblAusscheidenderBestand")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("BestandPanelMotormanuellGesamt2014.lblAusscheidenderBestand")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

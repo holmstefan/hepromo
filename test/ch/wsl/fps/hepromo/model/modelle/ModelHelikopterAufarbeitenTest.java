@@ -120,19 +120,19 @@ public class ModelHelikopterAufarbeitenTest extends AbstractModelTest {
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitMaschine2(), expectedValues.getZeitMaschine2());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Maschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Maschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_proM3(), expectedValues.getKostenMaschine2_proM3());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_total(), expectedValues.getKostenMaschine2_total());
 	}
 

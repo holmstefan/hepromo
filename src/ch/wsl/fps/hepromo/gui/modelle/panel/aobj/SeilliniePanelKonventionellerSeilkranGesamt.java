@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -28,8 +27,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektKonventionellerSeilkranMontageDemontage.WindenStandort;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektKonventionellerSeilkranMontageDemontage.WindenTransport;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektKonventionellerSeilkranSeilen.Fahrtrichtung;
@@ -75,7 +75,7 @@ public class SeilliniePanelKonventionellerSeilkranGesamt extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("SeilliniePanelKonventionellerSeilkranGesamt.Title")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("SeilliniePanelKonventionellerSeilkranGesamt.Title")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

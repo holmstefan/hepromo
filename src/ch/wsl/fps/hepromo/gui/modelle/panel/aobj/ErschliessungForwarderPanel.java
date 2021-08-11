@@ -22,7 +22,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -34,8 +33,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektForwarder.FahrstreckenArt;
 import ch.wsl.fps.hepromo.model.aobj.FeinerschliessungGelaendebedingungen.HindernisKategorie;
 import ch.wsl.fps.hepromo.model.aobj.FeinerschliessungGelaendebedingungen.NeigungsKategorie;
@@ -100,7 +100,7 @@ public class ErschliessungForwarderPanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Title"))); //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Title"))); //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );
@@ -275,7 +275,7 @@ public class ErschliessungForwarderPanel extends JPanel {
 	
 	private void initPanelErschliessungsdetails() {
 		pnlErschliessungsdetails = new JPanel();
-		pnlErschliessungsdetails.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Erschliessungsdetails"))); //$NON-NLS-1$
+		pnlErschliessungsdetails.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Erschliessungsdetails"))); //$NON-NLS-1$
 		
 		//set layout
 		pnlErschliessungsdetails.setLayout( new GridBagLayout() );
@@ -484,7 +484,7 @@ public class ErschliessungForwarderPanel extends JPanel {
 	
 	private void initPanelFahrstreckenAnteile() {
 		pnlFahrstreckenanteile = new JPanel();
-		pnlFahrstreckenanteile.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Fahrstreckenanteile_Prz"))); //$NON-NLS-1$
+		pnlFahrstreckenanteile.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErschliessungForwarderPanel.Fahrstreckenanteile_Prz"))); //$NON-NLS-1$
 		
 		//set layout
 		pnlFahrstreckenanteile.setLayout( new GridBagLayout() );

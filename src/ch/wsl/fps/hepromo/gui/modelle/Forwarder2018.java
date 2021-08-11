@@ -17,6 +17,8 @@ package ch.wsl.fps.hepromo.gui.modelle;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -33,7 +35,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -53,6 +54,7 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektForwarder2018;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektForwarder2018.AbstandRueckegasse;
@@ -128,7 +130,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 
 	@Override
 	protected void initPanelArbeitsobjekt(JPanel panel) {
-		panel.setBorder(BorderFactory.createTitledBorder("")); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder("")); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );
@@ -317,6 +319,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		c.insets = new Insets(0,10,0,0);
 		lblVerkaufRundholz_m3oR_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("Forwarder2018.InfoButtonVerkaufRundholz")); //$NON-NLS-1$
 		lblVerkaufRundholz_m3oR_Info.setHorizontalTextPosition(SwingConstants.LEFT);
+		lblVerkaufRundholz_m3oR_Info.setMinimumSize(new Dimension(120, 12));
 		panel.add(lblVerkaufRundholz_m3oR_Info, c);
 
 
@@ -538,6 +541,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		lblErgebnisanzeige = new JLabel(GuiStrings.getString("Forwarder2018.Ergebnisanzeige")); //$NON-NLS-1$
 		lblErgebnisanzeige.setBackground(ErgebnisPanel.ERGEBNIS_PANEL_BACKGROUND_COLOR);
 		lblErgebnisanzeige.setOpaque(true);
+		lblErgebnisanzeige.setFont(lblErgebnisanzeige.getFont().deriveFont(Font.BOLD));
 		panel.add(lblErgebnisanzeige, c);
 		
 		//Text Ergebnisanzeige
@@ -550,6 +554,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		cmbErgebnisanzeige = new JComboBox<>();
 		cmbErgebnisanzeige.setName("ergebnisanzeige");
 		cmbErgebnisanzeige.setRenderer(new ErgebnisColorListCellRenderer());
+		cmbErgebnisanzeige.setFont(cmbErgebnisanzeige.getFont().deriveFont(Font.BOLD));
 		panel.add(cmbErgebnisanzeige, c);
 		
 		

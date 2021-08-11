@@ -27,7 +27,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import ch.wsl.fps.hepromo.model.Ergebnis;
@@ -130,15 +129,7 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 		this.showHintProduktivitaet = showHintProduktivitaet;
 		this.enableRowMaschine3 = enableRowMaschine3;	
 		
-		//set title font to bold
-		this.setBorder( BorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanel.Title"))); //$NON-NLS-1$
-		TitledBorder border = (TitledBorder) this.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
+		this.setBorder( TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("ErgebnisPanel.Title"))); //$NON-NLS-1$
 		
 		this.setBackground(ERGEBNIS_PANEL_BACKGROUND_COLOR);	
 		
@@ -253,7 +244,7 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 	@Override
 	protected JPanel initPanelZeitaufwand() {
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanel.ZeitaufwandStd"))); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanel.ZeitaufwandStd"))); //$NON-NLS-1$
 		panel.setOpaque(false);
 		
 		
@@ -480,7 +471,7 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 	@Override
 	protected JPanel initPanelKosten() {
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanel.Kosten_SFr"))); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanel.Kosten_SFr"))); //$NON-NLS-1$
 		panel.setOpaque(false);
 		
 		

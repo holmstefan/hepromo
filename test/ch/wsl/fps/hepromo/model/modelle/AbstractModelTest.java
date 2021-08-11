@@ -85,82 +85,82 @@ public abstract class AbstractModelTest extends AbstractHeProMoTest {
 
 	
 	@Test(dataProvider="csvData")
-	public void checkDauerDerArbeit(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkDauerDerArbeit(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitTotal(), expectedValues.getZeitTotal());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandPersonal(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandPersonal(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitPersonal(), expectedValues.getZeitPersonal());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandMaschine(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandMaschine(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitMaschine1(), expectedValues.getZeitMaschine1());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandUmsetzen(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandUmsetzen(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitUmsetzen(), expectedValues.getZeitUmsetzen());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandWeitereAufwaende(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandWeitereAufwaende(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitWeitereAufwaende(), expectedValues.getZeitWeitereAufwaende());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Personal(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Personal(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenPersonal_proM3(), expectedValues.getKostenPersonal_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Maschine(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Maschine(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine1_proM3(), expectedValues.getKostenMaschine1_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Umsetzen(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Umsetzen(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenUmsetzen_proM3(), expectedValues.getKostenUmsetzen_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3WeitereAufwaende(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3WeitereAufwaende(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenWeitereAufwaende_proM3(), expectedValues.getKostenWeitereAufwaende_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Total(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Total(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenTotal_proM3(), expectedValues.getKostenTotal_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalPersonal(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalPersonal(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenPersonal_total(), expectedValues.getKostenPersonal_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalMaschine(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalMaschine(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine1_total(), expectedValues.getKostenMaschine1_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalUmsetzen(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalUmsetzen(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenUmsetzen_total(), expectedValues.getKostenUmsetzen_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalWeitereAufwaende(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalWeitereAufwaende(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenWeitereAufwaende_total(), expectedValues.getKostenWeitereAufwaende_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalTotal(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalTotal(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenTotal_total(), expectedValues.getKostenTotal_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkProduktivitaet_m3ProPsh15(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkProduktivitaet_m3ProPsh15(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getProduktivitaet_m3ProPsh15(), expectedValues.getProduktivitaet_m3ProPsh15());
 	}
 

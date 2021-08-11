@@ -159,37 +159,37 @@ public class ModelHackschnitzelTransport2018Test extends AbstractModelTest {
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkProduktivitaet_SrmProPsh15(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkProduktivitaet_SrmProPsh15(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getProduktivitaet(), expectedValues.getProduktivitaet_SrmProPsh15());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkAnzahlZyklen(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkAnzahlZyklen(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getAnzahlZyklen(), expectedValues.getAnzahlZyklen());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitLaden_h(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkZeitLaden_h(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitLaden_h(), expectedValues.getZeitLaden_h());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitLastfahrt_h(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkZeitLastfahrt_h(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitLastfahrt_h(), expectedValues.getZeitLastfahrt_h());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitEntladen_h(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkZeitEntladen_h(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitEntladen_h(), expectedValues.getZeitEntladen_h());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitLeerfahrt_h(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkZeitLeerfahrt_h(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitLeerfahrt_h(), expectedValues.getZeitLeerfahrt_h());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitProZyklus_h(String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
+	public void checkZeitProZyklus_h(@SuppressWarnings("unused") String testcaseName, ErgebnisHackschnitzelTransport2018 ergebnis, MockErgebnisHackschnitzelTransport2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitProZyklus_h(), expectedValues.getZeitProZyklus_h());
 	}
 	

@@ -30,7 +30,7 @@ public abstract class AbstractModel2014Test extends AbstractModelTest {
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkProduktivitaet_fmORproWPPH(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkProduktivitaet_fmORproWPPH(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getProduktivitaet_fmORproWPPH(), expectedValues.getProduktivitaet_fmORproWPPH());
 	}
 	

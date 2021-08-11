@@ -111,7 +111,7 @@ public class ModelForwarder2018 extends AbstractModel2014 {
 	@Override
 	protected String getErgebnisTitleSuffix() {	
 		ErgebnisAnzeige ergebnisAnzeige = getCalculator().getErgebnisAnzeige();	
-		String suffix = "(" + ergebnisAnzeige + ")";	
+		String suffix = " (" + ergebnisAnzeige + ")";	
 		return suffix;
 	}
 

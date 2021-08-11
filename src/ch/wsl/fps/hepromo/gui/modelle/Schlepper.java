@@ -73,7 +73,7 @@ public class Schlepper extends HeProMoWindow {
 	
 	public Schlepper() {
 		super.setTitle("Rücken mit Schlepper");
-		super.setSize((int) (590 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (595 * MainWindow.SIZE));
+		super.setSize((int) (590 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (620 * MainWindow.SIZE));
 		
 		super.initalize();
 	}

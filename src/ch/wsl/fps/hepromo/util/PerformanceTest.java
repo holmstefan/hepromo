@@ -19,7 +19,6 @@ import java.util.Random;
 
 import ch.wsl.fps.hepromo.model.modelle.AbstractModel;
 import ch.wsl.fps.hepromo.model.modelle.ModelKombiseilgeraet2018;
-import ch.wsl.fps.hepromo.model.modelle.ModelMotormanuellGesamt2014;
 
 /**
  * 

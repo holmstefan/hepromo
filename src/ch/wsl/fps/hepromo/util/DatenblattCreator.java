@@ -31,6 +31,7 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -45,6 +46,7 @@ import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.xmlgraphics.util.MimeConstants;
 
+import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoExceptionHandler;
 import ch.wsl.fps.hepromo.model.modelle.AbstractModel;
 
@@ -57,7 +59,7 @@ public class DatenblattCreator {
 	
 	private static final Object classLevelLock = new Object();
 	private static volatile boolean isAlreadyPreinitialized = false;
-	private static final String CHARSET = "ISO-8859-15";
+	private static final String CHARSET = "UTF-8";
 	
 	public static void preInitializeInSeparateThread() {
 		synchronized(classLevelLock) {
@@ -76,20 +78,21 @@ public class DatenblattCreator {
 		}
 	}
 	
-	public void create(AbstractModel model, File pdfFile, DecimalFormat decimalFormat) {
+	public ExportMethodResult create(AbstractModel model, File pdfFile, DecimalFormat decimalFormat) {
 		//Setze XML-String zusammen
 		String finalXMLString = 
 				"<?xml version=\"1.0\" encoding=\"" + CHARSET + "\" standalone=\"yes\"?>\n" +
 				"<kalkulation>\n" +
 				model.getModelAsXmlString(decimalFormat) +
-				"</kalkulation>";	
+				"</kalkulation>";
 		
 		//Generiere das Pdf
-		generatePdf(finalXMLString, pdfFile);
+		ExportMethodResult exportMethodResult = generatePdf(finalXMLString, pdfFile);
+		return exportMethodResult;
 	}
 	
 	
-	private void generatePdf(String xmlString, File pdfFile) {
+	private ExportMethodResult generatePdf(String xmlString, File pdfFile) {
 		synchronized(classLevelLock) {
 			Logger fopLogger = Logger.getLogger("org.apache.fop");
 			fopLogger.setLevel(Level.OFF);
@@ -124,6 +127,7 @@ public class DatenblattCreator {
 					
 					if (pdfFile != null) {
 						System.out.println("Datenblatt erfolgreich erstellt");
+						return new ExportMethodResult(true, false);
 					}
 				} catch (FOPException e) {
 					HeProMoExceptionHandler.handle(e);
@@ -139,12 +143,15 @@ public class DatenblattCreator {
 					out.close();
 				}
 			} catch (FileNotFoundException e) {
-				HeProMoExceptionHandler.handle(e);
+				String msg = GuiStrings.getString("HeProMoWindow.FehlerBeimErstellenDerDatei") + "\n" + e.getLocalizedMessage(); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(null, msg, GuiStrings.getString("HeProMoWindow.DialogTitleFehler"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+				return new ExportMethodResult(false, true);
 
 			} catch (IOException e) {
 				HeProMoExceptionHandler.handle(e);
 			}
 		}
+		return new ExportMethodResult(false, false);
 	}
 	
 	
@@ -174,7 +181,6 @@ public class DatenblattCreator {
 	
 	
 	private BufferedReader openFile(String filePath) {
-		
 		//try to open from jar
 		InputStream is = this.getClass().getClassLoader().getResourceAsStream(filePath);	
 		if (is != null) {
@@ -185,7 +191,6 @@ public class DatenblattCreator {
 				return new BufferedReader(new InputStreamReader(is));
 			}
 		}
-		
 		
 		//otherwise, try to open from file system
 		File file = new File(filePath);

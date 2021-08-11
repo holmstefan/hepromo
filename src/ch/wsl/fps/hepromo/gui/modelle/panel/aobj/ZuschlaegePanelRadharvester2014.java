@@ -21,7 +21,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,8 +28,9 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.Foermigkeit;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.FoermigkeitArrayWithSelection;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LaubholzAnteil;
@@ -73,7 +73,7 @@ public class ZuschlaegePanelRadharvester2014 extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ZuschlaegePanelRadharvester2014.Title")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ZuschlaegePanelRadharvester2014.Title")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

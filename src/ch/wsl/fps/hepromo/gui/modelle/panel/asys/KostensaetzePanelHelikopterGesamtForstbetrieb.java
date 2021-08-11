@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -27,8 +26,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 
 /**
  * 
@@ -63,7 +63,7 @@ public class KostensaetzePanelHelikopterGesamtForstbetrieb extends JPanel implem
 
 
 	protected void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("KostensaetzePanelHelikopterGesamtForstbetrieb.Forstbetrieb")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("KostensaetzePanelHelikopterGesamtForstbetrieb.Forstbetrieb")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

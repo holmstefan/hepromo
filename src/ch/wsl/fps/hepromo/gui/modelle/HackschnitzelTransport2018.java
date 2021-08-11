@@ -21,7 +21,6 @@ import java.awt.Insets;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -37,13 +36,14 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanelHackschnitzelTransport2018;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel2014;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.WeitereAufwaendePanel;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektHacker2018.Zielsortiment;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektHackschnitzelTransport2018;
-import ch.wsl.fps.hepromo.model.asys.ArbeitssystemHackschnitzelTransport2018;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemHacker2018.HackerMotorleistung;
+import ch.wsl.fps.hepromo.model.asys.ArbeitssystemHackschnitzelTransport2018;
 import ch.wsl.fps.hepromo.model.modelle.ModelHackschnitzelTransport2018;
 
 /**
@@ -82,7 +82,7 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 
 	@Override
 	protected void initPanelArbeitsobjekt(JPanel panel) {
-		panel.setBorder(BorderFactory.createTitledBorder("")); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder("")); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );
@@ -281,7 +281,7 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 	protected JPanel initSpecialPanel() {
 		JPanel panel = new JPanel();
 		
-		panel.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("HackschnitzelTransport2018.Transportfahrzeug"))); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("HackschnitzelTransport2018.Transportfahrzeug"))); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );
@@ -320,7 +320,7 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 	
 	private JPanel createPanelDistanzen() {
 		JPanel pnlDistanzen = new JPanel();
-		pnlDistanzen.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("HackschnitzelTransport2018.Distanzen"))); //$NON-NLS-1$
+		pnlDistanzen.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("HackschnitzelTransport2018.Distanzen"))); //$NON-NLS-1$
 		
 		//set layout
 		pnlDistanzen.setLayout( new GridBagLayout() );

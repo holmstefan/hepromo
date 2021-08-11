@@ -48,7 +48,7 @@ public class ModelKombiseilgeraet2018GesamtTest extends ModelKombiseilgeraet2018
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkProduktivitaet_m3ProWSH(String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
+	public void checkProduktivitaet_m3ProWSH(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getProduktivitaet(ProdEinheit.M3_OR_PRO_WSH), expectedValues.getProduktivitaet_m3oRproWSH());
 	}
 }

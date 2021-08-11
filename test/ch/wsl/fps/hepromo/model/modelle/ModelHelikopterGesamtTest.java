@@ -145,22 +145,22 @@ public class ModelHelikopterGesamtTest extends AbstractModelTest {
 	}
 
 	@Test(dataProvider="csvData")
-	public void checkDauerDerArbeitFliegen(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkDauerDerArbeitFliegen(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta( ((ErgebnisHelikopterGesamt)ergebnis).getZeitTotalFliegen(), ((MockErgebnisHelikopterGesamt)expectedValues).getZeitTotalFliegen());
 	}
 
 	@Test(dataProvider="csvData")
-	public void checkDauerDerArbeitAbsenkplatz(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkDauerDerArbeitAbsenkplatz(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta( ((ErgebnisHelikopterGesamt)ergebnis).getZeitTotalAbsenkplatz(), ((MockErgebnisHelikopterGesamt)expectedValues).getZeitTotalAbsenkplatz());
 	}
 
 	@Test(dataProvider="csvData")
-	public void checkZeitHelifirma(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitHelifirma(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta( ((ErgebnisHelikopterGesamt)ergebnis).getZeitHelifirma(), ((MockErgebnisHelikopterGesamt)expectedValues).getZeitHelifirma());
 	}	
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitMaschine2(), expectedValues.getZeitMaschine2());
 	}
 	
@@ -168,12 +168,12 @@ public class ModelHelikopterGesamtTest extends AbstractModelTest {
 
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Heli(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Heli(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta( ((ErgebnisHelikopterGesamt)ergebnis).getKostenHeli_proM3(), ((MockErgebnisHelikopterGesamt)expectedValues).getKostenHeli_proM3());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Maschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Maschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_proM3(), expectedValues.getKostenMaschine2_proM3());
 	}
 	
@@ -181,19 +181,19 @@ public class ModelHelikopterGesamtTest extends AbstractModelTest {
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalHeli(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalHeli(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta( ((ErgebnisHelikopterGesamt)ergebnis).getKostenHeli_total(), ((MockErgebnisHelikopterGesamt)expectedValues).getKostenHeli_total());
 	}
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_total(), expectedValues.getKostenMaschine2_total());
 	}
 	
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkRotationszeit(String testcaseName, ErgebnisHelikopterGesamt ergebnis, MockErgebnis expectedValues) {
+	public void checkRotationszeit(@SuppressWarnings("unused") String testcaseName, ErgebnisHelikopterGesamt ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getRotationszeit(), expectedValues.getRotationszeit());
 	}
 	

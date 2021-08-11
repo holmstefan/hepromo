@@ -15,7 +15,6 @@
  ******************************************************************************/
 package ch.wsl.fps.hepromo.gui.modelle;
 
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -23,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -38,7 +36,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -49,6 +46,7 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorKompartimente2018;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorKompartimente2018.ErgebnisBiomasse;
 import ch.wsl.fps.hepromo.model.calc.BiomasseCalculatorKompartimente2018.NadelLaub;
@@ -222,17 +220,7 @@ public class Biomasseschaetzer2018 extends JFrame {
 	
 	
 	private void initPanelInput(JPanel pnlInput) {
-		pnlInput.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("Biomasseschaetzer2018.Eingaben"))); //$NON-NLS-1$
-		
-		//set title font to bold
-		TitledBorder border = (TitledBorder) pnlInput.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
-		
+		pnlInput.setBorder(TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("Biomasseschaetzer2018.Eingaben"))); //$NON-NLS-1$
 		
 		//set layout
 		pnlInput.setLayout( new GridBagLayout() );
@@ -383,17 +371,8 @@ public class Biomasseschaetzer2018 extends JFrame {
 	
 	
 	private void initPanelOutput(JPanel pnlOutput) {
-		pnlOutput.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("Biomasseschaetzer2018.Ergebnis"))); //$NON-NLS-1$
+		pnlOutput.setBorder(TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("Biomasseschaetzer2018.Ergebnis"))); //$NON-NLS-1$
 		pnlOutput.setBackground(ErgebnisPanel.ERGEBNIS_PANEL_BACKGROUND_COLOR);
-		
-		//set title font to bold
-		TitledBorder border = (TitledBorder) pnlOutput.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
 		
 		
 		//set layout

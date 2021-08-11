@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -67,7 +66,7 @@ public class ErgebnisPanelHackschnitzelTransport2018 extends ErgebnisPanel {
 	
 	private JPanel initZeitenPanel() {
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanelHackschnitzelTransport2018.ZeitenProZyklusPMH15"))); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("ErgebnisPanelHackschnitzelTransport2018.ZeitenProZyklusPMH15"))); //$NON-NLS-1$
 		panel.setOpaque(false);
 		
 		//set layout

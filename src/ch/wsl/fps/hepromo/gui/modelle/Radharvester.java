@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -26,6 +25,7 @@ import javax.swing.JTextField;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.gui.modelle.panel.aobj.BestandPanelRadharvester;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.ArbeitswegePausenPanel;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel;
@@ -130,7 +130,7 @@ public class Radharvester extends HeProMoWindow {
 	
 	private JPanel initPanelHinweis() {
 		JPanel panel = new JPanel();
-		panel.setBorder(BorderFactory.createTitledBorder("Hinweis"));		 
+		panel.setBorder(TitledBorderFactory.createTitledBorder("Hinweis"));		 
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );

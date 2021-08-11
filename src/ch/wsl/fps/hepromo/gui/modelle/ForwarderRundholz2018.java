@@ -37,7 +37,7 @@ public class ForwarderRundholz2018 extends Forwarder2018 {
 	
 	public ForwarderRundholz2018() {
 		super.setTitle(GuiStrings.getString("ForwarderRundholz2018.Title")); //$NON-NLS-1$
-		super.setSize((int) (600 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (600 * MainWindow.SIZE));
+		super.setSize((int) (600 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (620 * MainWindow.SIZE));
 		
 		super.initalize();
 	}

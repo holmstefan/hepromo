@@ -95,7 +95,7 @@ public abstract class AbstractModel implements HeProMoInputData {
 	
 	
 	public String getModelAsXmlString(DecimalFormat decimalFormat) {
-		String xmlModelName = "	<modellname>" + getModelName() + "</modellname>";
+		String xmlModelName = "	<modellname>" + getModelName() + "</modellname>\n";
 		String xmlInfo = getMetaInformationAsXmlString();
 		String xmlPdfTitles = getPdfTitlesAsXmlString();
 		String waehrung = getFaktoren().getWaehrungskuerzel();
@@ -119,13 +119,13 @@ public abstract class AbstractModel implements HeProMoInputData {
 		if (arbeitsort.length() > 0) {
 			sb.append("\t<arbeitsort>");
 				sb.append(arbeitsort);
-			sb.append("\t</arbeitsort>\n");
+			sb.append("</arbeitsort>\n");
 		}
 		
 			sb.append("\t<creationdate>");
 				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 				sb.append( sdf.format(new GregorianCalendar().getTime() ));
-			sb.append("\t</creationdate>\n");
+			sb.append("</creationdate>\n");
 
 		sb.append("</info>\n");
 		
@@ -140,31 +140,31 @@ public abstract class AbstractModel implements HeProMoInputData {
 		
 			sb.append("\t<haupttitel>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_Haupttitel);
-			sb.append("\t</haupttitel>\n");
+			sb.append("</haupttitel>\n");
 		
 			sb.append("\t<arbeitsort>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_ArbeitsortHolzschlag);
-			sb.append("\t</arbeitsort>\n");
+			sb.append("</arbeitsort>\n");
 		
 			sb.append("\t<arbeitsobjekt>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_Arbeitsobjekt);
-			sb.append("\t</arbeitsobjekt>\n");
+			sb.append("</arbeitsobjekt>\n");
 		
 			sb.append("\t<arbeitssystem>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_Arbeitssystem);
-			sb.append("\t</arbeitssystem>\n");
+			sb.append("</arbeitssystem>\n");
 		
 			sb.append("\t<faktoren>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_Faktoren);
-			sb.append("\t</faktoren>\n");
+			sb.append("</faktoren>\n");
 		
 			sb.append("\t<ergebnis>");
 				sb.append(PdfLabels.AbstractModel_PdfTitles_Ergebnis);
-			sb.append("\t</ergebnis>\n");
+			sb.append("</ergebnis>\n");
 		
 			sb.append("\t<ergebnisSuffix>");
 				sb.append(getErgebnisTitleSuffix());
-			sb.append("\t</ergebnisSuffix>\n");
+			sb.append("</ergebnisSuffix>\n");
 
 		sb.append("</pdftitles>\n");
 		

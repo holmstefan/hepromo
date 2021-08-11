@@ -66,7 +66,7 @@ public class ModelHacker2018Test extends AbstractModelTest {
 			as.setKostensatzMaschine1_proH(convertedValue);
 		}
 		else {
-			throw new RuntimeException("Der Stundensatz für den Hacker muss entweder n Fr./PMH15 oder Fr./Srm angegeben werden!");
+			throw new RuntimeException("Der Stundensatz für den Hacker muss entweder in Fr./PMH15 oder Fr./Srm angegeben werden!");
 		}
 	
 		as.setTaeglicheArbeitszeit_Min(		Integer.valueOf(testcase[ 6]));

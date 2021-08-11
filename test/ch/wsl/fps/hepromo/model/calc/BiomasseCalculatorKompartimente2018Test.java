@@ -37,43 +37,43 @@ public class BiomasseCalculatorKompartimente2018Test extends AbstractBiomasseCal
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVerhaeltnisAstderbholzZuSchaftholz_Prz(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVerhaeltnisAstderbholzZuSchaftholz_Prz(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVerhaeltnisAstderbholzZuSchaftholz_Prz(), expectedValue.getVerhaeltnisAstderbholzZuSchaftholz_Prz(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVerhaeltnisReisigZuSchaftholz_Prz(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVerhaeltnisReisigZuSchaftholz_Prz(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVerhaeltnisReisigZuSchaftholz_Prz(), expectedValue.getVerhaeltnisReisigZuSchaftholz_Prz(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenSchaftholz_m3iR(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVolumenSchaftholz_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVolumenSchaftholz_m3iR(), expectedValue.getVolumenSchaftholz_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenAstderbholz_m3iR(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVolumenAstderbholz_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVolumenAstderbholz_m3iR(), expectedValue.getVolumenAstderbholz_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenReisig_m3iR(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVolumenReisig_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVolumenReisig_m3iR(), expectedValue.getVolumenReisig_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenBiomasseOhneNadelnUndBlaetter(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkVolumenBiomasseOhneNadelnUndBlaetter(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getVolumenBiomasseOhneNadelnUndBlaetter(), expectedValue.getVolumenBiomasseOhneNadelnUndBlaetter(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkMasseNadelnUndBlaetter_kg(String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
+	public void checkMasseNadelnUndBlaetter_kg(@SuppressWarnings("unused") String testcaseName, ErgebnisBiomasse ergebnis, ErgebnisBiomasse expectedValue) {
 		assertEquals(ergebnis.getMasseNadelnUndBlaetter_kg(), expectedValue.getMasseNadelnUndBlaetter_kg(), DEFAULT_DELTA);
 	}
 	

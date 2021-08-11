@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -35,8 +34,9 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMobilseilkranInstallation.MaschinenStandort;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMobilseilkranInstallation.Seilsystem;
 
@@ -75,7 +75,7 @@ public class SeilkranInstallationPanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("SeilkranInstallationPanel.Title")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("SeilkranInstallationPanel.Title")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );
@@ -280,15 +280,6 @@ public class SeilkranInstallationPanel extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		txtStuetzenTragseilHoehe_m = new JSpinner();
-		txtStuetzenTragseilHoehe_m.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				Integer value = (Integer) txtStuetzenTragseilHoehe_m.getValue();
-				int selection = cmbStuetzenNummer.getSelectedIndex();
-				
-				listStuetzenTragseilHoehen.set(selection, value);
-			}
-		});
 		this.add(txtStuetzenTragseilHoehe_m, c);
 		
 		
@@ -382,6 +373,13 @@ public class SeilkranInstallationPanel extends JPanel {
 			else {
 				cmbSeilsystem.setEnabled(true);
 			}
+		}
+		
+		if (txtStuetzenTragseilHoehe_m.equals(eventSource)) {
+			Integer value = (Integer) txtStuetzenTragseilHoehe_m.getValue();
+			int selection = cmbStuetzenNummer.getSelectedIndex();
+			
+			listStuetzenTragseilHoehen.set(selection, value);
 		}
 	}
 

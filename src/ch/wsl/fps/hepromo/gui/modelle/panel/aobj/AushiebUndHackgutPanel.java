@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMobilerHacker.Hackgutart;
 
 /**
@@ -58,7 +58,7 @@ public class AushiebUndHackgutPanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Aushieb und Hackgut")); 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Aushieb und Hackgut")); 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

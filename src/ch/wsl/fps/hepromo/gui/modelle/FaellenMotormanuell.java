@@ -46,7 +46,7 @@ public class FaellenMotormanuell extends Motormanuell {
 	
 	public FaellenMotormanuell() {		
 		super.setTitle("Fällen motormanuell"); 
-		super.setSize((int) (570 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (585 * MainWindow.SIZE));
+		super.setSize((int) (570 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (620 * MainWindow.SIZE));
 		
 		super.initalize();
 	}

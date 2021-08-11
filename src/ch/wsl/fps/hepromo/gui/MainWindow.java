@@ -103,10 +103,10 @@ public class MainWindow extends JFrame {
 	private JLabel lblWait;
 	private static final String betaSuffix = " <font size=6 color=red>BETA</font>"; //$NON-NLS-1$
 	private static final boolean isBeta = false;
-	private static final String hepromoVersion = "2.4" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
-	private static final int hepromoMonth = Calendar.JUNE;
+	private static final String hepromoVersion = "2.5" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
+	private static final int hepromoMonth = Calendar.AUGUST;
 	private static boolean LOG_TO_FILE = false;
-	private static final int hepromoYear = 2020;
+	private static final int hepromoYear = 2021;
 	private static Locale locale = new Locale("de"); //$NON-NLS-1$
 	
 	public static float SIZE = 1;
@@ -261,9 +261,6 @@ public class MainWindow extends JFrame {
 	}
 
 	
-	
-	
-	@SuppressWarnings("serial")
 	private void createMenu() {
 		//MenuBar
 		JMenuBar menuBar = new JMenuBar();
@@ -346,7 +343,7 @@ public class MainWindow extends JFrame {
 				sb.append("CH-8903 Birmensdorf<br>"); //$NON-NLS-1$
 				sb.append("<br>"); //$NON-NLS-1$
 				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleKontakt") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append("Fritz Frutig / friedrich.frutig@wsl.ch / +41 44 739 24 56<br>"); //$NON-NLS-1$
+				sb.append("Janine Schweier / janine.schweier@wsl.ch / +41 44 739 24 78<br>"); //$NON-NLS-1$
 				sb.append("<br>"); //$NON-NLS-1$
 				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleProgrammierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				sb.append("\tStefan Holm / stefan.holm@wsl.ch / +41 44 739 22 63<br>"); //$NON-NLS-1$
@@ -371,7 +368,7 @@ public class MainWindow extends JFrame {
 				
 				sb.append("</html>"); //$NON-NLS-1$
 				
-				JOptionPane.showMessageDialog(null, sb.toString(), GuiStrings.getString("MainWindow.menuKontakt"), JOptionPane.NO_OPTION); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(MainWindow.this, sb.toString(), GuiStrings.getString("MainWindow.menuKontakt"), JOptionPane.NO_OPTION); //$NON-NLS-1$
 			}
 		};
 		menuKontakt.add(aMenuKontakt);
@@ -407,7 +404,7 @@ public class MainWindow extends JFrame {
 				sb.append("\t" + GuiStrings.getString("MainWindow.InfoDialog.EidgForschungsanstaltWSL") + ", " + hepromoYear + ": " + GuiStrings.getString("MainWindow.InfoDialog.HolzernteProduktivitaetsmodelle") + " HeProMo, " + GuiStrings.getString("MainWindow.Version") + " " + hepromoVersion + "<br><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 				sb.append("</html>"); //$NON-NLS-1$
 				
-				JOptionPane.showMessageDialog(null, sb.toString(), GuiStrings.getString("MainWindow.menuInfo"), JOptionPane.NO_OPTION); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(MainWindow.this, sb.toString(), GuiStrings.getString("MainWindow.menuInfo"), JOptionPane.NO_OPTION); //$NON-NLS-1$
 			}			
 		};
 		menuHelp.add(aMenuInfo);	

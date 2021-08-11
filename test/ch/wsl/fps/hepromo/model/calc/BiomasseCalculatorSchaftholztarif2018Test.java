@@ -37,7 +37,7 @@ public class BiomasseCalculatorSchaftholztarif2018Test extends AbstractBiomasseC
 
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenSchaftholz(String testcaseName, Double ergebnis, Double expectedValue) {
+	public void checkVolumenSchaftholz(@SuppressWarnings("unused") String testcaseName, Double ergebnis, Double expectedValue) {
 		assertEquals(ergebnis, expectedValue, DEFAULT_DELTA);
 	}
 	

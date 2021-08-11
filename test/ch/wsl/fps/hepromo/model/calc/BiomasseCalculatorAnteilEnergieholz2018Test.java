@@ -37,31 +37,31 @@ public class BiomasseCalculatorAnteilEnergieholz2018Test extends AbstractBiomass
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenEnergieholzAmSchaftOberhalbZopf_m3iR(String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
+	public void checkVolumenEnergieholzAmSchaftOberhalbZopf_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
 		assertEquals(ergebnis.getVolumenEnergieholzAmSchaftOberhalbZopf_m3iR(), expectedValue.getVolumenEnergieholzAmSchaftOberhalbZopf_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenEnergierundholzUnterhalbZopf_m3iR(String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
+	public void checkVolumenEnergierundholzUnterhalbZopf_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
 		assertEquals(ergebnis.getVolumenEnergierundholzUnterhalbZopf_m3iR(), expectedValue.getVolumenEnergierundholzUnterhalbZopf_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenAstderbholz_m3iR(String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
+	public void checkVolumenAstderbholz_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
 		assertEquals(ergebnis.getVolumenAstderbholz_m3iR(), expectedValue.getVolumenAstderbholz_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenReisig_m3iR(String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
+	public void checkVolumenReisig_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
 		assertEquals(ergebnis.getVolumenReisig_m3iR(), expectedValue.getVolumenReisig_m3iR(), DEFAULT_DELTA);
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkVolumenEnergieholz_m3iR(String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
+	public void checkVolumenEnergieholz_m3iR(@SuppressWarnings("unused") String testcaseName, ErgebnisEnergieholz ergebnis, ErgebnisEnergieholz expectedValue) {
 		assertEquals(ergebnis.getVolumenEnergieholz_m3iR(), expectedValue.getVolumenEnergieholz_m3iR(), DEFAULT_DELTA);
 	}
 	

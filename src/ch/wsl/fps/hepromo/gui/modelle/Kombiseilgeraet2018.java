@@ -22,7 +22,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +37,7 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel2014;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektKombiseilgeraet2018;
@@ -78,7 +78,7 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 
 	public Kombiseilgeraet2018() {	
 		super.setTitle(GuiStrings.getString("Kombiseilgeraet2018.Title")); //$NON-NLS-1$
-		super.setSize((int) (745 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (650 * MainWindow.SIZE));
+		super.setSize((int) (745 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (670 * MainWindow.SIZE));
 		
 		super.initalize();
 	}
@@ -86,7 +86,7 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 
 	@Override
 	protected void initPanelArbeitsobjekt(JPanel panel) {
-		panel.setBorder(BorderFactory.createTitledBorder("")); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder("")); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );
@@ -415,7 +415,7 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 	
 	@Override
 	protected void initData() {
-		String labelPersonal = getModel().getArbeitssystem().getLabelPersonal1();
+//		String labelPersonal = getModel().getArbeitssystem().getLabelPersonal1();
 		String labelMaschine1 = getModel().getArbeitssystem().getLabelMaschine1();
 		String labelMaschine2 = getModel().getArbeitssystem().getLabelMaschine2();
 		

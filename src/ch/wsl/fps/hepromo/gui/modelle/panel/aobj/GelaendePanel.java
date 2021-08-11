@@ -18,12 +18,12 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.aobj;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMotormanuell.Hangneigung;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektMotormanuell.Hindernisse;
 
@@ -51,7 +51,7 @@ public class GelaendePanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Gelände"));		 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Gelände"));		 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

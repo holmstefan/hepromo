@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.asys;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemMobilerHacker.HackerTyp;
 
 /**
@@ -54,7 +54,7 @@ public class MobilerHackerPanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Hacker"));		 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Hacker"));		 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

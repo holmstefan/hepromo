@@ -19,14 +19,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 
 /**
  * 
@@ -112,7 +112,7 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 
 
 	protected void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder(GuiStrings.getString("KostensaetzePanel2014.Title")));		 //$NON-NLS-1$
+		this.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("KostensaetzePanel2014.Title")));		 //$NON-NLS-1$
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );
@@ -734,6 +734,9 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 	
 	
 
+	/**
+	 * @param eventSource  
+	 */
 	public void onInputChangedBeforeCalculation(Object eventSource) {
 
 		double anteil1 = (getEinsatzanteilPersonal1_Prz() / 100.0) * getAnsatzPersonal1();

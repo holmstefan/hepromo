@@ -142,7 +142,7 @@ public class ModelHelikopterFliegenTest extends AbstractModelTest {
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkRotationszeit(String testcaseName, ErgebnisHelikopterFliegen ergebnis, MockErgebnis expectedValues) {
+	public void checkRotationszeit(@SuppressWarnings("unused") String testcaseName, ErgebnisHelikopterFliegen ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getRotationszeit(), expectedValues.getRotationszeit());
 	}
 	

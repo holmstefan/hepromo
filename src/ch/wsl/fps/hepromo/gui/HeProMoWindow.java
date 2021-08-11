@@ -17,7 +17,6 @@ package ch.wsl.fps.hepromo.gui;
 
 import java.awt.Color;
 import java.awt.Desktop;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -38,9 +37,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
@@ -48,15 +45,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.UIManager;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -72,7 +67,9 @@ import ch.wsl.fps.hepromo.model.Faktoren;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.PersistentInputData;
 import ch.wsl.fps.hepromo.model.modelle.AbstractModel;
+import ch.wsl.fps.hepromo.util.CsvCreator;
 import ch.wsl.fps.hepromo.util.DatenblattCreator;
+import ch.wsl.fps.hepromo.util.ExportMethodResult;
 
 /**
  * 
@@ -92,6 +89,7 @@ public abstract class HeProMoWindow extends JFrame {
 	protected AbstractErgebnisPanel ergebnisPanel;
 	private JSpinner txtAnzahlNachkommastellen;
 	private JButton btnDatenblatt;
+	private JButton btnCsv;
 	
 
 	protected Faktoren faktoren = new Faktoren();
@@ -103,6 +101,8 @@ public abstract class HeProMoWindow extends JFrame {
 	private static boolean isStartedFromJar() {
 		return MainWindow.class.getResource("MainWindow.class").toString().startsWith("rsrc");
 	}
+	
+	public volatile boolean isLoadingModelFromFile = false;
 	
 	
 	public HeProMoWindow() {
@@ -207,11 +207,11 @@ public abstract class HeProMoWindow extends JFrame {
 		}
 	};
 	
-	//used for JCheckBox / JRadioButton
+	//used for JCheckBox / JRadioButton / JToggleButton
 	private final ItemListener defaultItemListener = new ItemListener() {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-//			System.out.println( "chk value changed: " + ((JCheckBox)e.getSource()).isSelected() );
+//			System.out.println( "toggle value changed: " + ((JToggleButton)e.getSource()).isSelected() );
 			onInputChanged(e.getSource());
 		}
 	};
@@ -259,6 +259,8 @@ public abstract class HeProMoWindow extends JFrame {
 	 * ist leer. Änderungen im Modell während der Ausführung
 	 * dieser Methode folgen nicht automatisch zu einer 
 	 * Neuberechnung des Ergebnisses.
+	 * 
+	 * @param eventSource 
 	 */
 	protected void onInputChangedBeforeCalculation(Object eventSource) {
 	}
@@ -307,6 +309,7 @@ public abstract class HeProMoWindow extends JFrame {
 					loadModelToGUI( getModel() );
 
 					//show window
+//					HeProMoWindow.this.pack(); //TODO: prüfen, ob gute Alternative zu explizitem setSize() in allen Modellen!
 					HeProMoWindow.this.setVisible(true);
 				}
 			});
@@ -425,16 +428,7 @@ public abstract class HeProMoWindow extends JFrame {
 	
 	private final JPanel initPanelInput() {
 		JPanel pnlInput = new JPanel();
-		pnlInput.setBorder( BorderFactory.createTitledBorder(GuiStrings.getString("HeProMoWindow.TitleEingaben"))); //$NON-NLS-1$
-		
-		//set title font to bold
-		TitledBorder border = (TitledBorder) pnlInput.getBorder();
-		Font titleFont = border.getTitleFont();
-		if (titleFont == null) { //needed since java 7, see http://bugs.java.com/view_bug.do?bug_id=7022041
-//			titleFont = UIManager.getDefaults().getFont("TitledBorder.font");
-			titleFont = UIManager.getFont("TitledBorder.font"); //$NON-NLS-1$
-		}
-		border.setTitleFont( titleFont.deriveFont(Font.BOLD) );
+		pnlInput.setBorder( TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("HeProMoWindow.TitleEingaben"))); //$NON-NLS-1$
 		
 		
 		//set layout
@@ -533,7 +527,7 @@ public abstract class HeProMoWindow extends JFrame {
 				DatenblattCreator.preInitializeInSeparateThread();
 				
 				//get filename
-				final File pdfFile = getDatenblattFile();
+				final File pdfFile = getExportFile(".pdf");
 				if (pdfFile == null) {
 					return;
 				}
@@ -563,9 +557,49 @@ public abstract class HeProMoWindow extends JFrame {
 		pnlButtons.add(btnDatenblatt, c);
 		
 		
-		//button laden
+		//button csv
         c = new GridBagConstraints();
 		c.gridx = 5;
+		c.gridy = 0;
+		c.insets = new Insets(5,0,0,0);
+		btnCsv = new JButton("CSV");
+		btnCsv.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//get filename
+				final File csvFile = getExportFile(".csv");
+				if (csvFile == null) {
+					return;
+				}
+				
+				btnCsv.setEnabled(false);
+				btnCsv.setText(GuiStrings.getString("HeProMoWindow.btnBitteWarten")); //$NON-NLS-1$
+				
+				//update model
+				loadGUIToModel();
+				
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+					@Override
+					protected Void doInBackground() throws Exception {
+						//create CSV
+						createAndOpenExportCsv(csvFile);
+						return null;
+					}
+					@Override
+					protected void done() {
+						btnCsv.setEnabled(true);	
+						btnCsv.setText("CSV");
+					}
+				};
+				worker.execute();
+			}			
+		});
+		pnlButtons.add(btnCsv, c);
+		
+		
+		//button laden
+        c = new GridBagConstraints();
+		c.gridx = 6;
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		JButton btnLoad = new JButton(GuiStrings.getString("HeProMoWindow.btnLaden")); //$NON-NLS-1$
@@ -580,7 +614,7 @@ public abstract class HeProMoWindow extends JFrame {
 		
 		//button speichern
         c = new GridBagConstraints();
-		c.gridx = 6;
+		c.gridx = 7;
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		JButton btnSave = new JButton(GuiStrings.getString("HeProMoWindow.btnSpeichern")); //$NON-NLS-1$
@@ -609,7 +643,7 @@ public abstract class HeProMoWindow extends JFrame {
 		
 		//button close
         c = new GridBagConstraints();
-		c.gridx = 7;
+		c.gridx = 8;
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,5);
 		JButton btnClose = new JButton(GuiStrings.getString("HeProMoWindow.btnBeenden")); //$NON-NLS-1$
@@ -658,10 +692,19 @@ public abstract class HeProMoWindow extends JFrame {
 	
 	
 	
-	private File getDatenblattFile() {
+	private File getExportFile(final String fileSuffix) {
 		
 		//open file chooser
-		String defaultfileName = GuiStrings.getString("HeProMoWindow.DefaultDatenblattFilename"); //$NON-NLS-1$
+		String defaultfileName;
+		if (fileSuffix.endsWith("pdf")) {
+			defaultfileName = GuiStrings.getString("HeProMoWindow.DefaultDatenblattFilename"); //$NON-NLS-1$
+		}
+		else if (fileSuffix.endsWith("csv")) {
+			defaultfileName = GuiStrings.getString("HeProMoWindow.DefaultCsvFilename"); //$NON-NLS-1$
+		}
+		else {
+			throw new IllegalArgumentException(fileSuffix);
+		}
 		JFileChooser fileChooser = new JFileChooser(defaultDir){
 			private static final long serialVersionUID = 1L;
 			@Override
@@ -669,8 +712,8 @@ public abstract class HeProMoWindow extends JFrame {
 				
 				//check file extension
 				File file = getSelectedFile();
-				if ( !file.getName().toLowerCase().endsWith(".pdf") ) { //$NON-NLS-1$
-					file = new File(file.getPath() + ".pdf"); //$NON-NLS-1$
+				if ( !file.getName().toLowerCase().endsWith(fileSuffix) ) {
+					file = new File(file.getPath() + fileSuffix);
 					setSelectedFile(file);
 				}
 				
@@ -703,20 +746,45 @@ public abstract class HeProMoWindow extends JFrame {
 		
 		return fileChooser.getSelectedFile();
 	}
-	
+
 	
 	
 	private void createAndOpenDatenblattPdf(File pdfFile) {
 		//create pdf
 		DatenblattCreator pdfCreator = new DatenblattCreator();
-		pdfCreator.create(getModel(), pdfFile, createDecimalFormat());
+		ExportMethodResult result = pdfCreator.create(getModel(), pdfFile, createDecimalFormat());
 		
+		if (result.success) {
+			//try to open file
+			try {
+				Desktop.getDesktop().open(pdfFile);
+			} catch (IOException e) {
+				HeProMoExceptionHandler.handle(e);
+			}		
+		}
+		else if (result.errorMsgShown == false) {
+			String msg = GuiStrings.getString("HeProMoWindow.FehlerBeimErstellenDerDatei"); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null, msg, GuiStrings.getString("HeProMoWindow.DialogTitleFehler"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
+		}
+	}
+	
+	
+	private void createAndOpenExportCsv(File csvFile) {
+		//create csv
+		CsvCreator csvCreator = new CsvCreator();
+		ExportMethodResult result = csvCreator.create(getModel(), csvFile, createDecimalFormat());
 		
-		//try to open file
-		try {
-			Desktop.getDesktop().open(pdfFile);
-		} catch (IOException e) {
-			HeProMoExceptionHandler.handle(e);
+		if (result.success) {
+			//try to open file
+			try {
+				Desktop.getDesktop().open(csvFile);
+			} catch (IOException e) {
+				HeProMoExceptionHandler.handle(e);
+			}	
+		}
+		else if (result.errorMsgShown == false) {
+			String msg = GuiStrings.getString("HeProMoWindow.FehlerBeimErstellenDerDatei"); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(null, msg, GuiStrings.getString("HeProMoWindow.DialogTitleFehler"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 		}
 	}
 	
@@ -841,7 +909,9 @@ public abstract class HeProMoWindow extends JFrame {
 					GuiStrings.getString("HeProMoWindow.DialogTitleFehler"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 			return;
 		}
+		isLoadingModelFromFile = true;
 		loadModelToGUI(data);
+		isLoadingModelFromFile = false;
 		onSuccessfullyLoaded();
 		System.out.println(GuiStrings.getString("HeProMoWindow.BestaetigungDatenGeladen")); //$NON-NLS-1$
 	}
@@ -942,25 +1012,13 @@ public abstract class HeProMoWindow extends JFrame {
 	
 	/**
 	 * Registriert den defaultItemListener in der übergebenen
-	 *  JCheckBox-Instanz, falls dieser dort noch nicht registriert ist.
+	 *  JToggleButton-Instanz, falls dieser dort noch nicht registriert ist.
 	 * 
 	 * @param checkbox
 	 */
-	public void addDefaultItemListener(JCheckBox checkbox) {
-		checkbox.removeItemListener(defaultItemListener);
-		checkbox.addItemListener(defaultItemListener);
-	}
-	
-	
-	/**
-	 * Registriert den defaultItemListener in der übergebenen
-	 *  JRadioButton-Instanz, falls dieser dort noch nicht registriert ist.
-	 * 
-	 * @param radiobutton
-	 */
-	public void addDefaultItemListener(JRadioButton radiobutton) {
-		radiobutton.removeItemListener(defaultItemListener);
-		radiobutton.addItemListener(defaultItemListener);
+	public void addDefaultItemListener(JToggleButton toggleButton) {
+		toggleButton.removeItemListener(defaultItemListener);
+		toggleButton.addItemListener(defaultItemListener);
 	}
 	
 	

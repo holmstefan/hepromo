@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.asys;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -27,6 +26,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemSchlepper.RueckgehilfeEinsatzanteil;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemSchlepper.SchlepperTyp;
 
@@ -61,7 +61,7 @@ public class KostensaetzePanelSchlepper extends JPanel implements IWaehrungsanze
 
 
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Kostensätze"));		 
+		this.setBorder(TitledBorderFactory.createTitledBorder("Kostensätze"));		 
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

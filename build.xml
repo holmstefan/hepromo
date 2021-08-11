@@ -23,7 +23,7 @@
             <zipfileset dir="lib/fop" includes="commons-logging-1.0.4.jar"/>
             <zipfileset dir="lib/fop" includes="fop.jar"/>
             <zipfileset dir="lib/fop" includes="xmlgraphics-commons-2.3.jar"/>
-            <zipfileset dir="data" prefix="data/" excludes="datenblatt.pdf,data.hpm"/>
+            <zipfileset dir="data" prefix="data/" excludes="datenblatt.pdf,data.hpm,hepromo-export.csv"/>
             <zipfileset dir="Dokumentation" prefix="Dokumentation/"/>
         </jar>
     </target>

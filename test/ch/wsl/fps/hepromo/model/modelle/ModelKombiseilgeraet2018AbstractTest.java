@@ -163,38 +163,38 @@ public abstract class ModelKombiseilgeraet2018AbstractTest extends AbstractModel
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkZeitaufwandMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitMaschine2(), expectedValues.getZeitMaschine2());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Maschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenProM3Maschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_proM3(), expectedValues.getKostenMaschine2_proM3());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalMaschine2(String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+	public void checkKostenTotalMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_total(), expectedValues.getKostenMaschine2_total());
 	}
 
 
 	
 	@Test(dataProvider="csvData")
-	public void checkZeitaufwandVerzugsfahrzeug(String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
+	public void checkZeitaufwandVerzugsfahrzeug(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getZeitMaschine3(), expectedValues.getZeitVerzugsfahrzeug());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenProM3Verzugsfahrzeug(String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
+	public void checkKostenProM3Verzugsfahrzeug(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine3_proM3(), expectedValues.getKostenVerzugsfahrzeug_proM3());
 	}
 	
 	
 	@Test(dataProvider="csvData")
-	public void checkKostenTotalVerzugsfahrzeug(String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
+	public void checkKostenTotalVerzugsfahrzeug(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnisKombiseilgeraet2018 expectedValues) {
 		assertEqualsDynamicDelta(ergebnis.getKostenMaschine3_total(), expectedValues.getKostenVerzugsfahrzeug_total());
 	}
 	

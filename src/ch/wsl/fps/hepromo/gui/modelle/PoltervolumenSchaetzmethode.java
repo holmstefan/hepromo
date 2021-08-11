@@ -30,13 +30,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 
 /**
  * 
@@ -95,7 +95,7 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 		c.gridheight = 99;
 		c.insets = new Insets(0,0,0,10);
 		JPanel panelIcon = new JPanel();
-		panelIcon.setBorder(new TitledBorder(GuiStrings.getString("PoltervolumenSchaetzmethode.Polterform"))); //$NON-NLS-1$
+		panelIcon.setBorder(TitledBorderFactory.createTitledBorder(GuiStrings.getString("PoltervolumenSchaetzmethode.Polterform"))); //$NON-NLS-1$
 		panelIcon.add(lblIcon);
 		this.add(panelIcon, c);
 		

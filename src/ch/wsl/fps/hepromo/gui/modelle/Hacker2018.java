@@ -22,7 +22,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -36,6 +35,7 @@ import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanelHacker2018;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektHacker2018;
@@ -78,7 +78,7 @@ public class Hacker2018 extends HeProMoWindow2014 {
 	
 	@Override
 	protected void initPanelArbeitsobjekt(JPanel panel) {
-		panel.setBorder(BorderFactory.createTitledBorder("")); //$NON-NLS-1$
+		panel.setBorder(TitledBorderFactory.createTitledBorder("")); //$NON-NLS-1$
 		
 		//set layout
 		panel.setLayout( new GridBagLayout() );

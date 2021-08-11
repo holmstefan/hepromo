@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.aobj;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,6 +25,7 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
+import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektKonventionellerSeilkranSeilen.Fahrtrichtung;
 
 /**
@@ -56,7 +56,7 @@ public class SeilLiniePanel extends JPanel {
 	
 	
 	private void initPanel() {
-		this.setBorder(BorderFactory.createTitledBorder("Seillinie"));		
+		this.setBorder(TitledBorderFactory.createTitledBorder("Seillinie"));		
 		
 		//set layout
 		this.setLayout( new GridBagLayout() );

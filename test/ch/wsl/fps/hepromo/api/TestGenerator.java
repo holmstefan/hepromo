@@ -420,7 +420,6 @@ public class TestGenerator {
 	private static boolean overwriteAll = false;
 	
 	
-	@SuppressWarnings("unused")
 	private static class TestFileWriter implements DynamicWriter {
 		private final PrintWriter writer;
 		

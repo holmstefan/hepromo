@@ -62,7 +62,7 @@
 											<fo:block font-weight="bold"> <xsl:value-of select="pdftitles/arbeitsort"/> </fo:block>
 										</fo:table-cell>
 									
-										<fo:table-cell>
+										<fo:table-cell number-columns-spanned="2">
 											<fo:block> <xsl:value-of select="info/arbeitsort" /> </fo:block>
 										</fo:table-cell>
 									</fo:table-row>
@@ -136,7 +136,7 @@
 							<fo:table-body>
 
 								<fo:table-row>
-									<fo:table-cell>
+									<fo:table-cell number-columns-spanned="5">
 										<fo:block font-weight="bold"> <xsl:value-of select="pdftitles/ergebnis"/> <xsl:value-of select="pdftitles/ergebnisSuffix"/> </fo:block>
 									</fo:table-cell>
 								</fo:table-row>
