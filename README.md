@@ -22,5 +22,5 @@ This project uses AssertJ, Apache FOP, and TestNG. These libraries are all licen
 - Changed contact person
 - Forwarder (round wood and energy wood): field "Show results for" in bold font
 - Forwarder (round wood and energy wood): down to a screen resolution of 1280x720, all input fields remain visible
-- Automatically create file hepromo-error-log if an application error occurs.
+- Automatically create file hepromo-error.log if an application error occurs.
 - Aligned version number of api-jar with version number of main application
