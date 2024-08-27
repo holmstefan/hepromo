@@ -20,7 +20,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -42,7 +41,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
@@ -50,6 +48,7 @@ import ch.wsl.fps.hepromo.gui.DocumentationBroker;
 import ch.wsl.fps.hepromo.gui.DocumentationBroker.Documentation;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoExceptionHandler;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
 import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
@@ -129,21 +128,15 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 	
 	
 	//used for JSpinner
-	private final ChangeListener defaultChangeListner = new ChangeListener(){
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			onInputChanged();
-		}
+	private final ChangeListener defaultChangeListner = evt -> {
+		onInputChanged();
 	};
 	
 	//used for JComboBox
-	private final ActionListener defaultActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Object selectedItem = ((JComboBox<?>)e.getSource()).getSelectedItem();
-			if (selectedItem != null) {
-				onInputChanged();
-			}
+	private final ActionListener defaultActionListener = evt -> {
+		Object selectedItem = ((JComboBox<?>)evt.getSource()).getSelectedItem();
+		if (selectedItem != null) {
+			onInputChanged();
 		}
 	};
 
@@ -158,80 +151,67 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 	public BiomasseschaetzerEnergie2018(final int bhd_cm, final int zopf_cm, final Forwarder2018 parent, final double constSchaftholzmengeGesamt_m3iR) {
 		this.constSchaftholzmengeGesamt_m3iR = constSchaftholzmengeGesamt_m3iR;
 		
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {				
-				
-				//load look & feel
-				try {
-					// Set System L&F
-					UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-					//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
-				} 
-				catch (UnsupportedLookAndFeelException e) {
-					// handle exception
-				}
-				catch (ClassNotFoundException e) {
-					// handle exception
-				}
-				catch (InstantiationException e) {
-					// handle exception
-				}
-				catch (IllegalAccessException e) {
-					// handle exception
-				}
-
-				//tooltip settings
-				ToolTipManager.sharedInstance().setInitialDelay(0);
-				ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-				
-				//window properties
-				BiomasseschaetzerEnergie2018.this.setTitle(GuiStrings.getString("BiomasseschaetzerEnergie2018.Title")); //$NON-NLS-1$
-				int width = MainWindow.getCurrentLocale().getLanguage().equals("de")? 1040 : 1220;
-				BiomasseschaetzerEnergie2018.this.setSize((int) (width * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (570 * MainWindow.SIZE));
-				BiomasseschaetzerEnergie2018.this.setLocationByPlatform(true);
-				BiomasseschaetzerEnergie2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-				BiomasseschaetzerEnergie2018.this.setModal(false);
-
-				//taskbar icon
-				BiomasseschaetzerEnergie2018.this.setIconImage(MainWindow.getWslLogo().getImage());
-
-				//content and data
-				initContent();
-				initData();
-				if (bhd_cm > 0) {
-					setBhd_cm(bhd_cm);
-				}
-				if (zopf_cm > 0) {
-					setZopf_cm(zopf_cm);
-				}
-				if (constSchaftholzmengeGesamt_m3iR > 0) {
-					txtAnzahlStaemme.setEnabled(false);
-					lblAnzahlStaemme.setVisible(false);
-					txtAnzahlStaemme.setVisible(false);
-					Dimension size = BiomasseschaetzerEnergie2018.this.getSize();
-					size.height -= 20;
-					BiomasseschaetzerEnergie2018.this.setSize(size);
-				}
-				if (parent != null) {
-					BiomasseschaetzerEnergie2018.this.setModal(true);
-					btnUebernehmen.addActionListener(new ActionListener() {	
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							parent.setZopf_cm(((Zopfklasse)cmbZopf_cm.getSelectedItem()).getValue());
-							parent.setEnergieholzErgebnis(letztesErgebnis);
-							BiomasseschaetzerEnergie2018.this.setVisible(false);
-						}
-					});
-				}
-				else {
-					lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
-					btnUebernehmen.setVisible(false);
-				}
-
-				//show window
-				BiomasseschaetzerEnergie2018.this.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			//load look & feel
+			try {
+				// Set System L&F
+				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+				//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
+			} 
+			catch (UnsupportedLookAndFeelException 
+					| ClassNotFoundException
+					| InstantiationException
+					| IllegalAccessException e) {
+				HeProMoExceptionHandler.handle(e);
 			}
+
+			//tooltip settings
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+
+			//window properties
+			BiomasseschaetzerEnergie2018.this.setTitle(GuiStrings.getString("BiomasseschaetzerEnergie2018.Title")); //$NON-NLS-1$
+			int width = MainWindow.getCurrentLocale().getLanguage().equals("de")? 1040 : 1220;
+			BiomasseschaetzerEnergie2018.this.setSize((int) (width * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (570 * MainWindow.SIZE));
+			BiomasseschaetzerEnergie2018.this.setLocationByPlatform(true);
+			BiomasseschaetzerEnergie2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+			BiomasseschaetzerEnergie2018.this.setModal(false);
+
+			//taskbar icon
+			BiomasseschaetzerEnergie2018.this.setIconImage(MainWindow.getWslLogo().getImage());
+
+			//content and data
+			initContent();
+			initData();
+			if (bhd_cm > 0) {
+				setBhd_cm(bhd_cm);
+			}
+			if (zopf_cm > 0) {
+				setZopf_cm(zopf_cm);
+			}
+			if (constSchaftholzmengeGesamt_m3iR > 0) {
+				txtAnzahlStaemme.setEnabled(false);
+				lblAnzahlStaemme.setVisible(false);
+				txtAnzahlStaemme.setVisible(false);
+				Dimension size = BiomasseschaetzerEnergie2018.this.getSize();
+				size.height -= 20;
+				BiomasseschaetzerEnergie2018.this.setSize(size);
+			}
+			if (parent != null) {
+				BiomasseschaetzerEnergie2018.this.setModal(true);
+				btnUebernehmen.addActionListener(evt -> {
+					parent.setZopf_cm(((Zopfklasse)cmbZopf_cm.getSelectedItem()).getValue());
+					parent.setEnergieholzErgebnis(letztesErgebnis);
+					BiomasseschaetzerEnergie2018.this.setVisible(false);
+				});
+			}
+			else {
+				lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
+				btnUebernehmen.setVisible(false);
+			}
+
+			//show window
+			BiomasseschaetzerEnergie2018.this.setVisible(true);
 		});
 	}
 	
@@ -287,11 +267,8 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 //		c.anchor = GridBagConstraints.EAST;
 		c.insets = new Insets(0,10,0,0);
 		final JButton btnDokumentation = new JButton(GuiStrings.getString("HeProMoWindow.btnGrundlagen")); //$NON-NLS-1$
-		btnDokumentation.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DocumentationBroker.showDocumentation(Documentation.Energieholzschaetzer2018, BiomasseschaetzerEnergie2018.this, btnDokumentation);
-			}			
+		btnDokumentation.addActionListener(evt -> {
+			DocumentationBroker.showDocumentation(Documentation.Energieholzschaetzer2018, BiomasseschaetzerEnergie2018.this, btnDokumentation);		
 		});
 		this.add(btnDokumentation, c);
 		
@@ -913,11 +890,8 @@ public class BiomasseschaetzerEnergie2018 extends JDialog {
 	private void initData() {
 		txtAnteilLaubholz.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		addListener(txtAnteilLaubholz);
-		txtAnteilLaubholz.addChangeListener(new ChangeListener() {			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				setDefaultValuesBasedOnAnteilLaubholz();
-			}
+		txtAnteilLaubholz.addChangeListener(evt -> {
+			setDefaultValuesBasedOnAnteilLaubholz();
 		});
 		
 		

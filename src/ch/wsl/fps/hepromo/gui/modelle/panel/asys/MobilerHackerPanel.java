@@ -139,12 +139,9 @@ public class MobilerHackerPanel extends JPanel {
 				txtKippContainerVolumen_m3.setValue(30.0);
 			}
 			
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = "Der Kostensatz im Tab 'Arbeitssystem' muss möglicherweise angepasst werden."; 
-					JOptionPane.showMessageDialog(parent, message, "Warnung", JOptionPane.WARNING_MESSAGE); 
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = "Der Kostensatz im Tab 'Arbeitssystem' muss möglicherweise angepasst werden."; 
+				JOptionPane.showMessageDialog(parent, message, "Warnung", JOptionPane.WARNING_MESSAGE);
 			});
 		}
 	}

@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -36,7 +35,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
@@ -44,6 +42,7 @@ import ch.wsl.fps.hepromo.gui.DocumentationBroker;
 import ch.wsl.fps.hepromo.gui.DocumentationBroker.Documentation;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoExceptionHandler;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
 import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
@@ -80,21 +79,15 @@ public class BiomasseschaetzerAbTarif2018 extends JFrame {
 	
 	
 	//used for JSpinner
-	private final ChangeListener defaultChangeListner = new ChangeListener(){
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			onInputChanged();
-		}
+	private final ChangeListener defaultChangeListner = evt -> {
+		onInputChanged();
 	};
 	
 	//used for JComboBox
-	private final ActionListener defaultActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Object selectedItem = ((JComboBox<?>)e.getSource()).getSelectedItem();
-			if (selectedItem != null) {
-				onInputChanged();
-			}
+	private final ActionListener defaultActionListener = evt -> {
+		Object selectedItem = ((JComboBox<?>)evt.getSource()).getSelectedItem();
+		if (selectedItem != null) {
+			onInputChanged();
 		}
 	};
 	
@@ -105,70 +98,57 @@ public class BiomasseschaetzerAbTarif2018 extends JFrame {
 	
 	
 	public BiomasseschaetzerAbTarif2018(final int bhd_cm, final Boolean isNadelholz, final Standort standort, final JSpinner txtTargetSpinner) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {				
-				
-				//load look & feel
-				try {
-					// Set System L&F
-					UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-					//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
-				} 
-				catch (UnsupportedLookAndFeelException e) {
-					// handle exception
-				}
-				catch (ClassNotFoundException e) {
-					// handle exception
-				}
-				catch (InstantiationException e) {
-					// handle exception
-				}
-				catch (IllegalAccessException e) {
-					// handle exception
-				}
-
-				//tooltip settings
-				ToolTipManager.sharedInstance().setInitialDelay(0);
-				ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-				
-				//window properties
-				BiomasseschaetzerAbTarif2018.this.setTitle(GuiStrings.getString("BiomasseschaetzerAbTarif2018.TitleSchaftholzschaetzer")); //$NON-NLS-1$
-				BiomasseschaetzerAbTarif2018.this.setSize((int) (500 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (275 * MainWindow.SIZE));
-				BiomasseschaetzerAbTarif2018.this.setLocationByPlatform(true);
-				BiomasseschaetzerAbTarif2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-				//taskbar icon
-				BiomasseschaetzerAbTarif2018.this.setIconImage(MainWindow.getWslLogo().getImage());
-
-				//content and data
-				initContent();
-				initData(isNadelholz, standort);
-				if (bhd_cm > 0) {
-					txtBhd_cm.setValue(bhd_cm);
-					txtBhd_cm.setEnabled(false);
-				}
-				if (txtTargetSpinner != null) {
-					btnUebernehmen.addActionListener(new ActionListener() {	
-						@Override
-						public void actionPerformed(ActionEvent e) {
-							try {
-								txtTargetSpinner.setValue(decimalFormat.parse(txtVolumenSchaftholz.getText()));
-							} catch (ParseException e1) {
-								e1.printStackTrace();
-							}
-							BiomasseschaetzerAbTarif2018.this.dispose();
-						}
-					});
-				}
-				else {
-					btnUebernehmen.setVisible(false);
-				}
-				onInputChanged();
-
-				//show window
-				BiomasseschaetzerAbTarif2018.this.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			//load look & feel
+			try {
+				// Set System L&F
+				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+				//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
+			} 
+			catch (UnsupportedLookAndFeelException 
+					| ClassNotFoundException
+					| InstantiationException
+					| IllegalAccessException e) {
+				HeProMoExceptionHandler.handle(e);
 			}
+
+			//tooltip settings
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+
+			//window properties
+			BiomasseschaetzerAbTarif2018.this.setTitle(GuiStrings.getString("BiomasseschaetzerAbTarif2018.TitleSchaftholzschaetzer")); //$NON-NLS-1$
+			BiomasseschaetzerAbTarif2018.this.setSize((int) (500 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (275 * MainWindow.SIZE));
+			BiomasseschaetzerAbTarif2018.this.setLocationByPlatform(true);
+			BiomasseschaetzerAbTarif2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+			//taskbar icon
+			BiomasseschaetzerAbTarif2018.this.setIconImage(MainWindow.getWslLogo().getImage());
+
+			//content and data
+			initContent();
+			initData(isNadelholz, standort);
+			if (bhd_cm > 0) {
+				txtBhd_cm.setValue(bhd_cm);
+				txtBhd_cm.setEnabled(false);
+			}
+			if (txtTargetSpinner != null) {
+				btnUebernehmen.addActionListener(evt -> {
+					try {
+						txtTargetSpinner.setValue(decimalFormat.parse(txtVolumenSchaftholz.getText()));
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					BiomasseschaetzerAbTarif2018.this.dispose();
+				});
+			}
+			else {
+				btnUebernehmen.setVisible(false);
+			}
+			onInputChanged();
+
+			//show window
+			BiomasseschaetzerAbTarif2018.this.setVisible(true);
 		});
 	}
 	
@@ -222,11 +202,8 @@ public class BiomasseschaetzerAbTarif2018 extends JFrame {
 		c.anchor = GridBagConstraints.EAST;
 		c.insets = new Insets(0,0,0,10);
 		final JButton btnDokumentation = new JButton(GuiStrings.getString("HeProMoWindow.btnGrundlagen")); //$NON-NLS-1$
-		btnDokumentation.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DocumentationBroker.showDocumentation(Documentation.Schaftholzschaetzer2018, BiomasseschaetzerAbTarif2018.this, btnDokumentation);
-			}			
+		btnDokumentation.addActionListener(evt -> {
+			DocumentationBroker.showDocumentation(Documentation.Schaftholzschaetzer2018, BiomasseschaetzerAbTarif2018.this, btnDokumentation);	
 		});
 		this.add(btnDokumentation, c);
 		
@@ -466,11 +443,8 @@ public class BiomasseschaetzerAbTarif2018 extends JFrame {
 
 		txtBhd_cm.setModel(new SpinnerNumberModel(20, 12, 100, 1));
 		addListener(txtBhd_cm);
-		txtBhd_cm.addChangeListener(new ChangeListener() {	
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				entwicklungsstufeAnBhdAnpassen((Integer) txtBhd_cm.getValue());
-			}
+		txtBhd_cm.addChangeListener(evt -> {
+			entwicklungsstufeAnBhdAnpassen((Integer) txtBhd_cm.getValue());
 		});
 		
 

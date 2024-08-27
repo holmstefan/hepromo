@@ -18,8 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.asys;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -167,14 +165,11 @@ public class HelikopterPanel extends JPanel implements IWaehrungsanzeige {
 		c.weightx = 100;
 		c.insets = new Insets(0,15,0,0);
 		chkLastvolumenAutomatischBerechnen = new JCheckBox(GuiStrings.getString("HelikopterPanel.LastvolumenAutomatischBerechnen")); //$NON-NLS-1$
-		chkLastvolumenAutomatischBerechnen.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				boolean auto = chkLastvolumenAutomatischBerechnen.isSelected();
-				txtLastvolumen_m3.setEnabled( ! auto );
-				if (auto) {
-					((HelikopterFliegenBase)parent).adaptLastvolumen();
-				}
+		chkLastvolumenAutomatischBerechnen.addItemListener(evt -> {
+			boolean auto = chkLastvolumenAutomatischBerechnen.isSelected();
+			txtLastvolumen_m3.setEnabled( ! auto );
+			if (auto) {
+				((HelikopterFliegenBase)parent).adaptLastvolumen();
 			}
 		});
 		chkLastvolumenAutomatischBerechnen.setSelected(true);
@@ -207,12 +202,9 @@ public class HelikopterPanel extends JPanel implements IWaehrungsanzeige {
 		if (cmbHeliklasse.equals(eventSource)) {
 			((HelikopterFliegenBase)parent).adaptLastvolumen();
 			
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("HelikopterPanel.WarnungKostensatzMessage"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(parent, message, GuiStrings.getString("HelikopterPanel.WarnungKostensatzTitle"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("HelikopterPanel.WarnungKostensatzMessage"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(parent, message, GuiStrings.getString("HelikopterPanel.WarnungKostensatzTitle"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 		}
 	}

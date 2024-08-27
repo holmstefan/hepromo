@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
@@ -36,7 +35,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
@@ -44,6 +42,7 @@ import ch.wsl.fps.hepromo.gui.DocumentationBroker;
 import ch.wsl.fps.hepromo.gui.DocumentationBroker.Documentation;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
+import ch.wsl.fps.hepromo.gui.HeProMoExceptionHandler;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.MainWindow;
 import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
@@ -83,21 +82,15 @@ public class Biomasseschaetzer2018 extends JFrame {
 	private JLabel lblStatus;
 	
 	//used for JSpinner
-	private final ChangeListener defaultChangeListner = new ChangeListener(){
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			onInputChanged();
-		}
+	private final ChangeListener defaultChangeListner = evt -> {
+		onInputChanged();
 	};
 	
 	//used for JComboBox
-	private final ActionListener defaultActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Object selectedItem = ((JComboBox<?>)e.getSource()).getSelectedItem();
-			if (selectedItem != null) {
-				onInputChanged();
-			}
+	private final ActionListener defaultActionListener = evt -> {
+		Object selectedItem = ((JComboBox<?>)evt.getSource()).getSelectedItem();
+		if (selectedItem != null) {
+			onInputChanged();
 		}
 	};
 
@@ -106,49 +99,39 @@ public class Biomasseschaetzer2018 extends JFrame {
 	
 	
 	public Biomasseschaetzer2018() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {				
-				
-				//load look & feel
-				try {
-					// Set System L&F
-					UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-					//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
-				} 
-				catch (UnsupportedLookAndFeelException e) {
-					// handle exception
-				}
-				catch (ClassNotFoundException e) {
-					// handle exception
-				}
-				catch (InstantiationException e) {
-					// handle exception
-				}
-				catch (IllegalAccessException e) {
-					// handle exception
-				}
-
-				//tooltip settings
-				ToolTipManager.sharedInstance().setInitialDelay(0);
-				ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-				
-				//window properties
-				Biomasseschaetzer2018.this.setTitle(GuiStrings.getString("Biomasseschaetzer2018.Title")); //$NON-NLS-1$
-				Biomasseschaetzer2018.this.setSize((int) (480 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (370 * MainWindow.SIZE));
-				Biomasseschaetzer2018.this.setLocationByPlatform(true);
-				Biomasseschaetzer2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-				//taskbar icon
-				Biomasseschaetzer2018.this.setIconImage(MainWindow.getWslLogo().getImage());
-
-				//content and data
-				initContent();
-				initData();
-
-				//show window
-				Biomasseschaetzer2018.this.setVisible(true);
+		SwingUtilities.invokeLater(() -> {
+			//load look & feel
+			try {
+				// Set System L&F
+				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+				//UIManager.setLookAndFeel( "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel" );
+			} 
+			catch (UnsupportedLookAndFeelException 
+					| ClassNotFoundException
+					| InstantiationException
+					| IllegalAccessException e) {
+				HeProMoExceptionHandler.handle(e);
 			}
+
+			//tooltip settings
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+
+			//window properties
+			Biomasseschaetzer2018.this.setTitle(GuiStrings.getString("Biomasseschaetzer2018.Title")); //$NON-NLS-1$
+			Biomasseschaetzer2018.this.setSize((int) (480 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (370 * MainWindow.SIZE));
+			Biomasseschaetzer2018.this.setLocationByPlatform(true);
+			Biomasseschaetzer2018.this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+			//taskbar icon
+			Biomasseschaetzer2018.this.setIconImage(MainWindow.getWslLogo().getImage());
+
+			//content and data
+			initContent();
+			initData();
+
+			//show window
+			Biomasseschaetzer2018.this.setVisible(true);
 		});
 	}
 	
@@ -200,11 +183,8 @@ public class Biomasseschaetzer2018 extends JFrame {
 		c.anchor = GridBagConstraints.EAST;
 		c.insets = new Insets(0,0,0,10);
 		final JButton btnDokumentation = new JButton(GuiStrings.getString("HeProMoWindow.btnGrundlagen")); //$NON-NLS-1$
-		btnDokumentation.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DocumentationBroker.showDocumentation(Documentation.Biomasseschaetzer2018, Biomasseschaetzer2018.this, btnDokumentation);
-			}			
+		btnDokumentation.addActionListener(evt -> {
+			DocumentationBroker.showDocumentation(Documentation.Biomasseschaetzer2018, Biomasseschaetzer2018.this, btnDokumentation);
 		});
 		this.add(btnDokumentation, c);
 		
@@ -548,13 +528,10 @@ public class Biomasseschaetzer2018 extends JFrame {
 			cmbBaumart.addItem(value);
 		}
 		addListener(cmbBaumart);
-		cmbBaumart.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object selectedItem = ((JComboBox<?>)e.getSource()).getSelectedItem();
-				if (selectedItem != null) {
-					setDefaultValuesBasedOnNadelholzOrLaubholz();
-				}
+		cmbBaumart.addActionListener(evt -> {
+			Object selectedItem = ((JComboBox<?>)evt.getSource()).getSelectedItem();
+			if (selectedItem != null) {
+				setDefaultValuesBasedOnNadelholzOrLaubholz();
 			}
 		});
 		

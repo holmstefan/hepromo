@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import ch.wsl.fps.hepromo.model.LabelValuePairList;
+import ch.wsl.fps.hepromo.model.ModelStrings;
 import ch.wsl.fps.hepromo.model.ModelStrings.PdfLabels;
 
 /**
@@ -34,7 +35,11 @@ public class ArbeitsobjektRadharvester2014 extends Arbeitsobjekt {
 	
 	private FoermigkeitArrayWithSelection foermigkeitArrayWithSelection = new FoermigkeitArrayWithSelection();
 	private LaubholzAnteilArrayWithSelection laubholzAnteilArrayWithSelection = new LaubholzAnteilArrayWithSelection();
+	private HangneigungArrayWithSelection hangneigungArrayWithSelection = new HangneigungArrayWithSelection();
 	private LiegendesHolzArrayWithSelection liegendesHolzArrayWithSelection = new LiegendesHolzArrayWithSelection();
+
+	private boolean einsatzThw;
+	private int anzahlRueckegassen;
 	
 	
 	public int getBhd_cm() {
@@ -75,9 +80,32 @@ public class ArbeitsobjektRadharvester2014 extends Arbeitsobjekt {
 	public void setLiegendesHolzArrayWithSelection(LiegendesHolzArrayWithSelection liegendesHolzArrayWithSelection) {
 		this.liegendesHolzArrayWithSelection = liegendesHolzArrayWithSelection;
 	}
-	
-	
-	
+
+
+	public HangneigungArrayWithSelection getHangneigungArrayWithSelection() {
+		return hangneigungArrayWithSelection;
+	}
+
+
+	public void setHangneigungArrayWithSelection(HangneigungArrayWithSelection hangneigungArrayWithSelection) {
+		this.hangneigungArrayWithSelection = hangneigungArrayWithSelection;
+	}
+
+	public boolean isEinsatzThw() {
+		return einsatzThw;
+	}
+
+	public void setEinsatzThw(boolean einsatzThw) {
+		this.einsatzThw = einsatzThw;
+	}
+
+	public int getAnzahlRueckegassen() {
+		return anzahlRueckegassen;
+	}
+
+	public void setAnzahlRueckegassen(int anzahlRueckegassen) {
+		this.anzahlRueckegassen = anzahlRueckegassen;
+	}
 	
 	
 	
@@ -422,6 +450,118 @@ public class ArbeitsobjektRadharvester2014 extends Arbeitsobjekt {
 	
 	
 	
+	
+	public static class HangneigungArrayWithSelection implements Serializable {
+		private static final long serialVersionUID = 1L;
+		
+		public final Hangneigung[] allValues = Hangneigung.getNewArrayWithAllValues();
+		private Hangneigung selection = allValues[ Hangneigung.Bis30 ];
+
+		public Hangneigung getSelection() {
+			return selection;
+		}
+
+		public void setSelection(Hangneigung selection) {
+			if ( 
+					allValues[0] != selection &&
+					allValues[1] != selection &&
+					allValues[2] != selection &&
+					allValues[3] != selection &&
+					allValues[4] != selection ) 
+			{
+				throw new RuntimeException();
+			}
+			this.selection = selection;
+		}
+	}
+	
+	
+	
+	/*  Diese enum-ähnliche Klasse ist nötig, da es bei 
+	 *  einer echten enum immer nur eine Instanz gibt,
+	 *  und somit auch der benutzerdefinierte Wert 
+	 *  programmweit der selbe wäre.
+	 */
+	public static class Hangneigung implements Serializable {
+		private static final long serialVersionUID = 1L;
+
+		private final DecimalFormat df = new DecimalFormat("+#.## %;-#.## %"); //$NON-NLS-1$
+		
+		//int-Werte entsprechen der Position im Array
+		private static final int Bis30 = 0;
+		private static final int Bis40 = 1;
+		private static final int Bis50 = 2;
+		private static final int Bis60 = 3;
+		private static final int Benutzerdefiniert = 4;		
+		
+		private int name;
+		private boolean wasChanged = false;
+		private double wert = 0;
+		
+		public static Hangneigung[] getNewArrayWithAllValues() {
+			return new Hangneigung[]{
+					new Hangneigung(Hangneigung.Bis30, 		 	   0.00 ),
+					new Hangneigung(Hangneigung.Bis40, 		 	  -0.05 ),
+					new Hangneigung(Hangneigung.Bis50, 			  -0.10 ),
+					new Hangneigung(Hangneigung.Bis60,	 		  -0.15 ),
+					new Hangneigung(Hangneigung.Benutzerdefiniert, 0.0 )};
+		}
+		
+		private Hangneigung(int name, double wert) {
+			this.name = name;
+			this.wert = wert;
+		}
+		
+		public boolean isBenutzerdefiniert() {
+			return name == Benutzerdefiniert;
+		}
+		
+		public double getWert() {
+			return wert;
+		}
+		
+		public void setWert(double wert) {
+			if ( ! isBenutzerdefiniert() || Math.abs(wert) > 0.20001 ) {
+				throw new RuntimeException();
+			}
+			this.wasChanged = true;
+			this.wert = wert;
+		}
+		
+
+		@Override
+		public String toString() {
+			switch(this.name) {
+			case Bis30:
+				return "< 30% (" + df.format(getWert()) + ")".toString();  //$NON-NLS-1$//$NON-NLS-2$ 
+
+			case Bis40:
+				return "30% - 39% (" + df.format(getWert()) + ")".toString();  //$NON-NLS-1$//$NON-NLS-2$ 
+
+			case Bis50:
+				return "40% - 49% (" + df.format(getWert()) + ")".toString();  //$NON-NLS-1$//$NON-NLS-2$ 
+
+			case Bis60:
+				return "50% - 60% (" + df.format(getWert()) + ")".toString();  //$NON-NLS-1$//$NON-NLS-2$ 
+
+			case Benutzerdefiniert:
+				if (wasChanged) {
+					return PdfLabels.ArbeitsobjektRadharvester2014_benutzerdefiniert + " (" + df.format(getWert()) + ")".toString();  //$NON-NLS-1$//$NON-NLS-2$
+				}
+				else {
+					return PdfLabels.ArbeitsobjektRadharvester2014_benutzerdefiniert.toString();
+				} 
+
+			default:
+				throw new RuntimeException();
+			}
+		}
+	}
+	
+	
+	
+	
+	
 	@Override
 	public LabelValuePairList getLabelValuePairList(DecimalFormat decimalFormat) {
 		LabelValuePairList list = super.getLabelValuePairList(decimalFormat);
@@ -430,6 +570,11 @@ public class ArbeitsobjektRadharvester2014 extends Arbeitsobjekt {
 		list.add(PdfLabels.ArbeitsobjektRadharvester2014_ZuschlagFoermigkeit, foermigkeitArrayWithSelection.getSelection().toString() ); 
 		list.add(PdfLabels.ArbeitsobjektRadharvester2014_ZuschlagAnteilLaubholz, laubholzAnteilArrayWithSelection.getSelection().toString()); 
 		list.add(PdfLabels.ArbeitsobjektRadharvester2014_ZuschlagLiegendesHolz, liegendesHolzArrayWithSelection.getSelection().toString()); 
+		list.add(PdfLabels.ArbeitsobjektRadharvester2014_ZuschlagHangneigung, 	hangneigungArrayWithSelection.getSelection().toString());
+		list.add(ModelStrings.getString("Thw.EinsatzTraktionshilfswinde"),  	einsatzThw); //$NON-NLS-1$
+		if (einsatzThw) {
+			list.add(ModelStrings.getString("Thw.AnzahlRueckegassen"),  		anzahlRueckegassen); //$NON-NLS-1$
+		}
 		
 		return list;
 	}
@@ -441,7 +586,8 @@ public class ArbeitsobjektRadharvester2014 extends Arbeitsobjekt {
 				1 +
 				foermigkeitArrayWithSelection.getSelection().getWert() +
 				laubholzAnteilArrayWithSelection.getSelection().getWert() +
-				liegendesHolzArrayWithSelection.getSelection().getWert();
+				liegendesHolzArrayWithSelection.getSelection().getWert() +
+				hangneigungArrayWithSelection.getSelection().getWert();
 		
 		return result;
 	}

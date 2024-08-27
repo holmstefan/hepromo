@@ -19,10 +19,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 
 import javax.swing.Box;
@@ -34,6 +30,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.PersistentInputData;
@@ -117,11 +114,8 @@ public class FaktorenPanel extends JPanel {
 		//Button "+"
 		btnExpand = new JToggleButton("+"); //$NON-NLS-1$
 		btnExpand.setMargin(new Insets(1, 5, 1, 5));
-		btnExpand.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				changeExpandRisikoVerwaltungGewinn();
-			}
+		btnExpand.addActionListener(evt -> {
+			changeExpandRisikoVerwaltungGewinn();
 		});
 		parent.addDefaultItemListener(btnExpand);
 		row1.add(btnExpand);
@@ -175,6 +169,13 @@ public class FaktorenPanel extends JPanel {
 		row1.add(txtGewinn);
 		row1.add(Box.createHorizontalStrut(15));
 		
+		//InfoButton Risiko, Verwaltung, Gewinn
+		JLabel lblRisikoVerwaltungGewinn_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("FaktorenPanel.InfoButtonZuschlag")); //$NON-NLS-1$
+		lblRisikoVerwaltungGewinn_Info.setHorizontalTextPosition(SwingConstants.LEFT);
+		row1.add(lblRisikoVerwaltungGewinn_Info);
+		row1.add(Box.createHorizontalStrut(15));
+;
+		
 		
 		
 		//Zweite Reihe
@@ -198,6 +199,12 @@ public class FaktorenPanel extends JPanel {
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtMehrwertsteuer);
 		txtMehrwertsteuer.setMaximumSize(new Dimension(60, 20));
 		row2.add(txtMehrwertsteuer);
+		row2.add(Box.createHorizontalStrut(5));
+		
+		//InfoButton Mehrwertsteuer
+		JLabel lblMehrwertsteuer_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("FaktorenPanel.InfoButtonZuschlag")); //$NON-NLS-1$
+		lblMehrwertsteuer_Info.setHorizontalTextPosition(SwingConstants.LEFT);
+		row2.add(lblMehrwertsteuer_Info);
 		row2.add(Box.createHorizontalStrut(15));
 		
 		//Label Waehrungskuerzel
@@ -227,11 +234,8 @@ public class FaktorenPanel extends JPanel {
 		//Checkbox Rindenabzug
 		chkRindenabzugAutomatisch = new JCheckBox(GuiStrings.getString("FaktorenPanel.Umrechnungsfaktor_iR_oR_automatisch")); //$NON-NLS-1$
 		parent.addDefaultItemListener(chkRindenabzugAutomatisch);
-		chkRindenabzugAutomatisch.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				txtRindenabzug.setEnabled( ! ((JCheckBox)e.getSource()).isSelected() );
-			}
+		chkRindenabzugAutomatisch.addItemListener(evt -> {
+			txtRindenabzug.setEnabled( ! ((JCheckBox)evt.getSource()).isSelected() );
 		});
 		chkRindenabzugAutomatisch.setSelected(true);
 		row3.add(chkRindenabzugAutomatisch);

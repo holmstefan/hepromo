@@ -148,12 +148,9 @@ public class ForwarderPanel extends JPanel {
 	
 	public void onInputChangedBeforeCalculation(Object eventSource) {
 		if (cmbForwarderTyp.equals(eventSource)) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("ForwarderPanel.DialogForwarderTypGeaendert"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(ForwarderPanel.this, message, GuiStrings.getString("ForwarderPanel.DialogTitleWarnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("ForwarderPanel.DialogForwarderTypGeaendert"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(ForwarderPanel.this, message, GuiStrings.getString("ForwarderPanel.DialogTitleWarnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 			
 			//GUI ins Model laden

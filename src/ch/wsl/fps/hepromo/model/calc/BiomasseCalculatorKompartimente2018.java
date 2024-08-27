@@ -33,7 +33,7 @@ public class BiomasseCalculatorKompartimente2018 {
 	private static final HashMap<Standort, Koeffizienten> koeffizientenNadelReisig;
 	
 	static {
-		koeffizientenLaubAstderbholz = new HashMap<Standort, Koeffizienten>();
+		koeffizientenLaubAstderbholz = new HashMap<>();
 //		koeffizientenAstderbholz.put(Standort.Laub_Jura_Hoehe601bis1250m,	new Koeffizienten(-4.8322966, 0.05631471, 0, 0, 1, 0));
 //		koeffizientenAstderbholz.put(Standort.Laub_Jura_Hoehe1251bis3000m, 	new Koeffizienten(-4.8322966, 0.05631471, 0, 0, 0, 1));
 //		koeffizientenAstderbholz.put(Standort.Laub_Jura_Hoehe0bis600m, 		new Koeffizienten(-4.8322966, 0.05631471, 0, 0, 0, 0));
@@ -49,7 +49,7 @@ public class BiomasseCalculatorKompartimente2018 {
 		koeffizientenLaubAstderbholz.put(Standort.Laub_AlpenSuedseite_Hoehe0bis1250m, 	new Koeffizienten(-4.9853383, 0.07394173, -0.7056977, 0, 0, 0));
 		koeffizientenLaubAstderbholz.put(Standort.Laub_AlpenSuedseite_Hoehe1251bis3000m, new Koeffizienten(-4.9853383, 0.07394173, -0.7056977, 0, 1, 0));
 	
-		koeffizientenNadelReisig = new HashMap<Standort, Koeffizienten>();
+		koeffizientenNadelReisig = new HashMap<>();
 		koeffizientenNadelReisig.put(Standort.Nadel_Alpen_Hoehe1000bis1500m,	 new Koeffizienten(-1.20641326, -0.01918645, 0, 0.44296676, 1, 0));
 		koeffizientenNadelReisig.put(Standort.Nadel_Alpen_Hoehe1501bis3000m,  new Koeffizienten(-1.20641326, -0.01918645, 0, 0.44296676, 0, 1));
 //		koeffizientenReisig.put(Standort.Nadel_Andere_Hoehe601bis1250m,  new Koeffizienten(-1.20641326, -0.01918645, 0, 0.44296676, 1, 0));

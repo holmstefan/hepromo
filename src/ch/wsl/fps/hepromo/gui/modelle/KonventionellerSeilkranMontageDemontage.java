@@ -145,9 +145,11 @@ public abstract class KonventionellerSeilkranMontageDemontage extends HeProMoWin
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(true, false, false, false, false, false);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.build();
 	}
-
 	
 	
 	@Override

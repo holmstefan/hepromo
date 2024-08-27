@@ -21,8 +21,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
@@ -71,7 +71,7 @@ public class HeProMoExceptionHandler {
 	private static void appendToErrorLogFile(Throwable e, String msgPrefix) {
 		File file = new File("hepromo-error.log");
 		try (PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(file, true)))) {
-			String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime()); //TODO: switch to new Java 8 date/time classes.
+			String timeStamp = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(LocalDateTime.now()); //$NON-NLS-1$
 			printWriter.append(timeStamp + "\n");
 			
 			String errorMsg = getErrorMsgWithStackTrace(e, msgPrefix);

@@ -19,8 +19,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -237,23 +235,20 @@ public class ErschliessungForwarderPanel extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		btnAnsichtWechseln = new JButton("Ansicht wechseln"); //$NON-NLS-1$
-		btnAnsichtWechseln.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (erschliessungsPanelSelected == true) { //change to Fahrstreckenanteile
-					pnlWechselPanel.removeAll();
-					pnlWechselPanel.add(pnlFahrstreckenanteile);
-					btnAnsichtWechseln.setText(GuiStrings.getString("ErschliessungForwarderPanel.ErschliessungsdetailsZeigen")); //$NON-NLS-1$
-					erschliessungsPanelSelected = false;
-					return;
-				}
-				else { //change to Erschliessungsdetails
-					pnlWechselPanel.removeAll();
-					pnlWechselPanel.add(pnlErschliessungsdetails);
-					btnAnsichtWechseln.setText(GuiStrings.getString("ErschliessungForwarderPanel.FahrstreckenanteileZeigen")); //$NON-NLS-1$
-					erschliessungsPanelSelected = true;
-					return;
-				}
+		btnAnsichtWechseln.addActionListener(evt -> {
+			if (erschliessungsPanelSelected == true) { //change to Fahrstreckenanteile
+				pnlWechselPanel.removeAll();
+				pnlWechselPanel.add(pnlFahrstreckenanteile);
+				btnAnsichtWechseln.setText(GuiStrings.getString("ErschliessungForwarderPanel.ErschliessungsdetailsZeigen")); //$NON-NLS-1$
+				erschliessungsPanelSelected = false;
+				return;
+			}
+			else { //change to Erschliessungsdetails
+				pnlWechselPanel.removeAll();
+				pnlWechselPanel.add(pnlErschliessungsdetails);
+				btnAnsichtWechseln.setText(GuiStrings.getString("ErschliessungForwarderPanel.FahrstreckenanteileZeigen")); //$NON-NLS-1$
+				erschliessungsPanelSelected = true;
+				return;
 			}
 		});
 		this.add(btnAnsichtWechseln, c);

@@ -208,7 +208,14 @@ public class KonventionellerSeilkranGesamt extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(true, true, true, true, false, true);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
 	}
 
 

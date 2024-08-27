@@ -50,7 +50,7 @@ public class ModelMobilseilkranGesamt extends AbstractModel2014 {
 		getArbeitsobjekt().setSeilsystem(Seilsystem.ZweiseilSystem);
 		getArbeitsobjekt().setMaschinenStandort(MaschinenStandort.Oben);
 		
-		List<Integer> listStuetzenTragseilHoehen = new ArrayList<Integer>();
+		List<Integer> listStuetzenTragseilHoehen = new ArrayList<>();
 		listStuetzenTragseilHoehen.add(12);
 		getArbeitsobjekt().setStuetzenTragseilHoehen(listStuetzenTragseilHoehen);
 		

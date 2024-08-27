@@ -45,8 +45,10 @@ public class Ergebnis {
 	protected double kostenUmsetzen_total;
 	protected double kostenWeitereAufwaende_total;
 //	protected double kostenTotal_total;
+	
+	protected boolean isUnitMaschine2ISH = false;
 
-	private final HashMap<ProdEinheit, Double> produktivitaeten = new HashMap<ProdEinheit, Double>();
+	private final HashMap<ProdEinheit, Double> produktivitaeten = new HashMap<>();
 	{
 		produktivitaeten.put(ProdEinheit.EMPTY, -1.0);
 	}
@@ -166,6 +168,11 @@ public class Ergebnis {
 
 	public void setMehrwertsteuer_Prz(double value) {
 		faktorMehrwertsteuer = (value / 100.0) + 1.0;
+	}
+
+	
+	public void setUnitMaschine2ISH(boolean isUnitMaschine2ISH) {
+		this.isUnitMaschine2ISH = isUnitMaschine2ISH;
 	}
 	
 	
@@ -460,13 +467,14 @@ public class Ergebnis {
 		}
 		
 		String[][] strings = new String[11][];
+		String unitMaschine2 = isUnitMaschine2ISH ? "ISH" : "PMH15";
 		
 		if (getAnzahl_m3() > 1) {
 			strings[ 0] = 							new String[]{"", 												PdfLabels.Ergebnis_Zeitaufwand_Std.toString(), 	"", 		PdfLabels.Ergebnis_Kosten + " (" + waehrung + ")", 	""												};
 			strings[ 1] = showDauerDerArbeit ?		new String[]{PdfLabels.Ergebnis_DauerDerArbeit.toString(),		df.format(getZeitTotal()), 						"", 		PdfLabels.Ergebnis_proM3.toString(), 				PdfLabels.Ergebnis_total.toString()				} : new String[]{"", "", "", PdfLabels.Ergebnis_proM3.toString(), PdfLabels.Ergebnis_total.toString()}	;
 			strings[ 2] = labelPersonal1 != null ? 	new String[]{labelPersonal1,									df.format(getZeitPersonal()), 					"WPPH", 	df.format(getKostenPersonal_proM3()), 				df.format(getKostenPersonal_total()) 			} : null;
 			strings[ 3] = labelMaschine1 != null ? 	new String[]{labelMaschine1, 									df.format(getZeitMaschine1()), 					"PMH15", 	df.format(getKostenMaschine1_proM3()),	 			df.format(getKostenMaschine1_total()) 			} : null;
-			strings[ 4] = labelMaschine2 != null ? 	new String[]{labelMaschine2, 									df.format(getZeitMaschine2()), 					"PMH15", 	df.format(getKostenMaschine2_proM3()),	 			df.format(getKostenMaschine2_total()) 			} : null;
+			strings[ 4] = labelMaschine2 != null ? 	new String[]{labelMaschine2, 									df.format(getZeitMaschine2()), 					unitMaschine2, 	df.format(getKostenMaschine2_proM3()),			df.format(getKostenMaschine2_total()) 			} : null;
 			strings[ 5] = labelMaschine3 != null ? 	new String[]{labelMaschine3, 									df.format(getZeitMaschine3()), 					"PMH15", 	df.format(getKostenMaschine3_proM3()),	 			df.format(getKostenMaschine3_total()) 			} : null;
 			strings[ 6] = 							new String[]{PdfLabels.Ergebnis_Umsetzen.toString(), 			df.format(getZeitUmsetzen()), 					"", 		df.format(getKostenUmsetzen_proM3()), 				df.format(getKostenUmsetzen_total()) 			};
 			strings[ 7] = 							new String[]{PdfLabels.Ergebnis_WeitereAufwaende.toString(), 	df.format(getZeitWeitereAufwaende()), 			"", 		df.format(getKostenWeitereAufwaende_proM3()), 		df.format(getKostenWeitereAufwaende_total()) 	};
@@ -479,7 +487,7 @@ public class Ergebnis {
 			strings[ 1] = showDauerDerArbeit ?		new String[]{PdfLabels.Ergebnis_DauerDerArbeit.toString(),		df.format(getZeitTotal()), 						"", 		PdfLabels.Ergebnis_total.toString(),				"", 		} : new String[]{"", "", "", PdfLabels.Ergebnis_total.toString(),"", };
 			strings[ 2] = labelPersonal1 != null ? 	new String[]{labelPersonal1,									df.format(getZeitPersonal()), 					"WPPH", 	df.format(getKostenPersonal_total()), 				"", 		} : null;
 			strings[ 3] = labelMaschine1 != null ? 	new String[]{labelMaschine1, 									df.format(getZeitMaschine1()), 					"PMH15", 	df.format(getKostenMaschine1_total()), 				"", 		} : null;
-			strings[ 4] = labelMaschine2 != null ? 	new String[]{labelMaschine2, 									df.format(getZeitMaschine2()), 					"PMH15", 	df.format(getKostenMaschine2_total()), 				"", 		} : null;
+			strings[ 4] = labelMaschine2 != null ? 	new String[]{labelMaschine2, 									df.format(getZeitMaschine2()), 					unitMaschine2, 	df.format(getKostenMaschine2_total()), 			"", 		} : null;
 			strings[ 5] = labelMaschine3 != null ? 	new String[]{labelMaschine3, 									df.format(getZeitMaschine3()), 					"PMH15", 	df.format(getKostenMaschine3_total()), 				"", 		} : null;
 			strings[ 6] = 							new String[]{PdfLabels.Ergebnis_Umsetzen.toString(), 			df.format(getZeitUmsetzen()), 					"", 		df.format(getKostenUmsetzen_total()), 				"", 		};
 			strings[ 7] = 							new String[]{PdfLabels.Ergebnis_WeitereAufwaende.toString(), 	df.format(getZeitWeitereAufwaende()), 			"", 		df.format(getKostenWeitereAufwaende_total()), 		"", 		};

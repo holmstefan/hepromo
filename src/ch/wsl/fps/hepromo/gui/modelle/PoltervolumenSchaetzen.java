@@ -21,8 +21,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
@@ -104,33 +102,30 @@ public class PoltervolumenSchaetzen extends JPanel {
 		cmbSchaetzmethode.addItem(new SchaetzmethodeKuptz());
 		cmbSchaetzmethode.addItem(new SchaetzmethodeKuptzWaldrestholz());
 		cmbSchaetzmethode.setSelectedIndex(-1);
-		cmbSchaetzmethode.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object selection = cmbSchaetzmethode.getSelectedItem();
-				if (selection instanceof PoltervolumenSchaetzmethode) {
-					pnlSchaetzmethode.removeAll();
-					pnlSchaetzmethode.setLayout( new GridBagLayout() );
-					GridBagConstraints c = new GridBagConstraints();
-					c.gridx = 0;
-					c.gridy = 0;
-					c.fill = GridBagConstraints.HORIZONTAL;
-					c.weightx = 100;
-					pnlSchaetzmethode.add((PoltervolumenSchaetzmethode) selection, c);
-					PoltervolumenSchaetzen.this.repaint();
-					PoltervolumenSchaetzen.this.validate();
-					Window window = SwingUtilities.getWindowAncestor(PoltervolumenSchaetzen.this);
-					if (window != null) {
-						window.pack();
-					}
+		cmbSchaetzmethode.addActionListener(evt -> {
+			Object selection = cmbSchaetzmethode.getSelectedItem();
+			if (selection instanceof PoltervolumenSchaetzmethode) {
+				pnlSchaetzmethode.removeAll();
+				pnlSchaetzmethode.setLayout( new GridBagLayout() );
+				GridBagConstraints c1 = new GridBagConstraints();
+				c1.gridx = 0;
+				c1.gridy = 0;
+				c1.fill = GridBagConstraints.HORIZONTAL;
+				c1.weightx = 100;
+				pnlSchaetzmethode.add((PoltervolumenSchaetzmethode) selection, c1);
+				PoltervolumenSchaetzen.this.repaint();
+				PoltervolumenSchaetzen.this.validate();
+				Window window = SwingUtilities.getWindowAncestor(PoltervolumenSchaetzen.this);
+				if (window != null) {
+					window.pack();
 				}
-				else {
-					pnlSchaetzmethode.removeAll();
-					PoltervolumenSchaetzen.this.validate();
-					Window window = SwingUtilities.getWindowAncestor(PoltervolumenSchaetzen.this);
-					if (window != null) {
-						window.pack();
-					}
+			}
+			else {
+				pnlSchaetzmethode.removeAll();
+				PoltervolumenSchaetzen.this.validate();
+				Window window = SwingUtilities.getWindowAncestor(PoltervolumenSchaetzen.this);
+				if (window != null) {
+					window.pack();
 				}
 			}
 		});

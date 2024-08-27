@@ -121,7 +121,13 @@ public class Radharvester extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		ErgebnisPanel result = new ErgebnisPanel();
+		ErgebnisPanel result = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
 		result.hideDauerDerArbeit();
 		return result;
 	}

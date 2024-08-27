@@ -26,8 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -203,11 +201,8 @@ public class BestandPanelKonventionellerSeilkranSeilen extends JPanel {
 		
 		txtHolzmengeAnSeillinie_m3iR.setModel(new SpinnerNumberModel(800.0, 1, 10000, 100));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmengeAnSeillinie_m3iR);
-		txtHolzmengeAnSeillinie_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmengeAnSeillinie_m3iR.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
 		
 		txtStuecklaenge_m.setModel(new SpinnerNumberModel(5.0, 1, 100, 1));

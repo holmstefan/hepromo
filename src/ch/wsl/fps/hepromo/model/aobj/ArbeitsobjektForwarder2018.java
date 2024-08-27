@@ -51,6 +51,9 @@ public class ArbeitsobjektForwarder2018 extends Arbeitsobjekt {
 			new Energieholzanfall(ModelStrings.getString("ArbeitsobjektForwarder2018.enumBenutzerdefiniert"),70, true) //$NON-NLS-1$
 	};
 
+	private boolean einsatzThw;
+	private int anzahlRueckegassen;
+
 
 	public double getEnergieholzmenge_m3iR() {
 		return energieholzmenge_m3iR;
@@ -163,6 +166,22 @@ public class ArbeitsobjektForwarder2018 extends Arbeitsobjekt {
 	public void setAllEnergieholzanfall(Energieholzanfall[] allEnergieholzanfall) {
 		this.allEnergieholzanfall = allEnergieholzanfall;
 	}
+
+	public boolean isEinsatzThw() {
+		return einsatzThw;
+	}
+
+	public void setEinsatzThw(boolean einsatzThw) {
+		this.einsatzThw = einsatzThw;
+	}
+
+	public int getAnzahlRueckegassen() {
+		return anzahlRueckegassen;
+	}
+
+	public void setAnzahlRueckegassen(int anzahlRueckegassen) {
+		this.anzahlRueckegassen = anzahlRueckegassen;
+	}
 	
 
 	public enum Rueckeentfernung {
@@ -226,7 +245,9 @@ public class ArbeitsobjektForwarder2018 extends Arbeitsobjekt {
 	public enum Hangneigung {
 		NeigungBis15Prozent,
 		Neigung15Bis25Prozent,
-		NeigungGroesser25Prozent;
+		Neigung25Bis35Prozent,
+		Neigung35Bis45Prozent,
+		NeigungGroesser45Prozent;
 		
 		@Override
 		public String toString() {
@@ -235,10 +256,16 @@ public class ArbeitsobjektForwarder2018 extends Arbeitsobjekt {
 				return "<15 %"; //$NON-NLS-1$
 				
 			case Neigung15Bis25Prozent:
-				return "15-25 %"; //$NON-NLS-1$
+				return "15-24 %"; //$NON-NLS-1$
 				
-			case NeigungGroesser25Prozent:
-				return ">25 %"; //$NON-NLS-1$
+			case Neigung25Bis35Prozent:
+				return "25-34 %"; //$NON-NLS-1$
+				
+			case Neigung35Bis45Prozent:
+				return "35-44 %"; //$NON-NLS-1$
+				
+			case NeigungGroesser45Prozent:
+				return ">45 %"; //$NON-NLS-1$
 				
 			default:
 				throw new RuntimeException(this.name());
@@ -390,6 +417,10 @@ public class ArbeitsobjektForwarder2018 extends Arbeitsobjekt {
 		list.add(ModelStrings.getString("ArbeitsobjektForwarder2018.AbstandRueckegasse"),  	abstandRueckegasse); //$NON-NLS-1$
 		list.add(ModelStrings.getString("ArbeitsobjektForwarder2018.Zopfdurchmesser_cm"),  	zopfdurchmesser_cm); //$NON-NLS-1$
 		list.add(ModelStrings.getString("ArbeitsobjektForwarder2018.Energieholzanfall"),  	energieholzanfall_m3iRproHa.toStringNoHtml()); //$NON-NLS-1$
+		list.add(ModelStrings.getString("Thw.EinsatzTraktionshilfswinde"),  				einsatzThw); //$NON-NLS-1$
+		if (einsatzThw) {
+			list.add(ModelStrings.getString("Thw.AnzahlRueckegassen"),  					anzahlRueckegassen); //$NON-NLS-1$
+		}
 		
 		return list;
 	}

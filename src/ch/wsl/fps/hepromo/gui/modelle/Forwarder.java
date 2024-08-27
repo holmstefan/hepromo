@@ -180,7 +180,15 @@ public class Forwarder extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(true, true, false, true, true, false, true, true, true);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.showHintProduktivitaet()
+				.showHintKostenProM3()
+				.build();
 	}
 
 	

@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -33,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.net.URI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import java.util.Locale;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -103,10 +106,10 @@ public class MainWindow extends JFrame {
 	private JLabel lblWait;
 	private static final String betaSuffix = " <font size=6 color=red>BETA</font>"; //$NON-NLS-1$
 	private static final boolean isBeta = false;
-	private static final String hepromoVersion = "2.5" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
+	private static final String hepromoVersion = "2.6" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
 	private static final int hepromoMonth = Calendar.AUGUST;
 	private static boolean LOG_TO_FILE = false;
-	private static final int hepromoYear = 2021;
+	private static final int hepromoYear = 2024;
 	private static Locale locale = new Locale("de"); //$NON-NLS-1$
 	
 	public static float SIZE = 1;
@@ -178,52 +181,42 @@ public class MainWindow extends JFrame {
 		
 
 		//create gui
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+		SwingUtilities.invokeLater(() -> {
+			//load look & feel
+			try {
+				// Set System L&F
+				UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
 
-				//load look & feel
-				try {
-					// Set System L&F
-					UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
-					
-					//adapt GUIs based on default font
-					Font defaultFont = new JLabel().getFont();	
-					SIZE = (float)defaultFont.getSize() / 11; //Für Schriftgrösse 11 wurde die Applikation ursprünglich entwickelt.
-					SIZE = Math.max(1, SIZE);
-					
-					//work-around for windows 10  -> funktioniert, macht aber GUI sehr klein
-//					if (defaultFont.getFontName().startsWith("Tahoma")) {
-//						if (defaultFont.getSize() != 11) {
-//							setDefaultFont(new FontUIResource("Tahoma", Font.PLAIN, 11));
-//						}
-//					}
-					if (System.getProperty("os.name") != null && System.getProperty("os.name").indexOf("Mac") >= 0) {
-						WIDTH_FACTOR = 1.15f;
-					}
-				} 
-				catch (UnsupportedLookAndFeelException e) {
-					HeProMoExceptionHandler.handle(e);
-				}
-				catch (ClassNotFoundException e) {
-					HeProMoExceptionHandler.handle(e);
-				}
-				catch (InstantiationException e) {
-					HeProMoExceptionHandler.handle(e);
-				}
-				catch (IllegalAccessException e) {
-					HeProMoExceptionHandler.handle(e);
-				}
+				//adapt GUIs based on default font
+				Font defaultFont = new JLabel().getFont();	
+				SIZE = (float)defaultFont.getSize() / 11; //Für Schriftgrösse 11 wurde die Applikation ursprünglich entwickelt.
+				SIZE = Math.max(1, SIZE);
 
-				//tooltip settings
-				ToolTipManager.sharedInstance().setInitialDelay(0);
-				ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
-
-
-				//create main window
-				setAllLocales(locale);
-				new MainWindow();
+				//work-around for windows 10  -> funktioniert, macht aber GUI sehr klein
+				//					if (defaultFont.getFontName().startsWith("Tahoma")) {
+				//						if (defaultFont.getSize() != 11) {
+				//							setDefaultFont(new FontUIResource("Tahoma", Font.PLAIN, 11));
+				//						}
+				//					}
+				if (System.getProperty("os.name") != null && System.getProperty("os.name").indexOf("Mac") >= 0) {
+					WIDTH_FACTOR = 1.15f;
+				}
+			} 
+			catch (UnsupportedLookAndFeelException 
+					| ClassNotFoundException
+					| InstantiationException
+					| IllegalAccessException e) {
+				HeProMoExceptionHandler.handle(e);
 			}
+
+			//tooltip settings
+			ToolTipManager.sharedInstance().setInitialDelay(0);
+			ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+
+
+			//create main window
+			setAllLocales(locale);
+			new MainWindow();
 		});
 	}
 
@@ -303,7 +296,7 @@ public class MainWindow extends JFrame {
 
 		//menu action: languages
 		ButtonGroup btnGroupLang = new ButtonGroup();
-		ArrayList<Locale> listLanguages = new ArrayList<Locale>();
+		ArrayList<Locale> listLanguages = new ArrayList<>();
 		listLanguages.add(new Locale("de")); //$NON-NLS-1$
 		listLanguages.add(new Locale("fr")); //$NON-NLS-1$
 		listLanguages.add(new Locale("it")); //$NON-NLS-1$
@@ -363,7 +356,7 @@ public class MainWindow extends JFrame {
 				if (locale.equals( new Locale("en") )) { //$NON-NLS-1$
 					sb.append("<br>"); //$NON-NLS-1$
 					sb.append("<b>" + "Translation:" + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-					sb.append("\tFritz Frutig / friedrich.frutig@wsl.ch / +41 44 739 24 56<br>"); //$NON-NLS-1$
+					sb.append("\tFritz Frutig<br>"); //$NON-NLS-1$
 				}
 				
 				sb.append("</html>"); //$NON-NLS-1$
@@ -382,29 +375,60 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int fontSize = SIZE > 1.3 ? 6 : 5;
-				StringBuilder sb = new StringBuilder();
-				sb.append("<html>"); //$NON-NLS-1$
-				sb.append("<b><font size=" + fontSize + " color=#006666>HeProMo v" + hepromoVersion + " / " + getHeProMoDate() + "</font></b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				sb.append("<br>"); //$NON-NLS-1$
-				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleBereitgestelltDurch") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append(GuiStrings.getString("MainWindow.InfoDialog.EidgForschungsanstaltWSL") + "<br>"); //$NON-NLS-1$
-				sb.append("Zürcherstrasse 111<br>"); //$NON-NLS-1$
-				sb.append("CH-8903 Birmensdorf<br>"); //$NON-NLS-1$
-				sb.append("<br>"); //$NON-NLS-1$
-				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleNeueModelle") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append("D. Pedolin, F. Frutig, R. Lemm, O. Thees<br>"); //$NON-NLS-1$
-				sb.append("<br>"); //$NON-NLS-1$
-				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleAlteModelle") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append("V. Erni, R. Lemm, F. Frutig, M. Breitenstein, D. Riechsteiner, K. Oswald, O. Thees<br>"); //$NON-NLS-1$
-				sb.append("<br>"); //$NON-NLS-1$
-				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleProgrammierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append("\tStefan Holm<br>"); //$NON-NLS-1$
-				sb.append("<br>"); //$NON-NLS-1$
-				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleZitierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				sb.append("\t" + GuiStrings.getString("MainWindow.InfoDialog.EidgForschungsanstaltWSL") + ", " + hepromoYear + ": " + GuiStrings.getString("MainWindow.InfoDialog.HolzernteProduktivitaetsmodelle") + " HeProMo, " + GuiStrings.getString("MainWindow.Version") + " " + hepromoVersion + "<br><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
-				sb.append("</html>"); //$NON-NLS-1$
+				StringBuilder sb1 = new StringBuilder();
+				sb1.append("<html>"); //$NON-NLS-1$
+				sb1.append("<b><font size=" + fontSize + " color=#006666>HeProMo v" + hepromoVersion + " / " + getHeProMoDate() + "</font></b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleBereitgestelltDurch") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append(GuiStrings.getString("MainWindow.InfoDialog.EidgForschungsanstaltWSL") + "<br>"); //$NON-NLS-1$
+				sb1.append("Zürcherstrasse 111<br>"); //$NON-NLS-1$
+				sb1.append("CH-8903 Birmensdorf<br>"); //$NON-NLS-1$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleNeueModelle2024") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append("Marc Werder und Janine Schweier<br>"); //$NON-NLS-1$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleNeueModelle2014") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append("D. Pedolin, F. Frutig, R. Lemm, O. Thees<br>"); //$NON-NLS-1$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleAlteModelle") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append("V. Erni, R. Lemm, F. Frutig, M. Breitenstein, D. Riechsteiner, K. Oswald, O. Thees<br>"); //$NON-NLS-1$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleProgrammierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append("\tStefan Holm<br>"); //$NON-NLS-1$
+				sb1.append("<br>"); //$NON-NLS-1$
+				sb1.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleZitierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				sb1.append("\t- " + GuiStrings.getString("MainWindow.InfoDialog.EidgForschungsanstaltWSL") + ", " + hepromoYear + ": " + GuiStrings.getString("MainWindow.InfoDialog.HolzernteProduktivitaetsmodelle") + " HeProMo, " + GuiStrings.getString("MainWindow.Version") + " " + hepromoVersion + ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+				sb1.append("</html>"); //$NON-NLS-1$
+				JLabel label1 = new JLabel(sb1.toString());
+
+
+				StringBuilder sb2 = new StringBuilder();
+				sb2.append("<html>\t- <u style=\"color:blue;\">Holm, S., Frutig, F., Lemm, R., Thees, O., & Schweier, J. (2020). HeProMo: A decision</u><br>&nbsp;&nbsp;<u style=\"color:blue;\">support tool to estimate wood harvesting productivities. PLoS One, 15(12), e0244289.</u><br><br>"); //$NON-NLS-1$ //$NON-NLS-2$
+				sb2.append("</html>"); //$NON-NLS-1$
+				JLabel label2 = new JLabel(sb2.toString());
+				label2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				label2.addMouseListener(new MouseAdapter() {
+				    @Override
+				    public void mouseClicked(MouseEvent e) {
+				        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+				        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+				            try {
+				            	URI uri = new URI("https://doi.org/10.1371/journal.pone.0244289");
+				                desktop.browse(uri);
+				            } catch (Exception e1) {
+				                e1.printStackTrace();
+				            }
+				        }
+				    }
+				});
+
 				
-				JOptionPane.showMessageDialog(MainWindow.this, sb.toString(), GuiStrings.getString("MainWindow.menuInfo"), JOptionPane.NO_OPTION); //$NON-NLS-1$
+				JPanel panel = new JPanel();
+				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+				panel.add(label1);
+				panel.add(label2);
+				
+				JOptionPane.showMessageDialog(MainWindow.this, panel, GuiStrings.getString("MainWindow.menuInfo"), JOptionPane.NO_OPTION); //$NON-NLS-1$
 			}			
 		};
 		menuHelp.add(aMenuInfo);	

@@ -27,8 +27,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanelHelikopterGesamt;
@@ -104,11 +102,8 @@ public class HelikopterGesamt extends HelikopterFliegenBase {
 		c.insets = new Insets(5,5,0,5);
 		txtHolzmenge_m3iR = new JSpinner(new SpinnerNumberModel(250.0, 0, 5000, 1));
 		addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmenge_m3iR);
-		txtHolzmenge_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmenge_m3iR.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
 		panel.add(txtHolzmenge_m3iR, c);
 		

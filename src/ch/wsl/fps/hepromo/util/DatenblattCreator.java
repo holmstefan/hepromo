@@ -64,14 +64,11 @@ public class DatenblattCreator {
 	public static void preInitializeInSeparateThread() {
 		synchronized(classLevelLock) {
 			if (isAlreadyPreinitialized == false) {
-				Thread t = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						DatenblattCreator instance = new DatenblattCreator();
-						String emptyXMLString = "<?xml version=\"1.0\" encoding=\"" + CHARSET + "\" standalone=\"yes\"?><kalkulation></kalkulation>";
-						instance.generatePdf(emptyXMLString, null);
-						isAlreadyPreinitialized = true;
-					}
+				Thread t = new Thread(() -> {
+					DatenblattCreator instance = new DatenblattCreator();
+					String emptyXMLString = "<?xml version=\"1.0\" encoding=\"" + CHARSET + "\" standalone=\"yes\"?><kalkulation></kalkulation>";
+					instance.generatePdf(emptyXMLString, null);
+					isAlreadyPreinitialized = true;
 				});
 				t.start();
 			}
@@ -97,57 +94,42 @@ public class DatenblattCreator {
 			Logger fopLogger = Logger.getLogger("org.apache.fop");
 			fopLogger.setLevel(Level.OFF);
 
-			try {
-				// Step 1: Construct a FopFactory
-				// (reuse if you plan to render multiple documents!)
-				FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
+			// Step 1: Construct a FopFactory
+			// (reuse if you plan to render multiple documents!)
+			FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
 
-				// Step 2: Set up output stream.
-				// Note: Using BufferedOutputStream for performance reasons (helpful with FileOutputStreams).
-				OutputStream out = getOutputStream(pdfFile);
+			// Step 2: Set up output stream.
+			// Note: Using BufferedOutputStream for performance reasons (helpful with FileOutputStreams).
+			try (OutputStream out = getOutputStream(pdfFile);) {
+				// Step 3: Construct fop with desired output format
+				Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
 
-				try {
-					// Step 3: Construct fop with desired output format
-					Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, out);
+				// Step 4: Setup XSLT
+				String xsltFilePath = "data/kalkulation2fo.xsl";
+				TransformerFactory factory = TransformerFactory.newInstance();
+				Transformer transformer = factory.newTransformer(new StreamSource(openFile(xsltFilePath)));
+				//transformer.setOutputProperty("encoding", CHARSET);
 
-					// Step 4: Setup XSLT
-					String xsltFilePath = "data/kalkulation2fo.xsl";
-					TransformerFactory factory = TransformerFactory.newInstance();
-					Transformer transformer = factory.newTransformer(new StreamSource(openFile(xsltFilePath)));
-//			        transformer.setOutputProperty("encoding", CHARSET);
+				// Step 5: Setup input for XSLT transformation
+				Source src = new StreamSource(new ByteArrayInputStream(xmlString.getBytes(CHARSET))); 
 
-					// Step 5: Setup input for XSLT transformation
-					Source src = new StreamSource(new ByteArrayInputStream(xmlString.getBytes(CHARSET))); 
+				// Resulting SAX events (the generated FO) must be piped through to FOP
+				Result res = new SAXResult(fop.getDefaultHandler());
 
-					// Resulting SAX events (the generated FO) must be piped through to FOP
-					Result res = new SAXResult(fop.getDefaultHandler());
+				// Step 6: Start XSLT transformation and FOP processing
+				transformer.transform(src, res);
 
-					// Step 6: Start XSLT transformation and FOP processing
-					transformer.transform(src, res);
-					
-					if (pdfFile != null) {
-						System.out.println("Datenblatt erfolgreich erstellt");
-						return new ExportMethodResult(true, false);
-					}
-				} catch (FOPException e) {
-					HeProMoExceptionHandler.handle(e);
-
-				} catch (TransformerException e) {
-					HeProMoExceptionHandler.handle(e);
-
-				} catch (TransformerFactoryConfigurationError e) {
-					HeProMoExceptionHandler.handle(e);
-
-				} finally {
-					//Clean-up
-					out.close();
+				if (pdfFile != null) {
+					System.out.println("Datenblatt erfolgreich erstellt");
+					return new ExportMethodResult(true, false);
 				}
-			} catch (FileNotFoundException e) {
+			}
+			catch (FileNotFoundException e) {
 				String msg = GuiStrings.getString("HeProMoWindow.FehlerBeimErstellenDerDatei") + "\n" + e.getLocalizedMessage(); //$NON-NLS-1$
 				JOptionPane.showMessageDialog(null, msg, GuiStrings.getString("HeProMoWindow.DialogTitleFehler"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 				return new ExportMethodResult(false, true);
-
-			} catch (IOException e) {
+			}
+			catch (FOPException | TransformerException | TransformerFactoryConfigurationError | IOException e) {
 				HeProMoExceptionHandler.handle(e);
 			}
 		}

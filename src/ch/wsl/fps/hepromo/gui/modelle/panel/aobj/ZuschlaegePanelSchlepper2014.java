@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.aobj;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
@@ -148,24 +147,18 @@ public class ZuschlaegePanelSchlepper2014 extends JPanel {
 		}
 		
 		//add action listener
-		cmbBeizugsdistanz.addActionListener(new ActionListener() { //braucht keinen DefaultActionListener -> Änderungen werden beim JSpinner abgefangen
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Beizugsdistanz selectedItem = (Beizugsdistanz) ((JComboBox<?>)e.getSource()).getSelectedItem();
-				if (selectedItem != null) {
-					ZuschlaegePanelSchlepper2014.this.beizugsdistanzArrayWithSelection.setSelection(selectedItem);
-					txtBeizugsdistanz.setEnabled(  selectedItem.isBenutzerdefiniert() );
-					txtBeizugsdistanz.setValue( selectedItem.getWert() );
-					
-					if (selectedItem.isBenutzerdefiniert() && parent.isLoadingModelFromFile == false) {
-						SwingUtilities.invokeLater(new Runnable() {
-							@Override
-							public void run() {
-								String message = GuiStrings.getString("Schlepper2014.WarnungBeizugsdistanz"); //$NON-NLS-1$
-								JOptionPane.showMessageDialog(ZuschlaegePanelSchlepper2014.this, message, GuiStrings.getString("Schlepper2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-							}
-						});
-					}
+		cmbBeizugsdistanz.addActionListener(evt -> { //braucht keinen DefaultActionListener -> Änderungen werden beim JSpinner abgefangen
+			Beizugsdistanz selectedItem = (Beizugsdistanz) ((JComboBox<?>)evt.getSource()).getSelectedItem();
+			if (selectedItem != null) {
+				ZuschlaegePanelSchlepper2014.this.beizugsdistanzArrayWithSelection.setSelection(selectedItem);
+				txtBeizugsdistanz.setEnabled(  selectedItem.isBenutzerdefiniert() );
+				txtBeizugsdistanz.setValue( selectedItem.getWert() );
+
+				if (selectedItem.isBenutzerdefiniert() && parent.isLoadingModelFromFile == false) {
+					SwingUtilities.invokeLater(() -> {
+						String message = GuiStrings.getString("Schlepper2014.WarnungBeizugsdistanz"); //$NON-NLS-1$
+						JOptionPane.showMessageDialog(ZuschlaegePanelSchlepper2014.this, message, GuiStrings.getString("Schlepper2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
+					});
 				}
 			}
 		});

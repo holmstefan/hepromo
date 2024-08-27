@@ -20,9 +20,7 @@ import java.awt.Desktop;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -52,7 +50,6 @@ import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -187,33 +184,24 @@ public abstract class HeProMoWindow extends JFrame {
 	
 	
 	// used for JSpinner
-	private final ChangeListener defaultChangeListner = new ChangeListener(){
-		@Override
-		public void stateChanged(ChangeEvent e) {
-//			System.out.println("spn value changed: " + ((JSpinner)e.getSource()).getValue());
-			onInputChanged(e.getSource());
-		}
+	private final ChangeListener defaultChangeListner = evt -> {
+		//System.out.println("spn value changed: " + ((JSpinner)e.getSource()).getValue());
+		onInputChanged(evt.getSource());
 	};
 	
 	//used for JComboBox
-	private final ActionListener defaultActionListener = new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Object selectedItem = ((JComboBox<?>)e.getSource()).getSelectedItem();
-			if (selectedItem != null) {
-//				System.out.println("cmb value changed: " + selectedItem);
-				onInputChanged(e.getSource());
-			}
+	private final ActionListener defaultActionListener = evt -> {
+		Object selectedItem = ((JComboBox<?>)evt.getSource()).getSelectedItem();
+		if (selectedItem != null) {
+			//				System.out.println("cmb value changed: " + selectedItem);
+			onInputChanged(evt.getSource());
 		}
 	};
 	
 	//used for JCheckBox / JRadioButton / JToggleButton
-	private final ItemListener defaultItemListener = new ItemListener() {
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-//			System.out.println( "toggle value changed: " + ((JToggleButton)e.getSource()).isSelected() );
-			onInputChanged(e.getSource());
-		}
+	private final ItemListener defaultItemListener = evt -> {
+//		System.out.println( "toggle value changed: " + ((JToggleButton)e.getSource()).isSelected() );
+		onInputChanged(evt.getSource());
 	};
 	
 	//used fo JTextField
@@ -295,23 +283,19 @@ public abstract class HeProMoWindow extends JFrame {
 	 */
 	protected final void initalize() {
 		try {
-			SwingUtilities.invokeAndWait(new Runnable() {
-				@Override
-				public void run() {
+			SwingUtilities.invokeAndWait(() -> {
+				//init content
+				pnlFaktoren = new FaktorenPanel(HeProMoWindow.this); //Listener müssen vor Initialisierung des FaktorenPanel initialisiert sein, das GUI danach!
+				initContent();
+				initPanelArbeitsobjekt(pnlArbeitsObjekt);
+				initPanelArbeitssystem(pnlArbeitsSystem);
+				initData();
 
-					//init content
-					pnlFaktoren = new FaktorenPanel(HeProMoWindow.this); //Listener müssen vor Initialisierung des FaktorenPanel initialisiert sein, das GUI danach!
-					initContent();
-					initPanelArbeitsobjekt(pnlArbeitsObjekt);
-					initPanelArbeitssystem(pnlArbeitsSystem);
-					initData();
+				loadModelToGUI( getModel() );
 
-					loadModelToGUI( getModel() );
-
-					//show window
-//					HeProMoWindow.this.pack(); //TODO: prüfen, ob gute Alternative zu explizitem setSize() in allen Modellen!
-					HeProMoWindow.this.setVisible(true);
-				}
+				//show window
+//				HeProMoWindow.this.pack(); //TODO: prüfen, ob gute Alternative zu explizitem setSize() in allen Modellen!
+				HeProMoWindow.this.setVisible(true);
 			});
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -479,12 +463,9 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,2,0,5);
 		txtAnzahlNachkommastellen = new JSpinner(new SpinnerNumberModel(2, 0, 5, 1));
-		txtAnzahlNachkommastellen.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				ergebnisPanel.setDecimalFormat( createDecimalFormat() );
-				displayErgebnis();
-			}
+		txtAnzahlNachkommastellen.addChangeListener(evt -> {
+			ergebnisPanel.setDecimalFormat( createDecimalFormat() );
+			displayErgebnis();
 		});
 		pnlButtons.add(txtAnzahlNachkommastellen, c);
 		
@@ -505,11 +486,8 @@ public abstract class HeProMoWindow extends JFrame {
 			c.gridy = 0;
 			c.insets = new Insets(5,0,0,0);
 			final JButton btnDokumentation = new JButton(GuiStrings.getString("HeProMoWindow.btnGrundlagen")); //$NON-NLS-1$
-			btnDokumentation.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					DocumentationBroker.showDocumentation(getModel(), HeProMoWindow.this, btnDokumentation);
-				}			
+			btnDokumentation.addActionListener(evt -> {
+				DocumentationBroker.showDocumentation(getModel(), HeProMoWindow.this, btnDokumentation);
 			});
 			pnlButtons.add(btnDokumentation, c);
 		}
@@ -521,38 +499,35 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		btnDatenblatt = new JButton(GuiStrings.getString("HeProMoWindow.btnDatenblatt")); //$NON-NLS-1$
-		btnDatenblatt.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {				
-				DatenblattCreator.preInitializeInSeparateThread();
-				
-				//get filename
-				final File pdfFile = getExportFile(".pdf");
-				if (pdfFile == null) {
-					return;
+		btnDatenblatt.addActionListener(evt -> {			
+			DatenblattCreator.preInitializeInSeparateThread();
+
+			//get filename
+			final File pdfFile = getExportFile(".pdf");
+			if (pdfFile == null) {
+				return;
+			}
+
+			btnDatenblatt.setEnabled(false);
+			btnDatenblatt.setText(GuiStrings.getString("HeProMoWindow.btnBitteWarten")); //$NON-NLS-1$
+
+			//update model
+			loadGUIToModel();
+
+			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+				@Override
+				protected Void doInBackground() throws Exception {
+					//create Datenblatt
+					createAndOpenDatenblattPdf(pdfFile);
+					return null;
 				}
-				
-				btnDatenblatt.setEnabled(false);
-				btnDatenblatt.setText(GuiStrings.getString("HeProMoWindow.btnBitteWarten")); //$NON-NLS-1$
-				
-				//update model
-				loadGUIToModel();
-				
-				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-					@Override
-					protected Void doInBackground() throws Exception {
-						//create Datenblatt
-						createAndOpenDatenblattPdf(pdfFile);
-						return null;
-					}
-					@Override
-					protected void done() {
-						btnDatenblatt.setEnabled(true);	
-						btnDatenblatt.setText(GuiStrings.getString("HeProMoWindow.btnDatenblatt"));;	 //$NON-NLS-1$
-					}
-				};
-				worker.execute();
-			}			
+				@Override
+				protected void done() {
+					btnDatenblatt.setEnabled(true);	
+					btnDatenblatt.setText(GuiStrings.getString("HeProMoWindow.btnDatenblatt"));;	 //$NON-NLS-1$
+				}
+			};
+			worker.execute();
 		});
 		pnlButtons.add(btnDatenblatt, c);
 		
@@ -563,36 +538,33 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		btnCsv = new JButton("CSV");
-		btnCsv.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//get filename
-				final File csvFile = getExportFile(".csv");
-				if (csvFile == null) {
-					return;
+		btnCsv.addActionListener(evt -> {
+			//get filename
+			final File csvFile = getExportFile(".csv");
+			if (csvFile == null) {
+				return;
+			}
+
+			btnCsv.setEnabled(false);
+			btnCsv.setText(GuiStrings.getString("HeProMoWindow.btnBitteWarten")); //$NON-NLS-1$
+
+			//update model
+			loadGUIToModel();
+
+			SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
+				@Override
+				protected Void doInBackground() throws Exception {
+					//create CSV
+					createAndOpenExportCsv(csvFile);
+					return null;
 				}
-				
-				btnCsv.setEnabled(false);
-				btnCsv.setText(GuiStrings.getString("HeProMoWindow.btnBitteWarten")); //$NON-NLS-1$
-				
-				//update model
-				loadGUIToModel();
-				
-				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>(){
-					@Override
-					protected Void doInBackground() throws Exception {
-						//create CSV
-						createAndOpenExportCsv(csvFile);
-						return null;
-					}
-					@Override
-					protected void done() {
-						btnCsv.setEnabled(true);	
-						btnCsv.setText("CSV");
-					}
-				};
-				worker.execute();
-			}			
+				@Override
+				protected void done() {
+					btnCsv.setEnabled(true);	
+					btnCsv.setText("CSV");
+				}
+			};
+			worker.execute();	
 		});
 		pnlButtons.add(btnCsv, c);
 		
@@ -603,11 +575,8 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		JButton btnLoad = new JButton(GuiStrings.getString("HeProMoWindow.btnLaden")); //$NON-NLS-1$
-		btnLoad.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				load();
-			}			
+		btnLoad.addActionListener(evt -> {
+			load();
 		});
 		pnlButtons.add(btnLoad, c);
 		
@@ -618,11 +587,8 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,0);
 		JButton btnSave = new JButton(GuiStrings.getString("HeProMoWindow.btnSpeichern")); //$NON-NLS-1$
-		btnSave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				save();
-			}			
+		btnSave.addActionListener(evt -> {
+			save();
 		});
 		pnlButtons.add(btnSave, c);
 		
@@ -647,11 +613,8 @@ public abstract class HeProMoWindow extends JFrame {
 		c.gridy = 0;
 		c.insets = new Insets(5,0,0,5);
 		JButton btnClose = new JButton(GuiStrings.getString("HeProMoWindow.btnBeenden")); //$NON-NLS-1$
-		btnClose.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				HeProMoWindow.this.dispose();
-			}			
+		btnClose.addActionListener(evt -> {
+			HeProMoWindow.this.dispose();
 		});
 		pnlButtons.add(btnClose, c);
 		
@@ -685,7 +648,13 @@ public abstract class HeProMoWindow extends JFrame {
 	protected abstract void initPanelArbeitssystem(JPanel panel);
 	
 	protected AbstractErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel();
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
 	}
 	
 	protected abstract void initData();
@@ -842,14 +811,12 @@ public abstract class HeProMoWindow extends JFrame {
 		PersistentInputData data = new PersistentInputData(getModel());
 		
 		//write file
-		try{
-			FileOutputStream fout = new FileOutputStream(fileChooser.getSelectedFile());
-			ObjectOutputStream oos = new ObjectOutputStream(fout);   
+		try (FileOutputStream fout = new FileOutputStream(fileChooser.getSelectedFile());
+			 ObjectOutputStream oos = new ObjectOutputStream(fout); ) {
 			oos.writeObject(data);
-			oos.close();
 			System.out.println(GuiStrings.getString("HeProMoWindow.BestaetigungDatenGespeichert")); //$NON-NLS-1$
 
-		}catch(Exception e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -874,12 +841,9 @@ public abstract class HeProMoWindow extends JFrame {
 		//read file
 		File file = fileChooser.getSelectedFile();
 		PersistentInputData data = null;
-		try{
-			FileInputStream fin = new FileInputStream(file);
-			ObjectInputStream ois = new ObjectInputStream(fin);
+		try (FileInputStream fin = new FileInputStream(file);
+			 ObjectInputStream ois = new ObjectInputStream(fin);) {
 			data = (PersistentInputData) ois.readObject();
-			ois.close();
-			
 		}
 		catch (InvalidClassException e) {
 			//Dieser Fehler tritt auch dann auf, wenn z.B. in Radharvester2014 eine Datei geöffnet wird,

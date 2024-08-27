@@ -18,7 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.asys;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
@@ -45,7 +44,7 @@ public class KostensaetzePanelHacker2018 extends KostensaetzePanel2014 {
 	
 
 	public KostensaetzePanelHacker2018(HeProMoWindow parent) {
-		super(parent);
+		super(new Builder(parent).showPersonal1());
 
         GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -66,18 +65,15 @@ public class KostensaetzePanelHacker2018 extends KostensaetzePanel2014 {
 		c.insets = new Insets(2,65,0,0);
 		radPMH15 = new JRadioButton(GuiStrings.getString("KostensaetzePanelHacker2018.KostenProPMH15")); //$NON-NLS-1$
 		radPMH15.setSelected(true);
-		radPMH15.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					//aktuellen Wert umrechnen
-					Zielsortiment zielsortiment = getHackerWindow().getZielsortiment();
-					double motorleistungKw = getHackerWindow().getMotorleistungHacker_kW();
-					double kostensatzAlt = KostensaetzePanelHacker2018.super.getAnsatzMaschine1();
-					double kostensatzNeu = CalculatorHacker2018.convertFromCHFproSrmToCHFproPMH15(kostensatzAlt, zielsortiment, motorleistungKw);
-					KostensaetzePanelHacker2018.super.setAnsatzMaschine1(kostensatzNeu);
-					updateWaehrungskuerzel();
-				}
+		radPMH15.addItemListener(evt -> {
+			if (evt.getStateChange() == ItemEvent.SELECTED) {
+				//aktuellen Wert umrechnen
+				Zielsortiment zielsortiment = getHackerWindow().getZielsortiment();
+				double motorleistungKw = getHackerWindow().getMotorleistungHacker_kW();
+				double kostensatzAlt = KostensaetzePanelHacker2018.super.getAnsatzMaschine1();
+				double kostensatzNeu = CalculatorHacker2018.convertFromCHFproSrmToCHFproPMH15(kostensatzAlt, zielsortiment, motorleistungKw);
+				KostensaetzePanelHacker2018.super.setAnsatzMaschine1(kostensatzNeu);
+				updateWaehrungskuerzel();
 			}
 		});
 		this.add(radPMH15, c);
@@ -90,18 +86,15 @@ public class KostensaetzePanelHacker2018 extends KostensaetzePanel2014 {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(0,65,0,0);
 		radSrm = new JRadioButton(GuiStrings.getString("KostensaetzePanelHacker2018.KostenProSrm")); //$NON-NLS-1$
-		radSrm.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					//aktuellen Wert umrechnen
-					Zielsortiment zielsortiment = getHackerWindow().getZielsortiment();
-					double motorleistungKw = getHackerWindow().getMotorleistungHacker_kW();
-					double kostensatzAlt = KostensaetzePanelHacker2018.super.getAnsatzMaschine1();
-					double kostensatzNeu = CalculatorHacker2018.convertFromCHFproPMH15ToCHFproSrm(kostensatzAlt, zielsortiment, motorleistungKw);
-					KostensaetzePanelHacker2018.super.setAnsatzMaschine1(kostensatzNeu);
-					updateWaehrungskuerzel();
-				}
+		radSrm.addItemListener(evt -> {
+			if (evt.getStateChange() == ItemEvent.SELECTED) {
+				//aktuellen Wert umrechnen
+				Zielsortiment zielsortiment = getHackerWindow().getZielsortiment();
+				double motorleistungKw = getHackerWindow().getMotorleistungHacker_kW();
+				double kostensatzAlt = KostensaetzePanelHacker2018.super.getAnsatzMaschine1();
+				double kostensatzNeu = CalculatorHacker2018.convertFromCHFproPMH15ToCHFproSrm(kostensatzAlt, zielsortiment, motorleistungKw);
+				KostensaetzePanelHacker2018.super.setAnsatzMaschine1(kostensatzNeu);
+				updateWaehrungskuerzel();
 			}
 		});
 		this.add(radSrm, c);

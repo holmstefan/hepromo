@@ -48,7 +48,11 @@ public class ErgebnisPanelHackschnitzelTransport2018 extends ErgebnisPanel {
 	private JTextField txtGesamt = super.getNewLockedTextField();
 
 	public ErgebnisPanelHackschnitzelTransport2018() {
-		super(false, true, false, false, true, true, true, false, false);
+		super(new ErgebnisPanel.Builder()
+				.enableRowMaschine1()
+				.enableRowProduktivitaet()
+				.enableRowRotationszeit()
+				.enableColumnProM3());
 		
 		super.lblRotationszeit.setText(GuiStrings.getString("ErgebnisPanelHackschnitzelTransport2018.AnzahlZyklen")); //$NON-NLS-1$
 		

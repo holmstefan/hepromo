@@ -18,8 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle.panel.aobj;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +29,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -55,7 +51,7 @@ public class SeilkranInstallationPanel extends JPanel {
 	private JComboBox<MaschinenStandort> cmbMaschinenstandort;
 	private JSpinner txtLinienLaenge_m;
 
-	private List<Integer> listStuetzenTragseilHoehen = new ArrayList<Integer>();
+	private List<Integer> listStuetzenTragseilHoehen = new ArrayList<>();
 	private JButton btnNeu;
 	private JButton btnDel;
 	private JSpinner txtAnzahlStuetzen;
@@ -216,11 +212,8 @@ public class SeilkranInstallationPanel extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		btnNeu = new JButton(GuiStrings.getString("SeilkranInstallationPanel.Neu_kurz")); //$NON-NLS-1$
-		btnNeu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				addStuetze();
-			}
+		btnNeu.addActionListener(evt -> {
+			addStuetze();
 		});
 		this.add(btnNeu, c);
 		
@@ -232,11 +225,8 @@ public class SeilkranInstallationPanel extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		btnDel = new JButton(GuiStrings.getString("SeilkranInstallationPanel.Entfernen_kurz")); //$NON-NLS-1$
-		btnDel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				removeStuetze();
-			}
+		btnDel.addActionListener(evt -> {
+			removeStuetze();
 		});
 		this.add(btnDel, c);
 		
@@ -259,15 +249,12 @@ public class SeilkranInstallationPanel extends JPanel {
 		c.weightx = 100;
 		c.insets = new Insets(0,2,0,2);
 		cmbStuetzenNummer = new JComboBox<>();
-		cmbStuetzenNummer.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int selection = cmbStuetzenNummer.getSelectedIndex();
-				
-				if (selection != -1) {
-					Integer value = listStuetzenTragseilHoehen.get(selection);
-					txtStuetzenTragseilHoehe_m.setValue(value);
-				}
+		cmbStuetzenNummer.addActionListener(evt -> {
+			int selection = cmbStuetzenNummer.getSelectedIndex();
+
+			if (selection != -1) {
+				Integer value = listStuetzenTragseilHoehen.get(selection);
+				txtStuetzenTragseilHoehe_m.setValue(value);
 			}
 		});
 		this.add(cmbStuetzenNummer, c);
@@ -295,12 +282,9 @@ public class SeilkranInstallationPanel extends JPanel {
 		c.insets = new Insets(5,5,0,0);
 		chkEndmast = new JCheckBox(GuiStrings.getString("SeilkranInstallationPanel.Endmast")); //$NON-NLS-1$
 		chkEndmast.setHorizontalTextPosition(SwingConstants.LEFT);
-		chkEndmast.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				boolean flag = chkEndmast.isSelected();
-				txtEndmastTragseilHoehe_m.setVisible(flag);
-			}
+		chkEndmast.addChangeListener(evt -> {
+			boolean flag = chkEndmast.isSelected();
+			txtEndmastTragseilHoehe_m.setVisible(flag);
 		});
 		this.add(chkEndmast, c);
 		

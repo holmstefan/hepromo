@@ -126,7 +126,9 @@ public abstract class HeProMoWindow2014 extends HeProMoWindow {
 	
 	
 	protected KostensaetzePanel2014 initKostensaetzePanel() {
-		return new KostensaetzePanel2014(this);
+		return new KostensaetzePanel2014.Builder(this)
+				.showPersonal1()
+				.build();
 	}
 	
 	

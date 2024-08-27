@@ -38,7 +38,7 @@ public class BiomasseCalculatorSchaftholztarif2018 {
 	private static final HashMap<Tarifnummer, Double[]> modelKoeffizienten;
 	
 	static {
-		modelKoeffizienten = new HashMap<Tarifnummer, Double[]>();
+		modelKoeffizienten = new HashMap<>();
 		
 		modelKoeffizienten.put(Tarifnummer.T201, new Double[] {
 				-9.6939329,

@@ -15,6 +15,7 @@
  ******************************************************************************/
 package ch.wsl.fps.hepromo.model.calc;
 
+import ch.wsl.fps.hepromo.model.Ergebnis;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester2014;
@@ -26,11 +27,26 @@ import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester2014.Maschinentyp;
  *
  */
 public class CalculatorRadharvester2014 extends AbstractCalculatorSingleModel2014 {
-
-	
 	
 	public CalculatorRadharvester2014(HeProMoInputData inputData) {
 		super(inputData);
+	}
+	
+	@Override
+	public Ergebnis calculate() {
+		Ergebnis ergebnis = super.calculate();
+		ergebnis.setUnitMaschine2ISH(true);
+		
+		if (ergebnis.getAnzahl_m3() > 0) {
+			SubcalculatorThw calcThw = SubcalculatorThw.getInstanceForwarder(
+					getArbeitsobjekt().isEinsatzThw(), 
+					getArbeitsobjekt().getAnzahlRueckegassen());
+			
+			ergebnis.setZeitMaschine2(calcThw.calcISH_THW());
+			ergebnis.setKostenMaschine2_total(getArbeitssystem().getKostensatzMaschine2_proH() * ergebnis.getZeitMaschine2());
+		}
+		
+		return ergebnis;
 	}
 
 	
@@ -38,7 +54,6 @@ public class CalculatorRadharvester2014 extends AbstractCalculatorSingleModel201
 	protected ArbeitsobjektRadharvester2014 getArbeitsobjekt() {
 		return (ArbeitsobjektRadharvester2014) super.getArbeitsobjekt();
 	}
-	
 	
 	
 	@Override

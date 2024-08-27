@@ -66,7 +66,7 @@ public class ModelMobilseilkranGesamtTest extends AbstractModelTest {
 		ao.setSeilsystem(			Seilsystem.valueOf(testcase[9]) );
 		ao.setMaschinenStandort(	MaschinenStandort.valueOf(testcase[10]) );
 	
-		List<Integer> listTragseilHoehen = new ArrayList<Integer>();
+		List<Integer> listTragseilHoehen = new ArrayList<>();
 		for (int i=11; i<=15; i++) {
 			int hoehe = Integer.valueOf(testcase[i]);
 			if (hoehe != -1) {

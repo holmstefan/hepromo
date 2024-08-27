@@ -26,8 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -236,11 +234,8 @@ public class BestandPanelMotormanuellGesamt2014 extends JPanel {
 	private void initData(){
 		txtHolzmenge_m3iR.setModel(new SpinnerNumberModel(150.0, 0, 100000, 50));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmenge_m3iR);
-		txtHolzmenge_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmenge_m3iR.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
 		
 		
@@ -252,20 +247,14 @@ public class BestandPanelMotormanuellGesamt2014 extends JPanel {
 		
 		txtAnteilLaubholz_Prz.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtAnteilLaubholz_Prz);
-		txtAnteilLaubholz_Prz.addChangeListener(new ChangeListener() {	
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateAnteilNadelholz();
-			}
+		txtAnteilLaubholz_Prz.addChangeListener(evt -> {
+			updateAnteilNadelholz();
 		});
 		
 		txtAnteilKiefer_Prz.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtAnteilKiefer_Prz);
-		txtAnteilKiefer_Prz.addChangeListener(new ChangeListener() {	
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateAnteilNadelholz();
-			}
+		txtAnteilKiefer_Prz.addChangeListener(evt -> {
+			updateAnteilNadelholz();
 		});
 
 		for (int i=0; i<Region.values().length; i++) {

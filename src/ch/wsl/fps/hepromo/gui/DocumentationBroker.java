@@ -80,7 +80,7 @@ public class DocumentationBroker {
 	public static final String DOKU_DIR = "Dokumentation/"; //$NON-NLS-1$
 
 //	protected static final HashMap<Class<? extends AbstractModel>, String[]> filenames = new HashMap<Class<? extends AbstractModel>, String[]>();
-	protected static final HashMap<Object, String[]> filenames = new HashMap<Object, String[]>();
+	protected static final HashMap<Object, String[]> filenames = new HashMap<>();
 	
 	
 	/**
@@ -161,12 +161,9 @@ public class DocumentationBroker {
 		}
 		
 		if (exists(modelKey, index) == false) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = "Dokumentation nicht verfügbar!";
-					JOptionPane.showMessageDialog(null, message, "Fehler", JOptionPane.ERROR_MESSAGE);
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = "Dokumentation nicht verfügbar!";
+				JOptionPane.showMessageDialog(null, message, "Fehler", JOptionPane.ERROR_MESSAGE);
 			});
 			return;
 		}
@@ -293,9 +290,8 @@ public class DocumentationBroker {
 	
 	private static long getJarFileLastModified(String filePath) {
 		filePath = "/" + filePath; //classFilePath muss mit einem slash starten
-		JarFile jar = null;
-		try {
-			jar = getJarFile();
+		
+		try (JarFile jar = getJarFile()) {
 			if (jar != null) {
 				Enumeration<JarEntry> enumEntries = jar.entries();
 				while (enumEntries.hasMoreElements()) {
@@ -308,14 +304,6 @@ public class DocumentationBroker {
 			}
 		} catch (Exception e) {
 //			e.printStackTrace();
-		} finally {
-			if (jar != null) {
-				try {
-					jar.close();
-				} catch (IOException e) {
-//					e.printStackTrace();
-				}
-			}
 		}
 		return -1;
 	}
@@ -353,42 +341,32 @@ public class DocumentationBroker {
 		File fileInFilesystem = new File(path);
 		
 		//try to open file in jar
-		InputStream in = DocumentationBroker.class.getClassLoader().getResourceAsStream(path);
-	    if (in == null) {
-	        System.err.println("file '" + path + "' not found in jar");
-	        return;
-	    }
-	    
-	    
-		//create target directory if it does not exist
-		String[] dirs = path.split("\\\\|/");
-		String dir = "";
-		for (int i=0; i<dirs.length-1; i++) {
-			dir += dirs[i] + "/";
-		}
-		File f = new File(dir);
-		f.mkdirs();
-		
-	    
-	    //copy file to filesystem
-	    FileOutputStream out = null;
-	    int readBytes;
-	    byte[] buffer = new byte[4096];
-	    try {
-	    	out = new FileOutputStream(fileInFilesystem);
-	        while ((readBytes = in.read(buffer)) > 0) {
-	        	out.write(buffer, 0, readBytes);
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    } finally {
-	    	try {
-				in.close();
-		        out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+		try (InputStream in = DocumentationBroker.class.getClassLoader().getResourceAsStream(path)) {
+			if (in == null) {
+				System.err.println("file '" + path + "' not found in jar");
+				return;
 			}
-	    }
+
+			//create target directory if it does not exist
+			String[] dirs = path.split("\\\\|/");
+			String dir = "";
+			for (int i=0; i<dirs.length-1; i++) {
+				dir += dirs[i] + "/";
+			}
+			File f = new File(dir);
+			f.mkdirs();
+
+			//copy file to filesystem
+			int readBytes;
+			byte[] buffer = new byte[4096];
+			try (FileOutputStream out = new FileOutputStream(fileInFilesystem)) {
+				while ((readBytes = in.read(buffer)) > 0) {
+					out.write(buffer, 0, readBytes);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	    
 	    //set lastModified
 	    long lastModified = getJarFileLastModified(path);

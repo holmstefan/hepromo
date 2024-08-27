@@ -42,8 +42,8 @@ public abstract class AbstractBiomasseCalculator2018Test<T> {
 		List<String[]> testcases = csv.readFile(fileName);
 		
 		int nrOfTestcases = testcases.size();
-		List<T> expectedValues = new ArrayList<T>();
-		List<T> actualValues = new ArrayList<T>();
+		List<T> expectedValues = new ArrayList<>();
+		List<T> actualValues = new ArrayList<>();
 		
 		for (int i=0; i<nrOfTestcases; i++) {
 			Object[] inputData = parseInputData(testcases.get(i));

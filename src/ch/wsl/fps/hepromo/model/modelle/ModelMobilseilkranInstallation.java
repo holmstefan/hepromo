@@ -42,7 +42,7 @@ public class ModelMobilseilkranInstallation extends AbstractModel {
 		getArbeitsobjekt().setMaschinenStandort(MaschinenStandort.Oben);
 		getArbeitsobjekt().setLinienLaenge_m(600);
 		
-		List<Integer> listStuetzenTragseilHoehen = new ArrayList<Integer>();
+		List<Integer> listStuetzenTragseilHoehen = new ArrayList<>();
 		listStuetzenTragseilHoehen.add(12);
 		getArbeitsobjekt().setStuetzenTragseilHoehen(listStuetzenTragseilHoehen);
 		

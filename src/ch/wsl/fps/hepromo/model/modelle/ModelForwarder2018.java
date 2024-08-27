@@ -52,13 +52,17 @@ public class ModelForwarder2018 extends AbstractModel2014 {
 		getArbeitsobjekt().setAbstandRueckegasse(AbstandRueckegasse.Circa30m);
 		getArbeitsobjekt().setZopfdurchmesser_cm(10);
 		getArbeitsobjekt().setEnergieholzanfall_m3iRproHa(getArbeitsobjekt().getAllEnergieholzanfall()[1]);
+		getArbeitsobjekt().setEinsatzThw(false);
+		getArbeitsobjekt().setAnzahlRueckegassen(1);
 
 		super.arbeitssystem = new ArbeitssystemForwarder2018();
 		getArbeitssystem().setForwardertyp(Forwardertyp.Mittel);
 		getArbeitssystem().setKostensatzPersonal1_proH(70);
 		getArbeitssystem().setKostensatzMaschine1_proH(110);
+		getArbeitssystem().setKostensatzMaschine2_proH(50);
 		getArbeitssystem().setLabelPersonal1(ModelStrings.getString("ModelForwarder2018.Maschinist")); //$NON-NLS-1$
 		getArbeitssystem().setLabelMaschine1(ModelStrings.getString("ModelForwarder2018.Forwarder")); //$NON-NLS-1$
+		getArbeitssystem().setLabelMaschine2(ModelStrings.getString("Thw.TraktionshilfswindeMaschine")); //$NON-NLS-1$
 		getArbeitssystem().setTaeglicheArbeitszeit_Min(540);
 		getArbeitssystem().setWegzeitenUndPausen_Min(60);
 		

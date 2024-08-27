@@ -27,9 +27,13 @@ import javax.swing.SwingUtilities;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
+import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
+import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.modelle.panel.aobj.BestandPanelRadharvester2014;
+import ch.wsl.fps.hepromo.gui.modelle.panel.aobj.TraktionshilfswindePanel;
 import ch.wsl.fps.hepromo.gui.modelle.panel.aobj.ZuschlaegePanelRadharvester2014;
+import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel2014;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester2014;
@@ -47,6 +51,7 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 	
 	private BestandPanelRadharvester2014 panelBestand;
 	private ZuschlaegePanelRadharvester2014 panelZuschlaege;
+	private TraktionshilfswindePanel panelThw;
 	private JComboBox<Maschinentyp> cmbMaschinentyp;
 	
 	private ModelRadharvester2014 model = new ModelRadharvester2014();
@@ -55,7 +60,7 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 	
 	public Radharvester2014() {		
 		super.setTitle(GuiStrings.getString("Radharvester2014.Title")); //$NON-NLS-1$
-		super.setSize((int) (645 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (630 * MainWindow.SIZE));
+		super.setSize((int) (645 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (720 * MainWindow.SIZE));
 		
 		super.initalize();
 	}
@@ -88,20 +93,52 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 100;
 //		c.weighty = 100;
-		c.insets = new Insets(15,0,0,0);
+		c.insets = new Insets(10,0,0,0);
 		panelZuschlaege = new ZuschlaegePanelRadharvester2014(this);
 		panel.add(panelZuschlaege, c);
+		
+		//panel THW
+        c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 2;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 100;
+//		c.weighty = 100;
+		c.insets = new Insets(10,0,0,0);
+		panelThw = new TraktionshilfswindePanel(this);
+		panel.add(panelThw, c);
 		
 		
 		//placeholder
         c = new GridBagConstraints();
 		c.gridx = 1;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 100;
 		c.weighty = 100;
 //		c.insets = new Insets(5,5,5,5);
 		panel.add(new JPanel(), c);
+	}
+
+	
+	@Override
+	protected AbstractErgebnisPanel initErgebnisPanel() {
+		ErgebnisPanel panel = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
+
+		panel.setZeitMaschine2Unit("ISH"); //$NON-NLS-1$
+		panel.setZeitMaschine2UnitInfo(GuiStrings.getString("Thw.IndirectSystemHours")); //$NON-NLS-1$
+		panel.setLabelProduktivitaet(GuiStrings.getString("HeProMoWindow2014.Produktivitaet_m3_iR_pro_PMH15")); //$NON-NLS-1$
+		panel.setLabelProduktivitaet2(GuiStrings.getString("HeProMoWindow2014.m3_oR_pro_PMH15")); //$NON-NLS-1$
+		panel.setLabelKostenProM3(GuiStrings.getString("HeProMoWindow2014.ProM3oR")); //$NON-NLS-1$
+		
+		return panel;
 	}
 	
 	
@@ -135,6 +172,19 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 		
 		return panel;
 	}
+	
+	
+	@Override
+	protected KostensaetzePanel2014 initKostensaetzePanel() {
+		KostensaetzePanel2014 panel = new KostensaetzePanel2014.Builder(this)
+				.showPersonal1()
+				.showMaschine2()
+				.setUnitMaschine2ToISH()
+				.build();
+		
+		panel.setLabelMaschine2(GuiStrings.getString("Thw.TraktionshilfswindeMaschine")); //$NON-NLS-1$
+		return panel;
+	}
 
 	
 	@Override
@@ -161,12 +211,9 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 			case Mittel:
 				panelBestand.setMinBhd_cm(12);
 				
-				SwingUtilities.invokeLater(new Runnable(){
-					@Override
-					public void run(){
-						String message = GuiStrings.getString("Radharvester2014.WarnungKostensatz"); //$NON-NLS-1$
-						JOptionPane.showMessageDialog(Radharvester2014.this, message, GuiStrings.getString("Radharvester2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-					}
+				SwingUtilities.invokeLater(() -> {
+					String message = GuiStrings.getString("Radharvester2014.WarnungKostensatz"); //$NON-NLS-1$
+					JOptionPane.showMessageDialog(Radharvester2014.this, message, GuiStrings.getString("Radharvester2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 				});
 				break;
 				
@@ -176,17 +223,14 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 				}
 				panelBestand.setMinBhd_cm(15);
 				
-				SwingUtilities.invokeLater(new Runnable(){
-					@Override
-					public void run(){
-						String message = "<html><li>" //$NON-NLS-1$
-								+ GuiStrings.getString("Radharvester2014.WarnungKostensatzZeile1") //$NON-NLS-1$
-								+ GuiStrings.getString("Radharvester2014.WarnungKostensatzZeile2") //$NON-NLS-1$
-								+ "<li>" //$NON-NLS-1$
-								+ GuiStrings.getString("Radharvester2014.WarnungKostensatz") //$NON-NLS-1$
-								+ "</html>"; //$NON-NLS-1$
-						JOptionPane.showMessageDialog(Radharvester2014.this, message, GuiStrings.getString("Radharvester2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-					}
+				SwingUtilities.invokeLater(() -> {
+					String message = "<html><li>" //$NON-NLS-1$
+							+ GuiStrings.getString("Radharvester2014.WarnungKostensatzZeile1") //$NON-NLS-1$
+							+ GuiStrings.getString("Radharvester2014.WarnungKostensatzZeile2") //$NON-NLS-1$
+							+ "<li>" //$NON-NLS-1$
+							+ GuiStrings.getString("Radharvester2014.WarnungKostensatz") //$NON-NLS-1$
+							+ "</html>"; //$NON-NLS-1$
+					JOptionPane.showMessageDialog(Radharvester2014.this, message, GuiStrings.getString("Radharvester2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 				});
 				break;
 				
@@ -206,9 +250,6 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 		
 		panelBestand.updateLabelHolzmengeMitRindenabzug(); //kann erst aktualisiert werden, wenn die Faktoren ins Modell geladen worden sind
 		
-		//Arbeitssystem
-		model.getArbeitssystem().setMaschinentyp(	this.getMaschinentyp()		);
-		
 		//Arbeitsobjekt
 		model.getArbeitsobjekt().setHolzmenge_m3(	panelBestand.getHolzmenge_m3()		);
 		model.getArbeitsobjekt().setBhd_cm(			panelBestand.getBhd_cm()			);
@@ -216,6 +257,14 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 		model.getArbeitsobjekt().setFoermigkeitArrayWithSelection( 		panelZuschlaege.getFoermigkeitArrayWithSelection() 		);
 		model.getArbeitsobjekt().setLaubholzAnteilArrayWithSelection(	panelZuschlaege.getLaubholzAnteilArrayWithSelection() 	);
 		model.getArbeitsobjekt().setLiegendesHolzArrayWithSelection(	panelZuschlaege.getLiegendesHolzArrayWithSelection()	);
+		model.getArbeitsobjekt().setHangneigungArrayWithSelection(		panelZuschlaege.getHangneigungArrayWithSelection()		);
+		
+		model.getArbeitsobjekt().setEinsatzThw(			panelThw.isEinsatzThw()				);
+		model.getArbeitsobjekt().setAnzahlRueckegassen(	panelThw.getAnzahlRueckegassen()	);
+		
+		//Arbeitssystem
+		model.getArbeitssystem().setMaschinentyp(	this.getMaschinentyp()		);
+		model.getArbeitssystem().setKostensatzMaschine2_proH(panelKostensaetze.getAnsatzMaschine2());
 	}
 
 
@@ -223,8 +272,6 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 	public ModelRadharvester2014 getModel() {
 		return (ModelRadharvester2014) model;
 	}
-	
-	
 	
 	
 	@Override
@@ -243,7 +290,13 @@ public class Radharvester2014 extends HeProMoWindow2014 {
 		panelZuschlaege.setFoermigkeitArrayWithSelection(		((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).getFoermigkeitArrayWithSelection()		);
 		panelZuschlaege.setLaubholzAnteilArrayWithSelection(	((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).getLaubholzAnteilArrayWithSelection()		);
 		panelZuschlaege.setLiegendesHolzArrayWithSelection(		((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).getLiegendesHolzArrayWithSelection()		);
+		panelZuschlaege.setHangneigungArrayWithSelection(		((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).getHangneigungArrayWithSelection()		);
 		
+		panelThw.setEinsatzThw(				((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).isEinsatzThw()				);
+		panelThw.setAnzahlRueckegassen(		((ArbeitsobjektRadharvester2014) data.getArbeitsobjekt()).getAnzahlRueckegassen()		);
+
+		//Arbeitssystem
+		panelKostensaetze.setAnsatzMaschine2( 								data.getArbeitssystem().getKostensatzMaschine2_proH() 	);
 		
 		super.setReactOnInputChange(true);
 	}

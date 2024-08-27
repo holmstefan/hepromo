@@ -276,7 +276,13 @@ public class HelikopterFliegen extends HelikopterFliegenBase {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(true, false, false, true, true, true);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowProduktivitaet()
+				.enableRowRotationszeit()
+				.enableColumnProM3()
+				.build();
 	}
 	
 	

@@ -18,8 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
 import javax.swing.JComboBox;
@@ -28,8 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.ErgebnisColorListCellRenderer;
@@ -397,13 +393,26 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 	
 	@Override
 	protected KostensaetzePanel2014 initKostensaetzePanel() {
-		return new KostensaetzePanel2014(this, false, true, true, true);
+		return new KostensaetzePanel2014.Builder(this)
+				.showPersonal1()
+				.showMaschine2()
+				.showMaschine3()
+				.build();
 	}
 
 	
 	@Override
 	protected AbstractErgebnisPanel initErgebnisPanel() {
-		ErgebnisPanel panel = new ErgebnisPanel(true, true, true, true, true, false, true, false, true, true);
+		ErgebnisPanel panel = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowMaschine3()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.showHintProduktivitaet()
+				.build();
 		
 //		panel.setLabelProduktivitaet(GuiStrings.getString("HeProMoWindow2014.Produktivitaet_m3_iR_pro_PMH15")); //$NON-NLS-1$
 		panel.setLabelKostenProM3(GuiStrings.getString("HeProMoWindow2014.ProM3oR")); //$NON-NLS-1$
@@ -427,11 +436,8 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 		
 		txtHolzmenge_m3.setModel(new SpinnerNumberModel(50.0, 0, 100000, 1));
 		addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmenge_m3);
-		txtHolzmenge_m3.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmenge_m3.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
 		
 		for (Erschwernisse erschwernis : Erschwernisse.values()) {
@@ -463,11 +469,8 @@ public class Kombiseilgeraet2018 extends HeProMoWindow2014 {
 			cmbErgebnisanzeige.addItem(value);
 		}
 		addDefaultActionListener(cmbErgebnisanzeige);
-		cmbErgebnisanzeige.addActionListener(new ActionListener() {		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				updateLabelProduktivitaet();
-			}
+		cmbErgebnisanzeige.addActionListener(evt -> {
+			updateLabelProduktivitaet();
 		});
 		
 		

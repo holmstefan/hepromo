@@ -57,15 +57,14 @@ public class CsvReader {
 	
 	
 	public List<String[]> readFile(String filename) {
-		List<String[]> result = new ArrayList<String[]>();
-		BufferedReader in = openFile(filename);
+		List<String[]> result = new ArrayList<>();
 		
-		if (in == null) {
-			System.err.println("Error opening file '" + filename + "'");
-			return result;
-		}
+		try (BufferedReader in = openFile(filename)) {
+			if (in == null) {
+				System.err.println("Error opening file '" + filename + "'");
+				return result;
+			}	
 			
-		try {
 			//read line, split fields, and add to result
 			String line;
 			while ((line = in.readLine()) != null) {
@@ -84,7 +83,6 @@ public class CsvReader {
 				
 				result.add( fields );				
 			}
-			in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return result;
@@ -96,30 +94,28 @@ public class CsvReader {
 	
 	
 	public List<String[]> readFileThrowException(String filename) throws IOException {
-		List<String[]> result = new ArrayList<String[]>();
-		BufferedReader in = openFileThrowException(filename);
+		List<String[]> result = new ArrayList<>();
 		
-		
-		//read line, split fields, and add to result
-		String line;
-		while ((line = in.readLine()) != null) {
+		try (BufferedReader in = openFileThrowException(filename)) {
+			//read line, split fields, and add to result
+			String line;
+			while ((line = in.readLine()) != null) {
 
-			if (skipComments && line.startsWith(commentCode)) {
-				continue;
-			}
-
-			String[] fields = line.split(delimiter);
-
-			if (TRIM_FIELDS) {
-				for (int i=0; i<fields.length; i++) {
-					fields[i] = fields[i].trim();
+				if (skipComments && line.startsWith(commentCode)) {
+					continue;
 				}
-			}				
 
-			result.add( fields );				
+				String[] fields = line.split(delimiter);
+
+				if (TRIM_FIELDS) {
+					for (int i=0; i<fields.length; i++) {
+						fields[i] = fields[i].trim();
+					}
+				}				
+
+				result.add( fields );				
+			}
 		}
-		in.close();
-
 		
 		return result;
 	}

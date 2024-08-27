@@ -28,7 +28,7 @@ public class ForwarderEnergieholz2018 extends Forwarder2018 {
 
 	public ForwarderEnergieholz2018() {
 		super.setTitle(GuiStrings.getString("ForwarderEnergieholz2018.Title")); //$NON-NLS-1$
-		super.setSize((int) (740 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (765 * MainWindow.SIZE));
+		super.setSize((int) (740 * MainWindow.SIZE * MainWindow.WIDTH_FACTOR), (int) (850 * MainWindow.SIZE));
 		
 		super.initalize();
 	}

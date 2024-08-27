@@ -25,8 +25,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -136,13 +134,9 @@ public class BestandPanelRadharvester2014 extends JPanel {
 	private void initData(){
 		txtHolzmenge_m3iR.setModel(new SpinnerNumberModel(150.0, 0, 100000, 50));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmenge_m3iR);
-		txtHolzmenge_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmenge_m3iR.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
-		
 		
 		txtBhd_cm.setModel(new SpinnerNumberModel(35, 12, 75, 1));
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtBhd_cm);

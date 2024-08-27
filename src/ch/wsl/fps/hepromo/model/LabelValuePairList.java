@@ -27,7 +27,7 @@ import ch.wsl.fps.hepromo.model.ModelStrings.PdfLabels;
  */
 public class LabelValuePairList {
 	
-	private ArrayList<LabelValuePair> list = new ArrayList<LabelValuePair>();
+	private ArrayList<LabelValuePair> list = new ArrayList<>();
 	private final DecimalFormat decimalFormat;
 	
 	public LabelValuePairList(DecimalFormat decimalFormat) {

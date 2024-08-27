@@ -41,10 +41,23 @@ public class CalculatorForwarder2018 extends AbstractCalculatorSingleModel2014 {
 	@Override
 	public Ergebnis calculate() {
 		Ergebnis ergebnis = super.calculate();
+		ergebnis.setUnitMaschine2ISH(true);
 		
 		if (ergebnis.getAnzahl_m3() > 0 && getErgebnisAnzeige() == ErgebnisAnzeige.Energieholz) {
 			setProduktivitaet(ergebnis, ProdEinheit.M3_IR_PRO_PMH15, ergebnis.getProduktivitaet_m3ProPmh15());
 			setProduktivitaet(ergebnis, ProdEinheit.M3_OR_PRO_PMH15, ergebnis.getProduktivitaet_m3ProPmh15() * getArbeitsobjekt().getRindenAbzugFaktor());
+		}
+		
+		if (ergebnis.getAnzahl_m3() > 0) {
+			SubcalculatorThw calcThw = SubcalculatorThw.getInstanceForwarder(
+					getArbeitsobjekt().isEinsatzThw(), 
+					getArbeitsobjekt().getAnzahlRueckegassen());
+			
+			// KEIN Korrekturfaktor für Energieholz.
+//			double kfEnergieholz = getErgebnisAnzeige() == ErgebnisAnzeige.Energieholz ? getKfEnergieholz() / 0.89 : 1;	
+			
+			ergebnis.setZeitMaschine2(calcThw.calcISH_THW());
+			ergebnis.setKostenMaschine2_total(getArbeitssystem().getKostensatzMaschine2_proH() * ergebnis.getZeitMaschine2());
 		}
 		
 		return ergebnis;
@@ -191,8 +204,14 @@ public class CalculatorForwarder2018 extends AbstractCalculatorSingleModel2014 {
 		case Neigung15Bis25Prozent:
 			return 0.025;
 			
-		case NeigungGroesser25Prozent:
+		case Neigung25Bis35Prozent:
 			return 0.05;
+			
+		case Neigung35Bis45Prozent:
+			return 0.10;
+			
+		case NeigungGroesser45Prozent:
+			return 0.15;
 			
 		default:
 			throw new RuntimeException(getArbeitsobjekt().getHangneigung().name());
@@ -336,7 +355,7 @@ public class CalculatorForwarder2018 extends AbstractCalculatorSingleModel2014 {
 	
 	@Override
 	public void setRindenAbzugBeruecksichtigen(boolean flag) {
-		//FIXME: dies scheint bei diesem Modell nicht zu funktionieren.
+		//FIXME(prio1): dies scheint bei diesem Modell nicht zu funktionieren.
 		// WORKAROUND: setRindenabzugsfaktorManuellGesetzt(true) und setRindenabzugsfaktorManuell(1) !
 		super.setRindenAbzugBeruecksichtigen(flag);
 	}

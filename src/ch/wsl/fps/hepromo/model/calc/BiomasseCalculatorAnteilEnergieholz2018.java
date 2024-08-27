@@ -30,7 +30,7 @@ public class BiomasseCalculatorAnteilEnergieholz2018 {
 	private static final HashMap3D<Baumtyp, Zopfklasse, Integer, Double> lookupTable;
 	
 	static {
-		lookupTable = new HashMap3D<BiomasseCalculatorAnteilEnergieholz2018.Baumtyp, Zopfklasse, Integer, Double>();
+		lookupTable = new HashMap3D<>();
 
 		lookupTable.add(Baumtyp.FichteRundholzBis100ProzentDerBaumhoehe, Zopf0,  15, 0.00);
 		lookupTable.add(Baumtyp.FichteRundholzBis100ProzentDerBaumhoehe, Zopf7,  15, 0.056);

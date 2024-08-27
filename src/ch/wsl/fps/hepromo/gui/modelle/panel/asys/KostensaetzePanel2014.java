@@ -73,8 +73,9 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 	protected JLabel lblMaschine1B = new JLabel(GuiStrings.getString("KostensaetzePanel2014.SFrProPMH15")); //$NON-NLS-1$
 	protected JLabel lblMaschine1_Info;
 
+	private final boolean isUnitMaschine2ISH;
 	protected JLabel lblMaschine2A = new JLabel(GuiStrings.getString("KostensaetzePanel2014.Maschine")); //$NON-NLS-1$
-	protected JLabel lblMaschine2B = new JLabel(GuiStrings.getString("KostensaetzePanel2014.SFrProPMH15")); //$NON-NLS-1$
+	protected JLabel lblMaschine2B = new JLabel();
 	protected JLabel lblMaschine2_Info;
 
 	protected JLabel lblMaschine3A = new JLabel(GuiStrings.getString("KostensaetzePanel2014.Maschine")); //$NON-NLS-1$
@@ -83,32 +84,16 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 
 
 	
-	public KostensaetzePanel2014(HeProMoWindow parent) {
-		this(parent, false);
-	}
-	
-	public KostensaetzePanel2014(HeProMoWindow parent, boolean showZusaetzlichePersonen) {
-		this(parent, showZusaetzlichePersonen, true);
-	}
-	
-	public KostensaetzePanel2014(HeProMoWindow parent, boolean showZusaetzlichePersonen, boolean showPersonal1) {
-		this(parent, showZusaetzlichePersonen, showPersonal1, false);
-	}
-	
-	public KostensaetzePanel2014(HeProMoWindow parent, boolean showZusaetzlichePersonen, boolean showPersonal1, boolean showMaschine2) {
-		this(parent, showZusaetzlichePersonen, showPersonal1, showMaschine2, false);
-	}
-	
-	public KostensaetzePanel2014(HeProMoWindow parent, boolean showZusaetzlichePersonen, boolean showPersonal1, boolean showMaschine2, boolean showMaschine3) {
-		this.parent = parent;
-		this.showZusaetzlichePersonen = showZusaetzlichePersonen;
-		this.showPersonal1 = showPersonal1;
-		this.showMaschine2 = showMaschine2;
-		this.showMaschine3 = showMaschine3;
+	public KostensaetzePanel2014(Builder builder) {
+		this.parent = builder.parent;
+		this.showZusaetzlichePersonen = builder.showZusaetzlichePersonen;
+		this.showPersonal1 = builder.showPersonal1;
+		this.showMaschine2 = builder.showMaschine2;
+		this.showMaschine3 = builder.showMaschine3;
+		this.isUnitMaschine2ISH = builder.isUnitMaschine2ISH;
 		initPanel();
 		initData();
 	}
-
 
 
 	protected void initPanel() {
@@ -425,6 +410,9 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 			c.gridy = 6;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,5,0,0);
+			lblMaschine2B = isUnitMaschine2ISH ? 
+					new JLabel(GuiStrings.getString("KostensaetzePanel2014.SFrProISH")) : //$NON-NLS-1$ 
+						new JLabel(GuiStrings.getString("KostensaetzePanel2014.SFrProPMH15")); //$NON-NLS-1$
 			this.add(lblMaschine2B, c);
 			
 			//Tooltip Maschine 2
@@ -433,7 +421,9 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 			c.gridy = 6;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.insets = new Insets(10,5,0,0);
-			lblMaschine2_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("KostensaetzePanel2014.InfoButtonKostenProBetriebsstundePMH15")); //$NON-NLS-1$
+			lblMaschine2_Info = isUnitMaschine2ISH ? 
+					GuiStrings.getInfoButtonBlue(GuiStrings.getString("KostensaetzePanel2014.InfoButtonKostenProBetriebsstundeISH")) :  //$NON-NLS-1$
+						GuiStrings.getInfoButtonBlue(GuiStrings.getString("KostensaetzePanel2014.InfoButtonKostenProBetriebsstundePMH15")); //$NON-NLS-1$
 			this.add(lblMaschine2_Info, c);
 		}
 		
@@ -761,8 +751,57 @@ public class KostensaetzePanel2014 extends JPanel implements IWaehrungsanzeige {
 		lblPersonal3B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProStd")); //$NON-NLS-1$
 		lblPersonal4B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProStd")); //$NON-NLS-1$
 		lblMaschine1B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProPMH15")); //$NON-NLS-1$
-		lblMaschine2B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProPMH15")); //$NON-NLS-1$
+		if (isUnitMaschine2ISH) {
+			lblMaschine2B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProISH")); //$NON-NLS-1$
+		}
+		else {
+			lblMaschine2B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProPMH15")); //$NON-NLS-1$
+		}
 		lblMaschine3B.setText(newValue + GuiStrings.getString("KostensaetzePanel2014.ProPMH15")); //$NON-NLS-1$
+	}
+	
+	
+	public static class Builder {
+		private final HeProMoWindow parent;
+		private boolean showZusaetzlichePersonen;
+		private boolean showPersonal1;
+		private boolean showMaschine2;
+		private boolean showMaschine3;
+		private boolean isUnitMaschine2ISH;
+		
+		
+		public Builder(HeProMoWindow parent) {
+			this.parent = parent;
+		}
+		
+		public Builder showZusaetzlichePersonen() {
+			this.showZusaetzlichePersonen = true;
+			return this;
+		}
+		
+		public Builder showPersonal1() {
+			this.showPersonal1 = true;
+			return this;
+		}
+		
+		public Builder showMaschine2() {
+			this.showMaschine2 = true;
+			return this;
+		}
+		
+		public Builder showMaschine3() {
+			this.showMaschine3 = true;
+			return this;
+		}
+		
+		public Builder setUnitMaschine2ToISH() {
+			this.isUnitMaschine2ISH = true;
+			return this;
+		}
+		
+		public KostensaetzePanel2014 build() {
+			return new KostensaetzePanel2014(this);
+		}
 	}
 	
 }

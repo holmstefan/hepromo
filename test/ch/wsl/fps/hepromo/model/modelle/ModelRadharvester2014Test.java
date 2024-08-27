@@ -17,10 +17,13 @@ package ch.wsl.fps.hepromo.model.modelle;
 
 import org.testng.annotations.Test;
 
+import ch.wsl.fps.hepromo.model.Ergebnis;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
+import ch.wsl.fps.hepromo.model.MockErgebnis;
 import ch.wsl.fps.hepromo.model.aobj.Arbeitsobjekt;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.FoermigkeitArrayWithSelection;
+import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.HangneigungArrayWithSelection;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LaubholzAnteilArrayWithSelection;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LiegendesHolzArrayWithSelection;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester2014;
@@ -64,32 +67,89 @@ public class ModelRadharvester2014Test extends AbstractModel2014Test {
 		liegendesHolz.setSelection( liegendesHolz.allValues[	Integer.valueOf(testcase[8])	]);
 		liegendesHolz.allValues[5].setWert(						Double.valueOf(testcase[9])	);
 		
+		HangneigungArrayWithSelection hangneigung = ao.getHangneigungArrayWithSelection();
+		hangneigung.setSelection( hangneigung.allValues[		Integer.valueOf(testcase[10])	]);
+		hangneigung.allValues[4].setWert(						Double.valueOf(testcase[11])	);
+
+		ao.setEinsatzThw(			Boolean.valueOf(testcase[12]) );
+		ao.setAnzahlRueckegassen(	Integer.valueOf(testcase[13]) );
+		
 		return ao;
 	}
 
 	@Override
 	protected ArbeitssystemRadharvester2014 parseArbeitssystemData(String[] testcase) {
 		ArbeitssystemRadharvester2014 as = new ArbeitssystemRadharvester2014();
-		as.setMaschinentyp(					Maschinentyp.valueOf(testcase[10]));
-		as.setKostensatzPersonal1_proH(			Double.valueOf(testcase[11]));
-		as.setKostensatzMaschine1_proH(			Double.valueOf(testcase[12]));
-		as.setTaeglicheArbeitszeit_Min(		Integer.valueOf(testcase[13]));
-		as.setWegzeitenUndPausen_Min(		Integer.valueOf(testcase[14]));
-		as.setUmsetzenBetrag_CHF(			Double.valueOf(testcase[15]));
-		as.setUmsetzenZeit_h(				Double.valueOf(testcase[16]));
-		as.setWeitereAufwaendeBetrag_CHF(	Double.valueOf(testcase[17]));
-		as.setWeitereAufwaendeZeit_h(		Double.valueOf(testcase[18]));
+		as.setMaschinentyp(					Maschinentyp.valueOf(testcase[14]));
+		as.setKostensatzPersonal1_proH(			Double.valueOf(testcase[15]));
+		as.setKostensatzMaschine1_proH(			Double.valueOf(testcase[16]));
+		as.setKostensatzMaschine2_proH(			Double.valueOf(testcase[17]));
+		as.setTaeglicheArbeitszeit_Min(		Integer.valueOf(testcase[18]));
+		as.setWegzeitenUndPausen_Min(		Integer.valueOf(testcase[19]));
+		as.setUmsetzenBetrag_CHF(			Double.valueOf(testcase[20]));
+		as.setUmsetzenZeit_h(				Double.valueOf(testcase[21]));
+		as.setWeitereAufwaendeBetrag_CHF(	Double.valueOf(testcase[22]));
+		as.setWeitereAufwaendeZeit_h(		Double.valueOf(testcase[23]));
 		return as;
+	}
+	
+	@Override
+	protected MockErgebnis parseExpectedValuesAsErgebnis(String[] testcase) {
+		double[] expectedValues = parseExpectedValues(testcase);
+		
+		MockErgebnis result = new MockErgebnis();
+		result.setZeitTotal( 					expectedValues[0]	);
+		result.setZeitPersonal( 				expectedValues[1]	);
+		result.setZeitMaschine1( 				expectedValues[2]	);
+		result.setZeitMaschine2( 				expectedValues[3]	);
+		result.setZeitUmsetzen( 				expectedValues[4]	);
+		result.setZeitWeitereAufwaende(			expectedValues[5]	);
+
+		result.setKostenPersonal_proM3( 		expectedValues[6]	);
+		result.setKostenMaschine1_proM3( 		expectedValues[7]	);
+		result.setKostenMaschine2_proM3( 		expectedValues[8]	);
+		result.setKostenUmsetzen_proM3(			expectedValues[9]	);
+		result.setKostenWeitereAufwaende_proM3( expectedValues[10]	);
+		result.setKostenTotal_proM3( 			expectedValues[11]	);
+
+		result.setKostenPersonal_total(			expectedValues[12] 	);
+		result.setKostenMaschine1_total( 		expectedValues[13] 	);
+		result.setKostenMaschine2_total( 		expectedValues[14] 	);
+		result.setKostenUmsetzen_total(			expectedValues[15] 	);
+		result.setKostenWeitereAufwaende_total( expectedValues[16] 	);
+		result.setKostenTotal_total( 			expectedValues[17] 	);
+
+		result.setProduktivitaet_m3ProPsh15(	expectedValues[18] 	);
+		result.setProduktivitaet_fmORproWPPH(	expectedValues[19] 	); 
+		
+		
+		return result;
 	}
 
 	@Override
 	protected int getFirstOutputField() {
-		return 22;
+		return 27;
 	}
 	
 	@Override
 	protected int getLastOutputField() {
-		return 38;
+		return 46;
+	}
+	
+	
+	@Test(dataProvider="csvData")
+	public void checkZeitaufwandMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+		assertEqualsDynamicDelta(ergebnis.getZeitMaschine2(), expectedValues.getZeitMaschine2());
+	}
+	
+	@Test(dataProvider="csvData")
+	public void checkKostenProM3Maschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_proM3(), expectedValues.getKostenMaschine2_proM3());
+	}
+	
+	@Test(dataProvider="csvData")
+	public void checkKostenTotalMaschine2(@SuppressWarnings("unused") String testcaseName, Ergebnis ergebnis, MockErgebnis expectedValues) {
+		assertEqualsDynamicDelta(ergebnis.getKostenMaschine2_total(), expectedValues.getKostenMaschine2_total());
 	}
 	
 }

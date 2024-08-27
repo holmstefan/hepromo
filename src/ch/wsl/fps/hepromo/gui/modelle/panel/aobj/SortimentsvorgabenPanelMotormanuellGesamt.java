@@ -25,8 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
 import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
@@ -123,13 +121,10 @@ public class SortimentsvorgabenPanelMotormanuellGesamt extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		txtAnteilIndustrieholz = new JSpinner();
-		txtAnteilIndustrieholz.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				int anteilIh = (Integer) txtAnteilIndustrieholz.getValue();
-				int anteilSchH = (Integer) txtAnteilSchichtholz.getValue();
-				txtAnteilStammholz.setValue(100 - anteilIh - anteilSchH);
-			}
+		txtAnteilIndustrieholz.addChangeListener(evt -> {
+			int anteilIh = (Integer) txtAnteilIndustrieholz.getValue();
+			int anteilSchH = (Integer) txtAnteilSchichtholz.getValue();
+			txtAnteilStammholz.setValue(100 - anteilIh - anteilSchH);
 		});
 		this.add(txtAnteilIndustrieholz, c);
 
@@ -152,13 +147,10 @@ public class SortimentsvorgabenPanelMotormanuellGesamt extends JPanel {
 		c.weightx = 100;
 //		c.insets = new Insets(5,5,5,5);
 		txtAnteilSchichtholz = new JSpinner();
-		txtAnteilSchichtholz.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				int anteilIh = (Integer) txtAnteilIndustrieholz.getValue();
-				int anteilSchH = (Integer) txtAnteilSchichtholz.getValue();
-				txtAnteilStammholz.setValue(100 - anteilIh - anteilSchH);
-			}
+		txtAnteilSchichtholz.addChangeListener(evt -> {
+			int anteilIh = (Integer) txtAnteilIndustrieholz.getValue();
+			int anteilSchH = (Integer) txtAnteilSchichtholz.getValue();
+			txtAnteilStammholz.setValue(100 - anteilIh - anteilSchH);
 		});
 		this.add(txtAnteilSchichtholz, c);
 

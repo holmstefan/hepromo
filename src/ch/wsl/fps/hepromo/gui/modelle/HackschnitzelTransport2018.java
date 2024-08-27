@@ -19,7 +19,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -127,15 +126,12 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 		c.fill = GridBagConstraints.HORIZONTAL;
 //		c.weightx = 100;
 		radAufnehmenBeladenerMulde = new JRadioButton(GuiStrings.getString("HackschnitzelTransport2018.Variante1")); //$NON-NLS-1$
-		radAufnehmenBeladenerMulde.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					lblZielsortiment.setEnabled(false);
-					cmbZielsortiment.setEnabled(false);
-					lblHackertyp.setEnabled(false);
-					cmbHackertyp.setEnabled(false);
-				}
+		radAufnehmenBeladenerMulde.addItemListener(evt -> {
+			if (evt.getStateChange() == ItemEvent.SELECTED) {
+				lblZielsortiment.setEnabled(false);
+				cmbZielsortiment.setEnabled(false);
+				lblHackertyp.setEnabled(false);
+				cmbHackertyp.setEnabled(false);
 			}
 		});
 		panel.add(radAufnehmenBeladenerMulde, c);
@@ -158,15 +154,12 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 		c.fill = GridBagConstraints.HORIZONTAL;
 //		c.weightx = 100;
 		radHackenInMulde = new JRadioButton(GuiStrings.getString("HackschnitzelTransport2018.Variante2")); //$NON-NLS-1$
-		radHackenInMulde.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					lblZielsortiment.setEnabled(true);
-					cmbZielsortiment.setEnabled(true);
-					lblHackertyp.setEnabled(true);
-					cmbHackertyp.setEnabled(true);
-				}
+		radHackenInMulde.addItemListener(evt -> {
+			if (evt.getStateChange() == ItemEvent.SELECTED) {
+				lblZielsortiment.setEnabled(true);
+				cmbZielsortiment.setEnabled(true);
+				lblHackertyp.setEnabled(true);
+				cmbHackertyp.setEnabled(true);
 			}
 		});
 		panel.add(radHackenInMulde, c);
@@ -402,7 +395,8 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 	
 	@Override
 	protected KostensaetzePanel2014 initKostensaetzePanel() {
-		return new KostensaetzePanel2014(this, false, false);
+		return new KostensaetzePanel2014.Builder(this)
+				.build();
 	}
 	
 	
@@ -458,49 +452,43 @@ public class HackschnitzelTransport2018 extends HeProMoWindow2014 {
 	@Override
 	protected void onInputChangedBeforeCalculation(Object eventSource) {
 		if (radAufnehmenBeladenerMulde.equals(eventSource)) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("HackschnitzelTransport2018.WarnungKostensatz"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, message, GuiStrings.getString("HackschnitzelTransport2018.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("HackschnitzelTransport2018.WarnungKostensatz"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, message, GuiStrings.getString("HackschnitzelTransport2018.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 		}
 		else if (cmbHackertyp.equals(eventSource)) {
 			final HackerMotorleistung hackertyp = (HackerMotorleistung) cmbHackertyp.getSelectedItem();
 			if (hackertyp.isBenutzerdefiniert()) {
-				SwingUtilities.invokeLater(new Runnable(){
-					@Override
-					public void run(){
-						String message = GuiStrings.getString("HackschnitzelTransport2018.MotorleistungEingeben"); //$NON-NLS-1$
-						while (true) {
-							//Inputdialog
-							String result = JOptionPane.showInputDialog(HackschnitzelTransport2018.this, message, hackertyp.getMotorleistungCalc_Kw());
-							if (result == null) {
-								break; //"Abbrechen" gedrückt
-							}
-							
-							try {
-								//Ergebnis parsen
-								int motorleistungNeu = (int) Double.parseDouble(result);
-								
-								//Ungültige Werte abfangen bzw. neuer Wert setzen
-								if (motorleistungNeu < 10 || motorleistungNeu > 2000) {
-									throw new IllegalArgumentException();
-								}
-								else {
-									hackertyp.setMotorleistungCalc_Kw(motorleistungNeu);
-									break; //Änderung erfolgreich
-								}
-							} catch (NumberFormatException e) {
-								JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, GuiStrings.getString("HackschnitzelTransport2018.gueltigenWertEingeben"), GuiStrings.getString("HackschnitzelTransport2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-								
-							} catch (IllegalArgumentException e) {
-								JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, GuiStrings.getString("HackschnitzelTransport2018.gueltigenWertEingeben"), GuiStrings.getString("HackschnitzelTransport2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-							}
+				SwingUtilities.invokeLater(() -> {
+					String message = GuiStrings.getString("HackschnitzelTransport2018.MotorleistungEingeben"); //$NON-NLS-1$
+					while (true) {
+						//Inputdialog
+						String result = JOptionPane.showInputDialog(HackschnitzelTransport2018.this, message, hackertyp.getMotorleistungCalc_Kw());
+						if (result == null) {
+							break; //"Abbrechen" gedrückt
 						}
-						displayErgebnis();
+
+						try {
+							//Ergebnis parsen
+							int motorleistungNeu = (int) Double.parseDouble(result);
+
+							//Ungültige Werte abfangen bzw. neuer Wert setzen
+							if (motorleistungNeu < 10 || motorleistungNeu > 2000) {
+								throw new IllegalArgumentException();
+							}
+							else {
+								hackertyp.setMotorleistungCalc_Kw(motorleistungNeu);
+								break; //Änderung erfolgreich
+							}
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, GuiStrings.getString("HackschnitzelTransport2018.gueltigenWertEingeben"), GuiStrings.getString("HackschnitzelTransport2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+
+						} catch (IllegalArgumentException e) {
+							JOptionPane.showMessageDialog(HackschnitzelTransport2018.this, GuiStrings.getString("HackschnitzelTransport2018.gueltigenWertEingeben"), GuiStrings.getString("HackschnitzelTransport2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+						}
 					}
+					displayErgebnis();
 				});
 			}
 		}

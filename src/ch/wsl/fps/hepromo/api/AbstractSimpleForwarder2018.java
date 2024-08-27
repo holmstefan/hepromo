@@ -107,7 +107,7 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 	
 	/**
 	 * 
-	 * @param value bis 15%=1, 15-25%=2, mehr als 25%=3
+	 * @param value bis 15%=1, 15-25%=2, 25-35%=3, 35-45%=4, mehr als 45%=5
 	 */
 	public void setHangneigung_Kategorie(double value) {
 		int intValue = round(value);
@@ -121,10 +121,16 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 			model.getArbeitsobjekt().setHangneigung(Hangneigung.Neigung15Bis25Prozent);
 			return;
 		case 3:
-			model.getArbeitsobjekt().setHangneigung(Hangneigung.NeigungGroesser25Prozent);
+			model.getArbeitsobjekt().setHangneigung(Hangneigung.Neigung25Bis35Prozent);
+			return;
+		case 4:
+			model.getArbeitsobjekt().setHangneigung(Hangneigung.Neigung35Bis45Prozent);
+			return;
+		case 5:
+			model.getArbeitsobjekt().setHangneigung(Hangneigung.NeigungGroesser45Prozent);
 			return;
 		default:
-			throw new IllegalArgumentException("value must be in [1,2,3]");
+			throw new IllegalArgumentException("value must be in [1,2,3,4,5]");
 		}
 	}
 	

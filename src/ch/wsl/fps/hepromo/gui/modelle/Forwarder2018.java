@@ -26,8 +26,6 @@ import java.awt.Insets;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -46,15 +44,16 @@ import javax.swing.JSpinner.NumberEditor;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.ErgebnisColorListCellRenderer;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow2014;
 import ch.wsl.fps.hepromo.gui.MainWindow;
 import ch.wsl.fps.hepromo.gui.TitledBorderFactory;
+import ch.wsl.fps.hepromo.gui.modelle.panel.aobj.TraktionshilfswindePanel;
+import ch.wsl.fps.hepromo.gui.modelle.panel.asys.KostensaetzePanel2014;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektForwarder2018;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektForwarder2018.AbstandRueckegasse;
@@ -115,12 +114,14 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 	protected JComboBox<Energieholzanfall> cmbEnergieholzanfall_m3iRproHa;
 	protected JLabel lblEnergieholzanfall_Info;
 	
+	private TraktionshilfswindePanel panelThw;
+	
 	private JComboBox<Forwardertyp> cmbForwardertyp;
 
 	protected JLabel lblErgebnisanzeige;
 	protected JComboBox<ErgebnisAnzeige> cmbErgebnisanzeige;
 	
-	private static final HashMap<ImgCode, ImageIcon> imageCache = new HashMap<ImgCode, ImageIcon>();
+	private static final HashMap<ImgCode, ImageIcon> imageCache = new HashMap<>();
 	protected JLabel lblSkizzeBaumteile;
 	
 	private JLabel lblMouseSensitiveArea;
@@ -210,20 +211,16 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		c.weightx = 30;
 		c.insets = new Insets(0,5,0,0);
 		btnEnergieholzvolumenBerechnen = new JButton(GuiStrings.getString("Forwarder2018.Berechnen")); //$NON-NLS-1$
-		btnEnergieholzvolumenBerechnen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int bhd_cm = (Integer) txtBhdMit_cm.getValue();
-				int zopf_cm = (Integer) txtZopfdurchmesser_cm.getValue();
-				if (energieholzschaetzer == null) {
-					energieholzschaetzer = new BiomasseschaetzerEnergie2018(bhd_cm, zopf_cm, Forwarder2018.this, (Double) txtSchaftholz_m3iR.getValue());
-				}
-				else {
-					energieholzschaetzer.setBhd_cm(bhd_cm);
-					energieholzschaetzer.setZopf_cm(zopf_cm);
-					energieholzschaetzer.setVisible(true);
-				}
-				
+		btnEnergieholzvolumenBerechnen.addActionListener(evt -> {
+			int bhd_cm = (Integer) txtBhdMit_cm.getValue();
+			int zopf_cm = (Integer) txtZopfdurchmesser_cm.getValue();
+			if (energieholzschaetzer == null) {
+				energieholzschaetzer = new BiomasseschaetzerEnergie2018(bhd_cm, zopf_cm, Forwarder2018.this, (Double) txtSchaftholz_m3iR.getValue());
+			}
+			else {
+				energieholzschaetzer.setBhd_cm(bhd_cm);
+				energieholzschaetzer.setZopf_cm(zopf_cm);
+				energieholzschaetzer.setVisible(true);
 			}
 		});
 		panel.add(btnEnergieholzvolumenBerechnen, c);
@@ -390,6 +387,18 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 //		c.insets = new Insets(10,5,20,5);
 		cmbHangneigung = new JComboBox<>();
 		panel.add(cmbHangneigung, c);
+		
+		//InfoButton Hangneigung
+        c = new GridBagConstraints();
+		c.gridx = 2;
+		c.gridy = 7;
+//		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.weightx = 100;
+		c.anchor = GridBagConstraints.WEST;
+		c.insets = new Insets(0,10,0,0);
+		JLabel lblHangneigung_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("Thw.InfoButtonHangneigung")); //$NON-NLS-1$
+		lblHangneigung_Info.setHorizontalTextPosition(SwingConstants.LEFT);
+		panel.add(lblHangneigung_Info, c);
 
 		
 		
@@ -517,13 +526,25 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		lblEnergieholzanfall_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("Forwarder2018.InfoButtonEnergieholzanfall")); //$NON-NLS-1$
 		panel.add(lblEnergieholzanfall_Info, c);
 
+		//panel THW
+        c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 13;
+		c.gridwidth = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.weightx = 20;
+		c.anchor = GridBagConstraints.WEST;
+		c.insets = new Insets(10,0,10,0);
+		panelThw = new TraktionshilfswindePanel(this);
+		panel.add(panelThw, c);
+
 		
 		
 		
 		//Platzhalter
         c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 13;
+		c.gridy = 14;
 //		c.weightx = 200;
 		c.weighty = 100;
 		panel.add(new JPanel(), c);
@@ -534,7 +555,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		//Label Ergebnisanzeige
         c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 14;
+		c.gridy = 15;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 20;
 //		c.insets = new Insets(10,8,20,5);
@@ -547,7 +568,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		//Text Ergebnisanzeige
         c = new GridBagConstraints();
 		c.gridx = 1;
-		c.gridy = 14;
+		c.gridy = 15;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
 //		c.insets = new Insets(10,5,20,5);
@@ -564,7 +585,7 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		c.gridx = 3;
 		c.gridy = 5;
 		c.gridwidth = 2;
-		c.gridheight = 10;
+		c.gridheight = 11;
 //		c.fill = GridBagConstraints.BOTH;
 //		c.weightx = 20;
 		c.anchor = GridBagConstraints.EAST;
@@ -636,6 +657,27 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		//otherwise, try to open from file system
 		return new ImageIcon(filePath);
 	}
+
+	
+	@Override
+	protected AbstractErgebnisPanel initErgebnisPanel() {
+		ErgebnisPanel panel = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
+
+		panel.setZeitMaschine2Unit("ISH"); //$NON-NLS-1$
+		panel.setZeitMaschine2UnitInfo(GuiStrings.getString("Thw.IndirectSystemHours")); //$NON-NLS-1$
+		panel.setLabelProduktivitaet(GuiStrings.getString("HeProMoWindow2014.Produktivitaet_m3_iR_pro_PMH15")); //$NON-NLS-1$
+		panel.setLabelProduktivitaet2(GuiStrings.getString("HeProMoWindow2014.m3_oR_pro_PMH15")); //$NON-NLS-1$
+		panel.setLabelKostenProM3(GuiStrings.getString("HeProMoWindow2014.ProM3oR")); //$NON-NLS-1$
+		
+		return panel;
+	}
 	
 	
 	@Override
@@ -668,6 +710,19 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		
 		return panel;
 	}
+	
+	
+	@Override
+	protected KostensaetzePanel2014 initKostensaetzePanel() {
+		KostensaetzePanel2014 panel = new KostensaetzePanel2014.Builder(this)
+				.showPersonal1()
+				.showMaschine2()
+				.setUnitMaschine2ToISH()
+				.build();
+		
+		panel.setLabelMaschine2(GuiStrings.getString("Thw.TraktionshilfswindeMaschine")); //$NON-NLS-1$
+		return panel;
+	}
 
 	
 	@Override
@@ -680,21 +735,15 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		
 		txtSchaftholz_m3iR.setModel(new SpinnerNumberModel(100.0, 0, 100000, 10));
 		addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtSchaftholz_m3iR);
-		txtSchaftholz_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				onHolzmengenChange();
-			}
+		txtSchaftholz_m3iR.addChangeListener(evt -> {
+			onHolzmengenChange();
 		});
 		
 		txtEnergieholzmenge_m3iR.setModel(new SpinnerNumberModel(100.0, 0, 100000, 10));
 		setSpinnerMaximumFractionDigits(txtEnergieholzmenge_m3iR);
 		addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtEnergieholzmenge_m3iR);
-		txtEnergieholzmenge_m3iR.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				onHolzmengenChange();
-			}
+		txtEnergieholzmenge_m3iR.addChangeListener(evt -> {
+			onHolzmengenChange();
 		});
 		
 		txtEnergieholzAusSchaftholz_m3iR.setModel(new SpinnerNumberModel());
@@ -765,19 +814,16 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		}
 		addDefaultActionListener(cmbErgebnisanzeige);
 //		cmbErgebnisanzeige.setEnabled(false);		
-		cmbErgebnisanzeige.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (((ErgebnisAnzeige)cmbErgebnisanzeige.getSelectedItem()) == ErgebnisAnzeige.Rundholz) {
-					((ErgebnisPanel) ergebnisPanel).setTitle(GuiStrings.getString("Forwarder2018.ErgebnistitelRundholz")); //$NON-NLS-1$
-					((ErgebnisPanel) ergebnisPanel).setLabelProduktivitaet(GuiStrings.getString("HeProMoWindow2014.Produktivitaet_m3_iR_pro_PMH15")); //$NON-NLS-1$
-					((ErgebnisPanel) ergebnisPanel).setLabelKostenProM3(GuiStrings.getString("HeProMoWindow2014.ProM3oR")); //$NON-NLS-1$
-				}
-				else if (((ErgebnisAnzeige)cmbErgebnisanzeige.getSelectedItem()) == ErgebnisAnzeige.Energieholz) {
-					((ErgebnisPanel) ergebnisPanel).setTitle(GuiStrings.getString("Forwarder2018.ErgebnistitelEnergieholz")); //$NON-NLS-1$
-					((ErgebnisPanel) ergebnisPanel).setLabelProduktivitaet(GuiStrings.getString("Forwarder2018.Produktivitaet_m3iRproPmh15")); //$NON-NLS-1$
-					((ErgebnisPanel) ergebnisPanel).setLabelKostenProM3(GuiStrings.getString("Forwarder2018.proM3iR")); //$NON-NLS-1$
-				}
+		cmbErgebnisanzeige.addActionListener(evt -> {
+			if (((ErgebnisAnzeige)cmbErgebnisanzeige.getSelectedItem()) == ErgebnisAnzeige.Rundholz) {
+				((ErgebnisPanel) ergebnisPanel).setTitle(GuiStrings.getString("Forwarder2018.ErgebnistitelRundholz")); //$NON-NLS-1$
+				((ErgebnisPanel) ergebnisPanel).setLabelProduktivitaet(GuiStrings.getString("HeProMoWindow2014.Produktivitaet_m3_iR_pro_PMH15")); //$NON-NLS-1$
+				((ErgebnisPanel) ergebnisPanel).setLabelKostenProM3(GuiStrings.getString("HeProMoWindow2014.ProM3oR")); //$NON-NLS-1$
+			}
+			else if (((ErgebnisAnzeige)cmbErgebnisanzeige.getSelectedItem()) == ErgebnisAnzeige.Energieholz) {
+				((ErgebnisPanel) ergebnisPanel).setTitle(GuiStrings.getString("Forwarder2018.ErgebnistitelEnergieholz")); //$NON-NLS-1$
+				((ErgebnisPanel) ergebnisPanel).setLabelProduktivitaet(GuiStrings.getString("Forwarder2018.Produktivitaet_m3iRproPmh15")); //$NON-NLS-1$
+				((ErgebnisPanel) ergebnisPanel).setLabelKostenProM3(GuiStrings.getString("Forwarder2018.proM3iR")); //$NON-NLS-1$
 			}
 		});
 		
@@ -854,16 +900,13 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 	
 	private void onHolzmengenChange() {
 		if (super.isReactOnInputChange()) {
-			SwingUtilities.invokeLater(new Runnable() {	
+			SwingUtilities.invokeLater(() -> {
 				// Somit wird die gemachte Änderung im JSpinner dem Benutzer bereits angezeigt, wenn der Warnhinweis erscheint.
-				@Override
-				public void run() {
-					if (holzmengenUnveraendertSeitBerechnungEnergieholzmengen) {
-						holzmengenUnveraendertSeitBerechnungEnergieholzmengen = false;
-						highlightMengenFields(true);
-					}
-					showWarnmeldungHolzmengeIfNotYetShown();
+				if (holzmengenUnveraendertSeitBerechnungEnergieholzmengen) {
+					holzmengenUnveraendertSeitBerechnungEnergieholzmengen = false;
+					highlightMengenFields(true);
 				}
+				showWarnmeldungHolzmengeIfNotYetShown();
 			});
 		}
 	}
@@ -912,15 +955,12 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		
 		// Weil in onHolzmengenChange() mit invokeLater gearbeitet wird, muss das auch hier getan werden, ansonsten wird
 		// die Änderung der Energieholzmenge in setEnergieholzErgebnis() bereits als nachträgliche Änderung gewertet!
-		// Das ganze hat den Vorteil, dass die gemachte Änderung im JSpinner dem Benutzer bereits angezeigt wird, wenn
+		// Das Ganze hat den Vorteil, dass die gemachte Änderung im JSpinner dem Benutzer bereits angezeigt wird, wenn
 		// der Warnhinweis erscheint.
-		SwingUtilities.invokeLater(new Runnable() {			
-			@Override
-			public void run() {
-				holzmengenUnveraendertSeitBerechnungEnergieholzmengen = true;
-				hinweisAenderungenBeimNachestenChangeZeigen = true;
-				highlightMengenFields(false);
-			}
+		SwingUtilities.invokeLater(() -> {
+			holzmengenUnveraendertSeitBerechnungEnergieholzmengen = true;
+			hinweisAenderungenBeimNachestenChangeZeigen = true;
+			highlightMengenFields(false);
 		});
 	}
 	
@@ -951,50 +991,44 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		updateVerkaufRundholz();
 		
 		if (cmbForwardertyp.equals(eventSource)) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("Forwarder2018.WarnungKostensatz"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(Forwarder2018.this, message, GuiStrings.getString("Forwarder2018.Achtung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("Forwarder2018.WarnungKostensatz"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(Forwarder2018.this, message, GuiStrings.getString("Forwarder2018.Achtung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 		}
 		
 		if (cmbEnergieholzanfall_m3iRproHa.equals(eventSource)) {
 			final Energieholzanfall energieholzanfall = (Energieholzanfall) cmbEnergieholzanfall_m3iRproHa.getSelectedItem();
 			if (energieholzanfall.isBenutzerdefiniert()) {
-				SwingUtilities.invokeLater(new Runnable(){
-					@Override
-					public void run(){
-						String message = GuiStrings.getString("Forwarder2018.EnergieholzanfallEingeben"); //$NON-NLS-1$
-						while (true) {
-							//Inputdialog
-							String result = JOptionPane.showInputDialog(Forwarder2018.this, message, energieholzanfall.getEnergieholzanfall_m3ProHa());
-							if (result == null) {
-								break; //"Abbrechen" gedrückt
-							}
-							
-							try {
-								//Ergebnis parsen
-								int wertNeu = (int) Double.parseDouble(result);
-								
-								//Ungültige Werte abfangen bzw. neuer Wert setzen
-								if (wertNeu < 0 || wertNeu > 2000) {
-									throw new IllegalArgumentException();
-								}
-								else {
-									energieholzanfall.setEnergieholzanfall_m3ProHa(wertNeu);
-									break; //Änderung erfolgreich
-								}
-							} catch (NumberFormatException e) {
-								JOptionPane.showMessageDialog(Forwarder2018.this, GuiStrings.getString("Forwarder2018.GueltigenWertEingeben"), GuiStrings.getString("Forwarder2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-								
-							} catch (IllegalArgumentException e) {
-								JOptionPane.showMessageDialog(Forwarder2018.this, GuiStrings.getString("Forwarder2018.GueltigenWertEingeben"), GuiStrings.getString("Forwarder2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-							}
+				SwingUtilities.invokeLater(() -> {
+					String message = GuiStrings.getString("Forwarder2018.EnergieholzanfallEingeben"); //$NON-NLS-1$
+					while (true) {
+						//Inputdialog
+						String result = JOptionPane.showInputDialog(Forwarder2018.this, message, energieholzanfall.getEnergieholzanfall_m3ProHa());
+						if (result == null) {
+							break; //"Abbrechen" gedrückt
 						}
-						displayErgebnis();
+
+						try {
+							//Ergebnis parsen
+							int wertNeu = (int) Double.parseDouble(result);
+
+							//Ungültige Werte abfangen bzw. neuer Wert setzen
+							if (wertNeu < 0 || wertNeu > 2000) {
+								throw new IllegalArgumentException();
+							}
+							else {
+								energieholzanfall.setEnergieholzanfall_m3ProHa(wertNeu);
+								break; //Änderung erfolgreich
+							}
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(Forwarder2018.this, GuiStrings.getString("Forwarder2018.GueltigenWertEingeben"), GuiStrings.getString("Forwarder2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+
+						} catch (IllegalArgumentException e) {
+							JOptionPane.showMessageDialog(Forwarder2018.this, GuiStrings.getString("Forwarder2018.GueltigenWertEingeben"), GuiStrings.getString("Forwarder2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+						}
 					}
+					displayErgebnis();
 				});
 			}
 		}
@@ -1026,10 +1060,12 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		model.getArbeitsobjekt().setZopfdurchmesser_cm(		       	((Integer) txtZopfdurchmesser_cm.getValue()) 				);
 		model.getArbeitsobjekt().setEnergieholzanfall_m3iRproHa(	(Energieholzanfall) cmbEnergieholzanfall_m3iRproHa.getSelectedItem()  );
 		model.getArbeitsobjekt().setAllEnergieholzanfall(       	 getAllEnergieholzanfallFromCombobox() 						);
-		
+		model.getArbeitsobjekt().setEinsatzThw(						panelThw.isEinsatzThw()										);
+		model.getArbeitsobjekt().setAnzahlRueckegassen(				panelThw.getAnzahlRueckegassen()							);
 		
 		//Arbeitssystem
 		model.getArbeitssystem().setForwardertyp(	(Forwardertyp) cmbForwardertyp.getSelectedItem() );
+		model.getArbeitssystem().setKostensatzMaschine2_proH(panelKostensaetze.getAnsatzMaschine2());
 	}
 
 	
@@ -1076,9 +1112,12 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 		cmbAbstandRueckegasse.setSelectedItem(  		((ArbeitsobjektForwarder2018)data.getArbeitsobjekt()).getAbstandRueckegasse()			);
 		txtZopfdurchmesser_cm.setValue( 		  		((ArbeitsobjektForwarder2018)data.getArbeitsobjekt()).getZopfdurchmesser_cm() 			);
 		cmbEnergieholzanfall_m3iRproHa.setSelectedItem( ((ArbeitsobjektForwarder2018)data.getArbeitsobjekt()).getEnergieholzanfall_m3iRproHa()	);
+		panelThw.setEinsatzThw(							((ArbeitsobjektForwarder2018) data.getArbeitsobjekt()).isEinsatzThw()				);
+		panelThw.setAnzahlRueckegassen(					((ArbeitsobjektForwarder2018) data.getArbeitsobjekt()).getAnzahlRueckegassen()		);
 		
 		
 		//Arbeitssystem
+		panelKostensaetze.setAnsatzMaschine2( 							 data.getArbeitssystem().getKostensatzMaschine2_proH() 				);
 		cmbForwardertyp.setSelectedItem( 	((ArbeitssystemForwarder2018)data.getArbeitssystem()).getForwardertyp()		 );
 		
 		updateVerkaufRundholz();
@@ -1090,23 +1129,20 @@ public abstract class Forwarder2018 extends HeProMoWindow2014 {
 	@Override
 	protected void onSuccessfullyLoaded() {
 		// Weil in onHolzmengenChange() mit invokeLater gearbeitet wird, muss das auch hier getan werden.
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				highlightMengenFields(false);
-				
-				boolean isEnergieholzBerechnet = ((Double)txtEnergieholzAusSchaftholz_m3iR.getValue()) > 0 || ((Double)txtEnergieholzAusAstderbholzUndReisig_m3iR.getValue()) > 0;
-				if (isEnergieholzBerechnet) {
-					hinweisAenderungenBeimNachestenChangeZeigen = true;
-					
-					if (holzmengenUnveraendertSeitBerechnungEnergieholzmengen == false) {
-						highlightMengenFields(true);
-						showWarnmeldungHolzmengeIfNotYetShown();
-					}
+		SwingUtilities.invokeLater(() -> {
+			highlightMengenFields(false);
+
+			boolean isEnergieholzBerechnet = ((Double)txtEnergieholzAusSchaftholz_m3iR.getValue()) > 0 || ((Double)txtEnergieholzAusAstderbholzUndReisig_m3iR.getValue()) > 0;
+			if (isEnergieholzBerechnet) {
+				hinweisAenderungenBeimNachestenChangeZeigen = true;
+
+				if (holzmengenUnveraendertSeitBerechnungEnergieholzmengen == false) {
+					highlightMengenFields(true);
+					showWarnmeldungHolzmengeIfNotYetShown();
 				}
-				else {
-					hinweisAenderungenBeimNachestenChangeZeigen = false;
-				}
+			}
+			else {
+				hinweisAenderungenBeimNachestenChangeZeigen = false;
 			}
 		});
 	}

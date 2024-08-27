@@ -58,7 +58,7 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 	
 	/**
 	 * 
-	 * @param value &lt;15%=1, 15-25%=2, &gt;25%=3
+	 * @param value &lt;15%=1, 15-25%=2, 25-35%=3, 35-45%=4, &gt;45%=5
 	 */
 	public void setSlope_category(double value) {
 		adaptee.setHangneigung_Kategorie(value);

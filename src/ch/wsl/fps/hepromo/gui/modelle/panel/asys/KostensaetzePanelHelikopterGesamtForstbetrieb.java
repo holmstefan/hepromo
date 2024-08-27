@@ -23,8 +23,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -263,11 +261,8 @@ public class KostensaetzePanelHelikopterGesamtForstbetrieb extends JPanel implem
 		
 		txtAnsatzPersonalFliegen.setModel(new SpinnerNumberModel(55.0, 0, 1000, 1));
 		txtAnsatzPersonalFliegen.setEditor(new JSpinner.NumberEditor(txtAnsatzPersonalFliegen, "0.##")); //$NON-NLS-1$
-		txtAnsatzPersonalFliegen.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				txtAnsatzPersonalLagerplatz.setValue(txtAnsatzPersonalFliegen.getValue());
-			}
+		txtAnsatzPersonalFliegen.addChangeListener(evt -> {
+			txtAnsatzPersonalLagerplatz.setValue(txtAnsatzPersonalFliegen.getValue());
 		});
 		parent.addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtAnsatzPersonalFliegen);
 		

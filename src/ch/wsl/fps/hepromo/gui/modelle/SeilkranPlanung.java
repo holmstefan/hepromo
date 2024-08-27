@@ -189,7 +189,9 @@ public abstract class SeilkranPlanung extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(false, false, false, false, false, false);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.build();
 	}
 
 

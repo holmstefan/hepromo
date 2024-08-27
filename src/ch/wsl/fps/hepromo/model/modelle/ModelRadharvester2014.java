@@ -17,6 +17,7 @@ package ch.wsl.fps.hepromo.model.modelle;
 
 import ch.wsl.fps.hepromo.model.Faktoren;
 import ch.wsl.fps.hepromo.model.HeProMoInputData;
+import ch.wsl.fps.hepromo.model.ModelStrings;
 import ch.wsl.fps.hepromo.model.ModelStrings.PdfLabels;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014;
 import ch.wsl.fps.hepromo.model.asys.ArbeitssystemRadharvester2014;
@@ -37,13 +38,17 @@ public class ModelRadharvester2014 extends AbstractModel2014 {
 		super.arbeitsobjekt = new ArbeitsobjektRadharvester2014();
 		getArbeitsobjekt().setHolzmenge_m3(150);
 		getArbeitsobjekt().setBhd_cm(35);
+		getArbeitsobjekt().setEinsatzThw(false);
+		getArbeitsobjekt().setAnzahlRueckegassen(1);
 
 		super.arbeitssystem = new ArbeitssystemRadharvester2014();
 		getArbeitssystem().setMaschinentyp(Maschinentyp.Mittel);
 		getArbeitssystem().setKostensatzPersonal1_proH(70);
 		getArbeitssystem().setKostensatzMaschine1_proH(250);
+		getArbeitssystem().setKostensatzMaschine2_proH(50);
 		getArbeitssystem().setLabelPersonal1(PdfLabels.ModelRadharvester2014_LabelMaschinist.toString());
 		getArbeitssystem().setLabelMaschine1(PdfLabels.ModelRadharvester2014_LabelRadharvester.toString());
+		getArbeitssystem().setLabelMaschine2(ModelStrings.getString("Thw.TraktionshilfswindeMaschine")); //$NON-NLS-1$
 		getArbeitssystem().setTaeglicheArbeitszeit_Min(540);
 		getArbeitssystem().setWegzeitenUndPausen_Min(60);
 		

@@ -57,6 +57,8 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 	private JTextField txtZeitPersonal = new JTextField(); //avoids NullPointerException
 	private JTextField txtZeitMaschine1 = new JTextField(); //avoids NullPointerException
 	private JTextField txtZeitMaschine2 = new JTextField(); //avoids NullPointerException
+	private JLabel lblZeitMaschine2;
+	private JLabel lblZeitMaschine2_Info;
 	private JTextField txtZeitMaschine3 = new JTextField(); //avoids NullPointerException
 	private JTextField txtZeitUmsetzen = new JTextField(); //avoids NullPointerException
 	private JTextField txtZeitWeitereAufwaende;;
@@ -86,56 +88,36 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 	private JLabel lblProduktivitaet_Info;
 	private final ValueAndUnitLabel lblProduktivitaet2 = new ValueAndUnitLabel();
 
-	private boolean enableRowPersonal = true;
-	private boolean enableRowMaschine1 = true;
-	private boolean enableRowMaschine2 = false;
-	private boolean enableRowMaschine3 = false;
-	private boolean enableRowUmsetzen = true;
-	private boolean enableRowProduktivitaet = true;
-	private boolean enableRowRotationszeit = false;
-	private boolean enableColumnProM3 = false;
+	private final boolean enableRowPersonal;
+	private final boolean enableRowMaschine1;
+	private final boolean enableRowMaschine2;
+	private final boolean enableRowMaschine3;
+	private final boolean enableRowUmsetzen;
+	private final boolean enableRowProduktivitaet;
+	private final boolean enableRowRotationszeit;
+	private final boolean enableColumnProM3;
 	
-	private boolean showHintKostenProM3 = false;
-	private boolean showHintProduktivitaet = false;
-	
-	
-	
-	public ErgebnisPanel() {
-		this(true, false, true, true, false, true);
-	}
+	private final boolean showHintKostenProM3;
+	private final boolean showHintProduktivitaet;
 	
 	
-	public ErgebnisPanel(boolean enableRowMaschine1, boolean enableRowMaschine2, boolean enableRowUmsetzen, boolean enableRowProduktivitaet, boolean enableRowRotationszeit, boolean enableColumnProM3 ) {
-		this(true, enableRowMaschine1, enableRowMaschine2, enableRowUmsetzen, enableRowProduktivitaet, enableRowRotationszeit, enableColumnProM3, false, false);
-	}
-	
-	
-	
-	public ErgebnisPanel(boolean enableRowPersonal, boolean enableRowMaschine1, boolean enableRowMaschine2, boolean enableRowUmsetzen, boolean enableRowProduktivitaet, boolean enableRowRotationszeit, boolean enableColumnProM3, boolean showHintKostenProM3, boolean showHintProduktivitaet) {
-		this(enableRowPersonal, enableRowMaschine1, enableRowMaschine2, enableRowUmsetzen, enableRowProduktivitaet, enableRowRotationszeit, enableColumnProM3, showHintKostenProM3, showHintProduktivitaet, false);
-	}
-	
-	
-	
-	public ErgebnisPanel(boolean enableRowPersonal, boolean enableRowMaschine1, boolean enableRowMaschine2, boolean enableRowUmsetzen, boolean enableRowProduktivitaet, boolean enableRowRotationszeit, boolean enableColumnProM3, boolean showHintKostenProM3, boolean showHintProduktivitaet, boolean enableRowMaschine3) {
-		this.enableRowPersonal = enableRowPersonal;
-		this.enableRowMaschine1 = enableRowMaschine1;
-		this.enableRowMaschine2 = enableRowMaschine2;
-		this.enableRowUmsetzen = enableRowUmsetzen;
-		this.enableRowProduktivitaet = enableRowProduktivitaet;
-		this.enableRowRotationszeit = enableRowRotationszeit;
-		this.enableColumnProM3 = enableColumnProM3;	
-		this.showHintKostenProM3 = showHintKostenProM3;
-		this.showHintProduktivitaet = showHintProduktivitaet;
-		this.enableRowMaschine3 = enableRowMaschine3;	
+	protected ErgebnisPanel(Builder builder) {
+		this.enableRowPersonal = builder.enableRowPersonal;
+		this.enableRowMaschine1 = builder.enableRowMaschine1;
+		this.enableRowMaschine2 = builder.enableRowMaschine2;
+		this.enableRowMaschine3 = builder.enableRowMaschine3;
+		this.enableRowUmsetzen = builder.enableRowUmsetzen;
+		this.enableRowProduktivitaet = builder.enableRowProduktivitaet;
+		this.enableRowRotationszeit = builder.enableRowRotationszeit;
+		this.enableColumnProM3 = builder.enableColumnProM3;
 		
-		this.setBorder( TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("ErgebnisPanel.Title"))); //$NON-NLS-1$
+		this.showHintKostenProM3 = builder.showHintKostenProM3;
+		this.showHintProduktivitaet = builder.showHintProduktivitaet;
 		
-		this.setBackground(ERGEBNIS_PANEL_BACKGROUND_COLOR);	
-		
+		this.setBorder( TitledBorderFactory.createTitledBorderBold(GuiStrings.getString("ErgebnisPanel.Title"))); //$NON-NLS-1$	
+		this.setBackground(ERGEBNIS_PANEL_BACKGROUND_COLOR);
 		initContent();
 	}
-	
 	
 	
 	@Override
@@ -350,20 +332,20 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 			txtZeitMaschine2 = getNewLockedTextField();
 			panel.add(txtZeitMaschine2, c);
 
-			//label Maschine1
+			//label Maschine2
 			c = new GridBagConstraints();
 			c.gridx = 1;
 			c.gridy = 3;
 			c.anchor = GridBagConstraints.WEST;
 			c.insets = new Insets(0,5,0,0);
-			JLabel lblZeitMaschine2 = new JLabel("PMH15"); //$NON-NLS-1$
+			lblZeitMaschine2 = new JLabel("PMH15"); //$NON-NLS-1$
 			panel.add(lblZeitMaschine2, c);
 
 	        c = new GridBagConstraints();
 			c.gridx = 2;
 			c.gridy = 3;
 			c.insets = new Insets(0,15,0,5);
-			JLabel lblZeitMaschine2_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("ErgebnisPanel.InfoButtonPMH15")); //$NON-NLS-1$
+			lblZeitMaschine2_Info = GuiStrings.getInfoButtonBlue(GuiStrings.getString("ErgebnisPanel.InfoButtonPMH15")); //$NON-NLS-1$
 			panel.add(lblZeitMaschine2_Info, c);
 		}
 
@@ -886,6 +868,16 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 	}
 	
 	
+	public void setZeitMaschine2Unit(String label) {
+		lblZeitMaschine2.setText(label);
+	}
+	
+	
+	public void setZeitMaschine2UnitInfo(String label) {
+		lblZeitMaschine2_Info.setToolTipText(label);
+	}
+	
+	
 	public void setLabelUmsetzen(String label) {
 		lblUmsetzen.setText(label);
 	}
@@ -928,5 +920,74 @@ public class ErgebnisPanel extends AbstractErgebnisPanel {
 		lblZeitDauerDerArbeit_Info.setVisible(false);
 	}
 	
+	
+	public static class Builder {
+		private boolean enableRowPersonal;
+		private boolean enableRowMaschine1;
+		private boolean enableRowMaschine2;
+		private boolean enableRowMaschine3;
+		private boolean enableRowUmsetzen;
+		private boolean enableRowProduktivitaet;
+		private boolean enableRowRotationszeit;
+		private boolean enableColumnProM3;
+		
+		private boolean showHintKostenProM3;
+		private boolean showHintProduktivitaet;
+		
+		
+		public Builder enableRowPersonal() {
+			this.enableRowPersonal = true;
+			return this;
+		}
+		
+		public Builder enableRowMaschine1() {
+			this.enableRowMaschine1 = true;
+			return this;
+		}
+		
+		public Builder enableRowMaschine2() {
+			this.enableRowMaschine2 = true;
+			return this;
+		}
+		
+		public Builder enableRowMaschine3() {
+			this.enableRowMaschine3 = true;
+			return this;
+		}
+		
+		public Builder enableRowUmsetzen() {
+			this.enableRowUmsetzen = true;
+			return this;
+		}
+		
+		public Builder enableRowProduktivitaet() {
+			this.enableRowProduktivitaet = true;
+			return this;
+		}
+		
+		public Builder enableRowRotationszeit() {
+			this.enableRowRotationszeit = true;
+			return this;
+		}
+		
+		public Builder enableColumnProM3() {
+			this.enableColumnProM3 = true;
+			return this;
+		}
+		
+		public Builder showHintKostenProM3() {
+			this.showHintKostenProM3 = true;
+			return this;
+		}
+		
+		public Builder showHintProduktivitaet() {
+			this.showHintProduktivitaet = true;
+			return this;
+		}
+		
+		public ErgebnisPanel build() {
+			return new ErgebnisPanel(this);
+		}
+	}
 	
 }

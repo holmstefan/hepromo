@@ -172,7 +172,14 @@ public class MotormanuellGesamt extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		ErgebnisPanel result = new ErgebnisPanel(true, true, true, false, false, true);
+		ErgebnisPanel result = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowUmsetzen()
+				.enableColumnProM3()
+				.build();
+		
 		result.hideDauerDerArbeit();
 		return result;
 	}

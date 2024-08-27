@@ -25,7 +25,7 @@ import java.util.Map;
  */
 public class HashMap3D<K1,K2,K3,V> {
 	
-	private final Map<K1, Map<K2, Map<K3, V>>> internalMap = new HashMap<K1, Map<K2, Map<K3, V>>>();
+	private final Map<K1, Map<K2, Map<K3, V>>> internalMap = new HashMap<>();
 	
 	
 	public void add(K1 key1, K2 key2, K3 key3, V value) {

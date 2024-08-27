@@ -88,7 +88,10 @@ public class MotormanuellGesamt2014 extends HeProMoWindow2014 {
 	
 	@Override
 	protected KostensaetzePanel2014 initKostensaetzePanel() {
-		return new KostensaetzePanel2014(this, true);
+		return new KostensaetzePanel2014.Builder(this)
+				.showZusaetzlichePersonen()
+				.showPersonal1()
+				.build();
 	}
 
 	

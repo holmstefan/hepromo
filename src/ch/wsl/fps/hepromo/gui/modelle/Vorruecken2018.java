@@ -18,8 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
 import javax.swing.JCheckBox;
@@ -31,8 +29,6 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.AbstractErgebnisPanel;
 import ch.wsl.fps.hepromo.gui.ErgebnisPanel;
@@ -337,13 +333,23 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 	
 	@Override
 	protected KostensaetzePanel2014 initKostensaetzePanel() {
-		return new KostensaetzePanel2014(this, false, true, true);
+		return new KostensaetzePanel2014.Builder(this)
+				.showPersonal1()
+				.showMaschine2()
+				.build();
 	}
 
 	
 	@Override
 	protected AbstractErgebnisPanel initErgebnisPanel() {
-		ErgebnisPanel panel = new ErgebnisPanel(true, true, true, true, false, true);
+		ErgebnisPanel panel = new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowMaschine2()
+				.enableRowUmsetzen()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
 		
 		panel.setLabelProduktivitaet(GuiStrings.getString("Vorruecken2018.ProduktivitaetEquipe_m3iR")); //$NON-NLS-1$
 		panel.setLabelProduktivitaet2(GuiStrings.getString("HeProMoWindow2014.m3_oR_pro_PMH15")); //$NON-NLS-1$
@@ -365,11 +371,8 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 		
 		txtHolzmenge_m3.setModel(new SpinnerNumberModel(50.0, 0, 100000, 1));
 		addDefaultChangeListenerAndAdjustJSpinnerFormatter(txtHolzmenge_m3);
-		txtHolzmenge_m3.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				updateLabelHolzmenge_m3iR();
-			}
+		txtHolzmenge_m3.addChangeListener(evt -> {
+			updateLabelHolzmenge_m3iR();
 		});
 		
 		
@@ -400,13 +403,9 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 			cmbMaschinentyp.addItem(typ);
 		}
 		addDefaultActionListener(cmbMaschinentyp);
-		cmbMaschinentyp.addActionListener(new ActionListener() {		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				boolean isRueckeraupeSelected = cmbMaschinentyp.getSelectedItem() == Maschinentyp.Rueckeraupe;
-				cmbProduktivitaetssteigerung.setEnabled(isRueckeraupeSelected);
-				
-			}
+		cmbMaschinentyp.addActionListener(evt -> {
+			boolean isRueckeraupeSelected = cmbMaschinentyp.getSelectedItem() == Maschinentyp.Rueckeraupe;
+			cmbProduktivitaetssteigerung.setEnabled(isRueckeraupeSelected);
 		});
 		
 		
@@ -425,12 +424,9 @@ public class Vorruecken2018 extends HeProMoWindow2014 {
 	@Override
 	protected void onInputChangedBeforeCalculation(Object eventSource) {
 		if (cmbMaschinentyp.equals(eventSource)) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("Vorruecken2018.WarnungKostensatz"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(Vorruecken2018.this, message, GuiStrings.getString("Vorruecken2018.Achtung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("Vorruecken2018.WarnungKostensatz"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(Vorruecken2018.this, message, GuiStrings.getString("Vorruecken2018.Achtung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 		}
 	}

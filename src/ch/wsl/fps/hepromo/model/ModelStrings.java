@@ -168,6 +168,7 @@ public class ModelStrings {
 		ArbeitsobjektRadharvester2014_ZugefaelltesHolzBis50Prz,
 		ArbeitsobjektRadharvester2014_ZuschlagAnteilLaubholz,
 		ArbeitsobjektRadharvester2014_ZuschlagFoermigkeit,
+		ArbeitsobjektRadharvester2014_ZuschlagHangneigung,
 		ArbeitsobjektRadharvester2014_ZuschlagLiegendesHolz,
 		ArbeitsobjektSchlepper2014_Beizug20bis40m,
 		ArbeitsobjektSchlepper2014_BeizugBis20m,

@@ -190,7 +190,7 @@ public class SimpleMobilseilkran1999 extends AbstractSimpleModel<ModelMobilseilk
 		int intValue = round(value);
 		
 		dirty = true;
-		List<Integer> listStuetzenTragseilHoehen = new ArrayList<Integer>();
+		List<Integer> listStuetzenTragseilHoehen = new ArrayList<>();
 		for (int i=0; i<intValue; i++) {
 			listStuetzenTragseilHoehen.add(round(DEFAULT_TRAGSEILHOEHE_STUETZE_M));
 		}

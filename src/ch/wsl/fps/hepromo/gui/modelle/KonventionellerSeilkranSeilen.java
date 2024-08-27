@@ -172,7 +172,12 @@ public class KonventionellerSeilkranSeilen extends HeProMoWindow {
 	
 	@Override
 	protected ErgebnisPanel initErgebnisPanel() {
-		return new ErgebnisPanel(true, false, false, true, false, true);
+		return new ErgebnisPanel.Builder()
+				.enableRowPersonal()
+				.enableRowMaschine1()
+				.enableRowProduktivitaet()
+				.enableColumnProM3()
+				.build();
 	}
 
 

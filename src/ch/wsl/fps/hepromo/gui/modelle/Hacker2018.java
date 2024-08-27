@@ -19,8 +19,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -123,24 +121,21 @@ public class Hacker2018 extends HeProMoWindow2014 {
 //		c.weightx = 50;
 		c.insets = new Insets(0,30,0,0);
 		JButton btnPoltervolumen = new JButton(GuiStrings.getString("Hacker2018.SchaetzungAnhandPoltervolumen")); //$NON-NLS-1$
-		btnPoltervolumen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (pvs == null) {
-					//Durch Wiederverwendung müssen die Daten nicht immer komplett neu eingegeben werden
-					pvs = new PoltervolumenSchaetzen(getZielsortiment());
-				}
-				
-				int result = JOptionPane.showConfirmDialog(
-						Hacker2018.this,
-						pvs,
-						GuiStrings.getString("Hacker2018.SchaetzungHackschnitzelmenge"), //$NON-NLS-1$
-						JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.PLAIN_MESSAGE);
-				
-				if (result == JOptionPane.OK_OPTION && pvs.getHolzmenge_Srm() > 0) {
-					txtHolzmenge_Srm.setValue( pvs.getHolzmenge_Srm() );
-				}
+		btnPoltervolumen.addActionListener(evt -> {
+			if (pvs == null) {
+				//Durch Wiederverwendung müssen die Daten nicht immer komplett neu eingegeben werden
+				pvs = new PoltervolumenSchaetzen(getZielsortiment());
+			}
+
+			int result = JOptionPane.showConfirmDialog(
+					Hacker2018.this,
+					pvs,
+					GuiStrings.getString("Hacker2018.SchaetzungHackschnitzelmenge"), //$NON-NLS-1$
+					JOptionPane.OK_CANCEL_OPTION,
+					JOptionPane.PLAIN_MESSAGE);
+
+			if (result == JOptionPane.OK_OPTION && pvs.getHolzmenge_Srm() > 0) {
+				txtHolzmenge_Srm.setValue( pvs.getHolzmenge_Srm() );
 			}
 		});
 		panel.add(btnPoltervolumen, c);
@@ -262,12 +257,9 @@ public class Hacker2018 extends HeProMoWindow2014 {
 			cmbZielsortiment.addItem(sortiment);
 		}
 		addDefaultActionListener(cmbZielsortiment);
-		cmbZielsortiment.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (pvs != null) {
-					pvs.setDefaultSchaetzmethode(getZielsortiment());
-				}
+		cmbZielsortiment.addActionListener(evt -> {
+			if (pvs != null) {
+				pvs.setDefaultSchaetzmethode(getZielsortiment());
 			}
 		});
 
@@ -283,38 +275,35 @@ public class Hacker2018 extends HeProMoWindow2014 {
 		if (cmbHackertyp.equals(eventSource)) {
 			final HackerMotorleistung hackertyp = (HackerMotorleistung) cmbHackertyp.getSelectedItem();
 			if (hackertyp.isBenutzerdefiniert()) {
-				SwingUtilities.invokeLater(new Runnable(){
-					@Override
-					public void run(){
-						String message = GuiStrings.getString("Hacker2018.MotorleistungEingeben"); //$NON-NLS-1$
-						while (true) {
-							//Inputdialog
-							String result = JOptionPane.showInputDialog(Hacker2018.this, message, hackertyp.getMotorleistungCalc_Kw());
-							if (result == null) {
-								break; //"Abbrechen" gedrückt
-							}
-							
-							try {
-								//Ergebnis parsen
-								int motorleistungNeu = (int) Double.parseDouble(result);
-								
-								//Ungültige Werte abfangen bzw. neuer Wert setzen
-								if (motorleistungNeu < 10 || motorleistungNeu > 2000) {
-									throw new IllegalArgumentException();
-								}
-								else {
-									hackertyp.setMotorleistungCalc_Kw(motorleistungNeu);
-									break; //Änderung erfolgreich
-								}
-							} catch (NumberFormatException e) {
-								JOptionPane.showMessageDialog(Hacker2018.this, GuiStrings.getString("Hacker2018.GueltigenWertEingeben"), GuiStrings.getString("Hacker2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-								
-							} catch (IllegalArgumentException e) {
-								JOptionPane.showMessageDialog(Hacker2018.this, GuiStrings.getString("Hacker2018.GueltigenWertEingeben"), GuiStrings.getString("Hacker2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
-							}
+				SwingUtilities.invokeLater(() -> {
+					String message = GuiStrings.getString("Hacker2018.MotorleistungEingeben"); //$NON-NLS-1$
+					while (true) {
+						//Inputdialog
+						String result = JOptionPane.showInputDialog(Hacker2018.this, message, hackertyp.getMotorleistungCalc_Kw());
+						if (result == null) {
+							break; //"Abbrechen" gedrückt
 						}
-						displayErgebnis();
+
+						try {
+							//Ergebnis parsen
+							int motorleistungNeu = (int) Double.parseDouble(result);
+
+							//Ungültige Werte abfangen bzw. neuer Wert setzen
+							if (motorleistungNeu < 10 || motorleistungNeu > 2000) {
+								throw new IllegalArgumentException();
+							}
+							else {
+								hackertyp.setMotorleistungCalc_Kw(motorleistungNeu);
+								break; //Änderung erfolgreich
+							}
+						} catch (NumberFormatException e) {
+							JOptionPane.showMessageDialog(Hacker2018.this, GuiStrings.getString("Hacker2018.GueltigenWertEingeben"), GuiStrings.getString("Hacker2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+
+						} catch (IllegalArgumentException e) {
+							JOptionPane.showMessageDialog(Hacker2018.this, GuiStrings.getString("Hacker2018.GueltigenWertEingeben"), GuiStrings.getString("Hacker2018.Fehler"), JOptionPane.ERROR_MESSAGE ); //$NON-NLS-1$ //$NON-NLS-2$
+						}
 					}
+					displayErgebnis();
 				});
 			}
 		}

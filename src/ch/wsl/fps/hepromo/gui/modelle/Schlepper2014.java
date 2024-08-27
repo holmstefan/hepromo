@@ -158,12 +158,9 @@ public class Schlepper2014 extends HeProMoWindow2014 {
 	@Override
 	protected void onInputChangedBeforeCalculation(Object eventSource) {
 		if (cmbMaschinenkategorie.equals(eventSource)) {
-			SwingUtilities.invokeLater(new Runnable(){
-				@Override
-				public void run(){
-					String message = GuiStrings.getString("Schlepper2014.WarnungKostensatz"); //$NON-NLS-1$
-					JOptionPane.showMessageDialog(Schlepper2014.this, message, GuiStrings.getString("Schlepper2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
-				}
+			SwingUtilities.invokeLater(() -> {
+				String message = GuiStrings.getString("Schlepper2014.WarnungKostensatz"); //$NON-NLS-1$
+				JOptionPane.showMessageDialog(Schlepper2014.this, message, GuiStrings.getString("Schlepper2014.Warnung"), JOptionPane.WARNING_MESSAGE); //$NON-NLS-1$
 			});
 		}
 		

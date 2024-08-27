@@ -18,8 +18,6 @@ package ch.wsl.fps.hepromo.gui.modelle;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.net.URL;
 
 import javax.swing.Icon;
@@ -30,8 +28,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.wsl.fps.hepromo.gui.GuiStrings;
 import ch.wsl.fps.hepromo.gui.HeProMoWindow;
@@ -114,11 +110,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
-		txtHoehe.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateResult();
-			}
+		txtHoehe.addChangeListener(evt -> {
+			updateResult();
 		});
 		this.add(txtHoehe, c);
 
@@ -136,11 +129,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
-		txtBreite.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateResult();
-			}
+		txtBreite.addChangeListener(evt -> {
+			updateResult();
 		});
 		this.add(txtBreite, c);
 
@@ -158,11 +148,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 		c.gridy = 2;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 100;
-		txtTiefe.addChangeListener(new ChangeListener() {
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				updateResult();
-			}
+		txtTiefe.addChangeListener(evt -> {
+			updateResult();
 		});
 		this.add(txtTiefe, c);
 
@@ -181,11 +168,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 			c.gridy = 3;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 100;
-			txtOptional1.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent arg0) {
-					updateResult();
-				}
+			txtOptional1.addChangeListener(evt -> {
+				updateResult();
 			});
 			this.add(txtOptional1, c);
 		}
@@ -205,11 +189,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 			c.gridy = 4;
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 100;
-			txtOptional2.addChangeListener(new ChangeListener() {
-				@Override
-				public void stateChanged(ChangeEvent arg0) {
-					updateResult();
-				}
+			txtOptional2.addChangeListener(evt -> {
+				updateResult();
 			});
 			this.add(txtOptional2, c);
 		}
@@ -230,11 +211,8 @@ public abstract class PoltervolumenSchaetzmethode extends JPanel { //FIXME: test
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 100;
 			((JLabel)cmbOptional3.getRenderer()).setHorizontalAlignment(JLabel.RIGHT);
-			cmbOptional3.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					updateResult();
-				}
+			cmbOptional3.addActionListener(evt -> {
+				updateResult();
 			});
 			this.add(cmbOptional3, c);
 
