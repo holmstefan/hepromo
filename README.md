@@ -3,6 +3,8 @@ Productivity models for wood harvesting operations.
 
 A description of this project can be found here:
 
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0244289
+
 https://www.waldwissen.net/technik/holzernte/kalkulation/wsl_hepromo/index_EN
 
 This repository contains the source code of HeProMo as an Eclipse project.
