@@ -13,6 +13,13 @@ This project uses AssertJ, Apache FOP, and TestNG. These libraries are all licen
 
 
 # Changelog
+## v.2.6.0 (August 2024)
+- Calculations for winch-assisted harvesting for forwarder and harvester
+- Forwarder: additional slope categories
+- Changed compiler compliance level from Java 7 to Java 8
+- Various smaller refactorings, code and translation improvements
+- New infobuttons for fields 'risk/administration/benefit' and 'value added tax'
+- New infobutton for field 'pre-felled trees' in harvester model.
 ## v.2.5.0 (August 2021)
 - Calculations can be exported to CSV-files
 - Separate input of risk, administration, and benefit possible
