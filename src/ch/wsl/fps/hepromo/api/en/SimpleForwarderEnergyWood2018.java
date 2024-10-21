@@ -63,6 +63,10 @@ public class SimpleForwarderEnergyWood2018 extends AbstractSimpleForwarder2018<S
 		return adaptee.getKostenForwarder_proM3iR();
 	}
 
+	public double getCostsWinchAssistedHarvesting_perM3ob() {
+		return adaptee.getKostenTraktionshilfswinde_proM3iR();
+	}
+
 	public double getCostsTransfer_perM3ob() {
 		return adaptee.getKostenUmsetzen_proM3iR();
 	}

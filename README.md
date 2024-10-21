@@ -13,6 +13,8 @@ This project uses AssertJ, Apache FOP, and TestNG. These libraries are all licen
 
 
 # Changelog
+## v.2.6.1 (October 2024)
+- Updated api classes (methods for winch-assisted harvesting etc.)
 ## v.2.6.0 (August 2024)
 - Calculations for winch-assisted harvesting for forwarder and harvester
 - Forwarder: additional slope categories

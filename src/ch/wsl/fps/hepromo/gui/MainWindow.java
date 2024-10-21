@@ -107,7 +107,7 @@ public class MainWindow extends JFrame {
 	private static final String betaSuffix = " <font size=6 color=red>BETA</font>"; //$NON-NLS-1$
 	private static final boolean isBeta = false;
 	private static final String hepromoVersion = "2.6" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
-	private static final int hepromoMonth = Calendar.AUGUST;
+	private static final int hepromoMonth = Calendar.OCTOBER;
 	private static boolean LOG_TO_FILE = false;
 	private static final int hepromoYear = 2024;
 	private static Locale locale = new Locale("de"); //$NON-NLS-1$

@@ -46,6 +46,10 @@ public class SimpleForwarderRoundwood2018 extends AbstractSimpleForwarder2018<Si
 		return adaptee.getKostenForwarder_proM3oR();
 	}
 
+	public double getCostsWinchAssistedHarvesting_perM3ub() {
+		return adaptee.getKostenTraktionshilfswinde_proM3oR();
+	}
+
 	public double getCostsTransfer_perM3ub() {
 		return adaptee.getKostenUmsetzen_proM3oR();
 	}

@@ -205,6 +205,37 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 	
 	/**
 	 * 
+	 * @param value Ja=1, Nein=2
+	 */
+	public void setEinsatzTraktionshilfswinde_Kategorie(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		switch(intValue) {
+		case 1:
+			model.getArbeitsobjekt().setEinsatzThw(true);
+			return;
+		case 2:
+			model.getArbeitsobjekt().setEinsatzThw(false);
+			return;
+		default:
+			throw new IllegalArgumentException("value must be in [1,2]");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setAnzahlRueckegassenMitThw_Anzahl(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		model.getArbeitsobjekt().setAnzahlRueckegassen(intValue);
+	}
+	
+	/**
+	 * 
 	 * @param value Mittel=1, Gross=2
 	 */
 	public void setForwardertyp_Kategorie(double value) {
@@ -232,6 +263,11 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 		dirty = true;
 		model.getArbeitssystem().setKostensatzMaschine1_proH(value);
 	}
+	
+	public void setKostenTraktionshilfswinde_proH(double value) {
+		dirty = true;
+		model.getArbeitssystem().setKostensatzMaschine2_proH(value);
+	}
 
 	
 	public double getZeitMaschinist_WPPH() {
@@ -243,6 +279,11 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 		recalc();
 		return ergebnis.getZeitMaschine1();
 	}
+
+	public double getZeitTraktionshilfswinde_ISH() {
+		recalc();
+		return ergebnis.getZeitMaschine2();
+	}
 	
 
 	public double getKostenMaschinist_total() {
@@ -253,6 +294,11 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 	public double getKostenForwarder_total() {
 		recalc();
 		return ergebnis.getKostenMaschine1_total();
+	}
+
+	public double getKostenTraktionshilfswinde_total() {
+		recalc();
+		return ergebnis.getKostenMaschine2_total();
 	}
 
 	public double getKostenUmsetzen_total() {

@@ -80,6 +80,30 @@ public class SimpleHarvester2014 extends AbstractSimpleModel<SimpleRadharvester2
 	
 	/**
 	 * 
+	 * @param value up to 30%=1, 30-39%=2, 40-49%=3, 50-60%=4
+	 */
+	public void setMeanSlope_category(double value) {
+		adaptee.setMittlereHangneigung_Kategorie(value);
+	}
+	
+	/**
+	 * 
+	 * @param value yes=1, no=2
+	 */
+	public void setUseOfWinchAssistedHarvesting_category(double value) {
+		adaptee.setEinsatzTraktionshilfswinde_Kategorie(value);
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setNumberOfSkidTrailsWithWinchAssistedHarvesting_number(double value) {
+		adaptee.setAnzahlRueckegassenMitThw_Anzahl(value);
+	}
+	
+	/**
+	 * 
 	 * @param value medium=1, big=2
 	 */
 	public void setHarvesterType_category(double value) {
@@ -94,6 +118,10 @@ public class SimpleHarvester2014 extends AbstractSimpleModel<SimpleRadharvester2
 		adaptee.setKostenRadharvester_proH(value);
 	}
 	
+	public void setCostsWinchAssistedHarvesting_perH(double value) {
+		adaptee.setKostenTraktionshilfswinde_proH(value);
+	}
+	
 	
 	public double getTimeEngineDriver_WPPH() {
 		return adaptee.getZeitMaschinist_WPPH();
@@ -101,6 +129,10 @@ public class SimpleHarvester2014 extends AbstractSimpleModel<SimpleRadharvester2
 
 	public double getTimeHarvester_PMH15() {
 		return adaptee.getZeitRadharvester_PMH15();
+	}
+
+	public double getTimeWinchAssistedHarvesting_ISH() {
+		return adaptee.getZeitTraktionshilfswinde_ISH();
 	}
 	
 
@@ -110,6 +142,10 @@ public class SimpleHarvester2014 extends AbstractSimpleModel<SimpleRadharvester2
 
 	public double getCostsHarvester_perM3ub() {
 		return adaptee.getKostenRadharvester_proM3oR();
+	}
+
+	public double getCostsWinchAssistedHarvesting_perM3ub() {
+		return adaptee.getKostenTraktionshilfswinde_proM3oR();
 	}
 
 	public double getCostsTransfer_perM3ub() {
@@ -131,6 +167,10 @@ public class SimpleHarvester2014 extends AbstractSimpleModel<SimpleRadharvester2
 
 	public double getCostsHarvester_total() {
 		return adaptee.getKostenRadharvester_total();
+	}
+
+	public double getCostsWinchAssistedHarvesting_total() {
+		return adaptee.getKostenTraktionshilfswinde_total();
 	}
 
 	public double getCostsTransfer_total() {

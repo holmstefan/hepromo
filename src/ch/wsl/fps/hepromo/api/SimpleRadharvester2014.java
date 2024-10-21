@@ -18,6 +18,8 @@ package ch.wsl.fps.hepromo.api;
 import ch.wsl.fps.hepromo.model.Ergebnis.ProdEinheit;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.Foermigkeit;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.FoermigkeitArrayWithSelection;
+import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.Hangneigung;
+import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.HangneigungArrayWithSelection;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LaubholzAnteil;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LaubholzAnteilArrayWithSelection;
 import ch.wsl.fps.hepromo.model.aobj.ArbeitsobjektRadharvester2014.LiegendesHolz;
@@ -180,6 +182,68 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	
 	/**
 	 * 
+	 * @param value bis 30%=1, 30-39%=2, 40-49%=3, 50-60%=4
+	 */
+	public void setMittlereHangneigung_Kategorie(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		HangneigungArrayWithSelection arrayWithSelection = model.getArbeitsobjekt().getHangneigungArrayWithSelection();
+		
+		switch(intValue) {
+		case 1:
+			Hangneigung hangneigung = arrayWithSelection.allValues[0];
+			arrayWithSelection.setSelection(hangneigung);
+			return;
+		case 2:
+			hangneigung = arrayWithSelection.allValues[1];
+			arrayWithSelection.setSelection(hangneigung);
+			return;
+		case 3:
+			hangneigung = arrayWithSelection.allValues[2];
+			arrayWithSelection.setSelection(hangneigung);
+			return;
+		case 4:hangneigung = arrayWithSelection.allValues[3];
+			arrayWithSelection.setSelection(hangneigung);
+			return;
+		default:
+			throw new IllegalArgumentException("value must be in [1,2,3,4]");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param value Ja=1, Nein=2
+	 */
+	public void setEinsatzTraktionshilfswinde_Kategorie(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		switch(intValue) {
+		case 1:
+			model.getArbeitsobjekt().setEinsatzThw(true);
+			return;
+		case 2:
+			model.getArbeitsobjekt().setEinsatzThw(false);
+			return;
+		default:
+			throw new IllegalArgumentException("value must be in [1,2]");
+		}
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setAnzahlRueckegassenMitThw_Anzahl(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		model.getArbeitsobjekt().setAnzahlRueckegassen(intValue);
+	}
+	
+	/**
+	 * 
 	 * @param value Mittel=1, Gross=2
 	 */
 	public void setMaschinentyp_Kategorie(double value) {
@@ -208,6 +272,11 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 		model.getArbeitssystem().setKostensatzMaschine1_proH(value);
 	}
 	
+	public void setKostenTraktionshilfswinde_proH(double value) {
+		dirty = true;
+		model.getArbeitssystem().setKostensatzMaschine2_proH(value);
+	}
+	
 	
 	public double getZeitMaschinist_WPPH() {
 		recalc();
@@ -217,6 +286,11 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	public double getZeitRadharvester_PMH15() {
 		recalc();
 		return ergebnis.getZeitMaschine1();
+	}
+
+	public double getZeitTraktionshilfswinde_ISH() {
+		recalc();
+		return ergebnis.getZeitMaschine2();
 	}
 	
 
@@ -228,6 +302,11 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	public double getKostenRadharvester_proM3oR() {
 		recalc();
 		return ergebnis.getKostenMaschine1_proM3();
+	}
+
+	public double getKostenTraktionshilfswinde_proM3oR() {
+		recalc();
+		return ergebnis.getKostenMaschine2_proM3();
 	}
 
 	public double getKostenUmsetzen_proM3oR() {
@@ -254,6 +333,11 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	public double getKostenRadharvester_total() {
 		recalc();
 		return ergebnis.getKostenMaschine1_total();
+	}
+
+	public double getKostenTraktionshilfswinde_total() {
+		recalc();
+		return ergebnis.getKostenMaschine2_total();
 	}
 
 	public double getKostenUmsetzen_total() {

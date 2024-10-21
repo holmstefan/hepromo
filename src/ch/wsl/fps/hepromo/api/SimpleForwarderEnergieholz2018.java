@@ -91,6 +91,11 @@ public class SimpleForwarderEnergieholz2018 extends AbstractSimpleForwarder2018 
 		return ergebnis.getKostenMaschine1_proM3();
 	}
 
+	public double getKostenTraktionshilfswinde_proM3iR() {
+		recalc();
+		return ergebnis.getKostenMaschine2_proM3();
+	}
+
 	public double getKostenUmsetzen_proM3iR() {
 		recalc();
 		return ergebnis.getKostenUmsetzen_proM3();

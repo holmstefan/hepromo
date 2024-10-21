@@ -90,6 +90,22 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 	
 	/**
 	 * 
+	 * @param value yes=1, no=2
+	 */
+	public void setUseOfWinchAssistedHarvesting_category(double value) {
+		adaptee.setEinsatzTraktionshilfswinde_Kategorie(value);
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setNumberOfSkidTrailsWithWinchAssistedHarvesting_number(double value) {
+		adaptee.setAnzahlRueckegassenMitThw_Anzahl(value);
+	}
+	
+	/**
+	 * 
 	 * @param value medium=1, big=2
 	 */
 	public void setForwarderType_category(double value) {
@@ -103,6 +119,10 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 	public void setCostsForwarder_perH(double value) {
 		adaptee.setKostenForwarder_proH(value);
 	}
+	
+	public void setCostsWinchAssistedHarvesting_perH(double value) {
+		adaptee.setKostenTraktionshilfswinde_proH(value);
+	}
 
 	
 	public double getTimeMachineOperator_WPPH() {
@@ -112,6 +132,10 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 	public double getTimeForwarder_PMH15() {
 		return adaptee.getZeitForwarder_PMH15();
 	}
+
+	public double getTimeWinchAssistedHarvesting_ISH() {
+		return adaptee.getZeitTraktionshilfswinde_ISH();
+	}
 	
 
 	public double getCostsMachineOperator_total() {
@@ -120,6 +144,10 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 
 	public double getCostsForwarder_total() {
 		return adaptee.getKostenForwarder_total();
+	}
+
+	public double getCostsWinchAssistedHarvesting_total() {
+		return adaptee.getKostenTraktionshilfswinde_total();
 	}
 
 	public double getCostsTransfer_total() {
