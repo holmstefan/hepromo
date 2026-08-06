@@ -45,6 +45,7 @@ public class SimpleTowerYarder1999 extends AbstractSimpleModel<SimpleMobilseilkr
 	public static final double DEFAULT_OPERATING_TIME_VEHICLE_WITH_CRANE_PCT = SimpleMobilseilkran1999.DEFAULT_KRANFAHRZEUG_LAUFZEIT_PRZ;
 	public static final double DEFAULT_NUMBER_OF_WORKERS_INSTALLTION_NUMBER = SimpleMobilseilkran1999.DEFAULT_ANZAHL_PERSONEN_INSTALLATION_ANZAHL;
 	public static final double DEFAULT_NUMBER_OF_WORKERS_LOGGING_NUMBER = SimpleMobilseilkran1999.DEFAULT_ANZAHL_PERSONEN_SEILEN_ANZAHL;
+	public static final double DEFAULT_NUMBER_OF_WORKERS_LANDING_NUMBER = SimpleMobilseilkran1999.DEFAULT_ANZAHL_PERSONEN_LAGERPLATZ_ANZAHL;
 
 	public SimpleTowerYarder1999() {
 		super(new SimpleMobilseilkran1999());
@@ -165,6 +166,14 @@ public class SimpleTowerYarder1999 extends AbstractSimpleModel<SimpleMobilseilkr
 	 */
 	public void setNumberOfWorkersLogging_number(double value) {
 		adaptee.setAnzahlPersonenSeilen_Anzahl(value);
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setNumberOfWorkersLanding_number(double value) {
+		adaptee.setAnzahlPersonenLagerplatz_Anzahl(value);
 	}
 	
 

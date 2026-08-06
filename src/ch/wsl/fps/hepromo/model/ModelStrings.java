@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class ModelStrings {
 	
 	private static final String BUNDLE_NAME = "ch.wsl.fps.hepromo.model.modelstrings"; //$NON-NLS-1$
-	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, new Locale("de"));	
+	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.GERMAN);	
 	
 	public static void setLocale(Locale locale) {
 		RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);

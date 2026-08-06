@@ -38,16 +38,19 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 	public static final double DEFAULT_ANZAHL_SORTIMENTE_KATEGORIE = 1;
 	public static final double DEFAULT_ERSCHWERNISSE_KATEGORIE = 1;
 	public static final double DEFAULT_ABSTAND_RUECKEGASSEN_KATEGORIE = 2;
+	public static final double DEFAULT_EINSATZ_TRAKTIONSHILFSWINDE_KATEGORIE = 2;
+	public static final double DEFAULT_ANZAHL_RUECKEGASSEN_MIT_THW_ANZAHL = 1;
 
 	// Arbeitssystem
 	public static final double DEFAULT_FORWARDERTYP_KATEGORIE = 1;
 	public static final double DEFAULT_KOSTEN_MASCHINIST_PRO_H = 70;
 	public static final double DEFAULT_KOSTEN_FORWARDER_PRO_H = 110;
-	
+	public static final double DEFAULT_KOSTEN_TRAKTIONSHILFSWINDE_PRO_H = 50;
+
 
 	public AbstractSimpleForwarder2018() {
 		super(new ModelForwarder2018());
-		
+
 		// Arbeitsobjekt
 		this.setMittlererBhd_cm(DEFAULT_MITTLERER_BHD_CM);
 		this.setRueckeentfernung_Kategorie(DEFAULT_RUECKEENTFERNUNG_KATEGORIE);
@@ -55,11 +58,14 @@ public abstract class AbstractSimpleForwarder2018 extends AbstractSimpleModel<Mo
 		this.setAnzahlSortimente_Kategorie(DEFAULT_ANZAHL_SORTIMENTE_KATEGORIE);
 		this.setErschwernisse_Kategorie(DEFAULT_ERSCHWERNISSE_KATEGORIE);
 		this.setAbstandRueckegassen_Kategorie(DEFAULT_ABSTAND_RUECKEGASSEN_KATEGORIE);
+		this.setEinsatzTraktionshilfswinde_Kategorie(DEFAULT_EINSATZ_TRAKTIONSHILFSWINDE_KATEGORIE);
+		this.setAnzahlRueckegassenMitThw_Anzahl(DEFAULT_ANZAHL_RUECKEGASSEN_MIT_THW_ANZAHL);
 
 		// Arbeitssystem
 		this.setForwardertyp_Kategorie(DEFAULT_FORWARDERTYP_KATEGORIE);
 		this.setKostenMaschinist_proH(DEFAULT_KOSTEN_MASCHINIST_PRO_H);
 		this.setKostenForwarder_proH(DEFAULT_KOSTEN_FORWARDER_PRO_H);
+		this.setKostenTraktionshilfswinde_proH(DEFAULT_KOSTEN_TRAKTIONSHILFSWINDE_PRO_H);
 	}
 	
 	/**

@@ -13,6 +13,9 @@ This project uses AssertJ, Apache FOP, and TestNG. These libraries are all licen
 
 
 # Changelog
+## v.2.6.2 (August 2026)
+- Updated api classes (methods for process chains)
+- Typos and minor code fixes
 ## v.2.6.1 (October 2024)
 - Updated api classes (methods for winch-assisted harvesting etc.)
 ## v.2.6.0 (August 2024)

@@ -31,7 +31,7 @@ import javax.swing.JLabel;
 public class GuiStrings {
 	
 	private static final String BUNDLE_NAME = "ch.wsl.fps.hepromo.gui.guistrings"; //$NON-NLS-1$
-	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, new Locale("de")); //$NON-NLS-1$
+	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, Locale.GERMAN);
 
 	private static ImageIcon imageIconBlue = null;
 	private static ImageIcon imageIconGrey = null;

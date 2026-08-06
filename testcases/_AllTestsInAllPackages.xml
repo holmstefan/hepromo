@@ -26,6 +26,12 @@
 		</packages>
 	</test>
 	
+	<test name="Alle Klassen im package hepromo.api.chain">  
+		<packages>
+			<package name="ch.wsl.fps.hepromo.api.chain"/>
+		</packages>
+	</test>
+	
 	<test name="GUI-Test">  
 		<classes>
 			<class name="ch.wsl.fps.hepromo.gui.ProdEinheitLabelTest"/>

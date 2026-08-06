@@ -52,6 +52,7 @@ public class SimpleMobilseilkran1999 extends AbstractSimpleModel<ModelMobilseilk
 	public static final double DEFAULT_KRANFAHRZEUG_LAUFZEIT_PRZ = 75;
 	public static final double DEFAULT_ANZAHL_PERSONEN_INSTALLATION_ANZAHL = 3;
 	public static final double DEFAULT_ANZAHL_PERSONEN_SEILEN_ANZAHL = 2;
+	public static final double DEFAULT_ANZAHL_PERSONEN_LAGERPLATZ_ANZAHL = 1;
 
 	public SimpleMobilseilkran1999() {
 		super(new ModelMobilseilkranGesamt());
@@ -274,6 +275,17 @@ public class SimpleMobilseilkran1999 extends AbstractSimpleModel<ModelMobilseilk
 		
 		dirty = true;
 		model.getArbeitssystem().setAnzahlPersonenSeilen(intValue);
+	}
+	
+	/**
+	 * 
+	 * @param value Value is rounded to the closest <code>int</code>.
+	 */
+	public void setAnzahlPersonenLagerplatz_Anzahl(double value) {
+		int intValue = round(value);
+		
+		dirty = true;
+		model.getArbeitssystem().setAnzahlPersonenLagerplatz(intValue);
 	}
 	
 

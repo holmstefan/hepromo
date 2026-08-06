@@ -32,7 +32,7 @@ import ch.wsl.fps.hepromo.model.modelle.ModelRadharvester2014;
  * @author Stefan Holm
  *
  */
-public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharvester2014> { //TODO(enhancement): Setter f¸r benutzerdefinierte Produktivit‰tszu-/abschl‰ge.
+public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharvester2014> { //TODO(enhancement): Setter f√ºr benutzerdefinierte Produktivit√§tszu-/abschl√§ge.
 
 	// Arbeitsobjekt
 	public static final double DEFAULT_HOLZMENGE_M3_IR = 150;
@@ -40,27 +40,35 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	public static final double DEFAULT_FOERMIGKEIT_KATEGORIE = 2;
 	public static final double DEFAULT_ANTEIL_LAUBHOLZ_KATEGORIE = 1;
 	public static final double DEFAULT_LIEGENDES_HOLZ_KATEGORIE = 1;
+	public static final double DEFAULT_MITTLERE_HANGNEIGUNG_KATEGORIE = 1;
+	public static final double DEFAULT_EINSATZ_TRAKTIONSHILFSWINDE_KATEGORIE = 2;
+	public static final double DEFAULT_ANZAHL_RUECKEGASSEN_MIT_THW_ANZAHL = 1;
 
 	// Arbeitssystem
 	public static final double DEFAULT_MASCHINENTYP_KATEGORIE = 1;
 	public static final double DEFAULT_KOSTEN_MASCHINIST_PRO_H = 70;
 	public static final double DEFAULT_KOSTEN_RADHARVESTER_PRO_H = 250;
-	
+	public static final double DEFAULT_KOSTEN_TRAKTIONSHILFSWINDE_PRO_H = 50;
+
 
 	public SimpleRadharvester2014() {
 		super(new ModelRadharvester2014());
-		
+
 		// Arbeitsobjekt
 		this.setHolzmenge_m3iR(DEFAULT_HOLZMENGE_M3_IR);
 		this.setMittlererBhd_cm(DEFAULT_MITTLERER_BHD_CM);
 		this.setFoermigkeit_Kategorie(DEFAULT_FOERMIGKEIT_KATEGORIE);
 		this.setAnteilLaubholz_Kategorie(DEFAULT_ANTEIL_LAUBHOLZ_KATEGORIE);
 		this.setLiegendesHolz_Kategorie(DEFAULT_LIEGENDES_HOLZ_KATEGORIE);
+		this.setMittlereHangneigung_Kategorie(DEFAULT_MITTLERE_HANGNEIGUNG_KATEGORIE);
+		this.setEinsatzTraktionshilfswinde_Kategorie(DEFAULT_EINSATZ_TRAKTIONSHILFSWINDE_KATEGORIE);
+		this.setAnzahlRueckegassenMitThw_Anzahl(DEFAULT_ANZAHL_RUECKEGASSEN_MIT_THW_ANZAHL);
 
 		// Arbeitssystem
 		this.setMaschinentyp_Kategorie(DEFAULT_MASCHINENTYP_KATEGORIE);
 		this.setKostenMaschinist_proH(DEFAULT_KOSTEN_MASCHINIST_PRO_H);
 		this.setKostenRadharvester_proH(DEFAULT_KOSTEN_RADHARVESTER_PRO_H);
+		this.setKostenTraktionshilfswinde_proH(DEFAULT_KOSTEN_TRAKTIONSHILFSWINDE_PRO_H);
 	}
 	
 	
@@ -146,7 +154,7 @@ public class SimpleRadharvester2014 extends AbstractSimpleModel<ModelRadharveste
 	
 	/**
 	 * 
-	 * @param value keines%=1, vorger¸cktes Holz bis 25%=2, vorger¸cktes Holz bis 50%=3, zugef‰lltes Holz bis 25%=4, zugef‰lltes Holz bis 50%=5
+	 * @param value keines%=1, vorger cktes Holz bis 25%=2, vorger cktes Holz bis 50%=3, zugef lltes Holz bis 25%=4, zugef lltes Holz bis 50%=5
 	 */
 	public void setLiegendesHolz_Kategorie(double value) {
 		int intValue = round(value);

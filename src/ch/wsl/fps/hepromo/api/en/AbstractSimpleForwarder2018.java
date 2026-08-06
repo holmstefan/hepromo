@@ -29,11 +29,14 @@ public abstract class AbstractSimpleForwarder2018<T extends ch.wsl.fps.hepromo.a
 	public static final double DEFAULT_NUMBER_OF_ASSORTMENTS_CATEGORY = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_ANZAHL_SORTIMENTE_KATEGORIE;
 	public static final double DEFAULT_DIFFICULTIES_CATEGORY = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_ERSCHWERNISSE_KATEGORIE;
 	public static final double DEFAULT_DISTANCE_BETWEEN_SKID_TRAILS_CATEGORY = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_ABSTAND_RUECKEGASSEN_KATEGORIE;
+	public static final double DEFAULT_USE_OF_WINCH_ASSISTED_HARVESTING_CATEGORY = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_EINSATZ_TRAKTIONSHILFSWINDE_KATEGORIE;
+	public static final double DEFAULT_NUMBER_OF_SKID_TRAILS_WITH_WINCH_ASSISTED_HARVESTING_NUMBER = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_ANZAHL_RUECKEGASSEN_MIT_THW_ANZAHL;
 
 	// Work system
 	public static final double DEFAULT_FORWARDER_TYPE_CATEGORY = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_FORWARDERTYP_KATEGORIE;
 	public static final double DEFAULT_COSTS_MACHINE_OPERATOR_PER_H = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_KOSTEN_MASCHINIST_PRO_H;
 	public static final double DEFAULT_COSTS_FORWARDER_PER_H = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_KOSTEN_FORWARDER_PRO_H;
+	public static final double DEFAULT_COSTS_WINCH_ASSISTED_HARVESTING_PER_H = ch.wsl.fps.hepromo.api.AbstractSimpleForwarder2018.DEFAULT_KOSTEN_TRAKTIONSHILFSWINDE_PRO_H;
 	
 
 	public AbstractSimpleForwarder2018(T adaptee) {

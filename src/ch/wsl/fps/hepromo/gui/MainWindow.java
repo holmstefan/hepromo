@@ -107,10 +107,10 @@ public class MainWindow extends JFrame {
 	private static final String betaSuffix = " <font size=6 color=red>BETA</font>"; //$NON-NLS-1$
 	private static final boolean isBeta = false;
 	private static final String hepromoVersion = "2.6" + (isBeta ? betaSuffix : ""); //$NON-NLS-1$ //$NON-NLS-2$
-	private static final int hepromoMonth = Calendar.OCTOBER;
+	private static final int hepromoMonth = Calendar.AUGUST;
 	private static boolean LOG_TO_FILE = false;
-	private static final int hepromoYear = 2024;
-	private static Locale locale = new Locale("de"); //$NON-NLS-1$
+	private static final int hepromoYear = 2026;
+	private static Locale locale = Locale.GERMAN; //$NON-NLS-1$
 	
 	public static float SIZE = 1;
 	public static float WIDTH_FACTOR = 1;
@@ -153,10 +153,10 @@ public class MainWindow extends JFrame {
 		
 		System.out.println("Default Locale: " + Locale.getDefault()); //$NON-NLS-1$
 		if (Locale.getDefault().getLanguage().equals(Locale.FRENCH.getLanguage())) {
-			locale = new Locale("fr"); //$NON-NLS-1$
+			locale = Locale.FRENCH;
 		}
 		if (Locale.getDefault().getLanguage().equals(Locale.ITALIAN.getLanguage())) {
-			locale = new Locale("it"); //$NON-NLS-1$
+			locale = Locale.ITALIAN;
 		}
 		
 		//parse lang args		
@@ -165,16 +165,16 @@ public class MainWindow extends JFrame {
 			System.out.println("arg" + i + ": " + arg); //$NON-NLS-1$ //$NON-NLS-2$
 
 			if (arg.equalsIgnoreCase("-fr") || arg.equalsIgnoreCase("fr") ) { //$NON-NLS-1$ //$NON-NLS-2$
-				locale = new Locale("fr"); //$NON-NLS-1$
+				locale = Locale.FRENCH;
 			}
 			else if (arg.equalsIgnoreCase("-de") || arg.equalsIgnoreCase("de") ) { //$NON-NLS-1$ //$NON-NLS-2$
-				locale = new Locale("de"); //$NON-NLS-1$
+				locale = Locale.GERMAN;
 			}
 			else if (arg.equalsIgnoreCase("-en") || arg.equalsIgnoreCase("en") ) { //$NON-NLS-1$ //$NON-NLS-2$
-				locale = new Locale("en"); //$NON-NLS-1$
+				locale = Locale.ENGLISH;
 			}
 			else if (arg.equalsIgnoreCase("-it") || arg.equalsIgnoreCase("it") ) { //$NON-NLS-1$ //$NON-NLS-2$
-				locale = new Locale("it"); //$NON-NLS-1$
+				locale = Locale.ITALIAN;
 			}
 		}
 		
@@ -297,10 +297,10 @@ public class MainWindow extends JFrame {
 		//menu action: languages
 		ButtonGroup btnGroupLang = new ButtonGroup();
 		ArrayList<Locale> listLanguages = new ArrayList<>();
-		listLanguages.add(new Locale("de")); //$NON-NLS-1$
-		listLanguages.add(new Locale("fr")); //$NON-NLS-1$
-		listLanguages.add(new Locale("it")); //$NON-NLS-1$
-		listLanguages.add(new Locale("en")); //$NON-NLS-1$
+		listLanguages.add(Locale.GERMAN);
+		listLanguages.add(Locale.FRENCH);
+		listLanguages.add(Locale.ITALIAN);
+		listLanguages.add(Locale.ENGLISH);
 		for (final Locale lang : listLanguages) {
 			//create action
 			Action aMenuLanguageX = new AbstractAction(lang.toString()) {
@@ -341,19 +341,19 @@ public class MainWindow extends JFrame {
 				sb.append("<b>" + GuiStrings.getString("MainWindow.InfoDialog.TitleProgrammierung") + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				sb.append("\tStefan Holm / stefan.holm@wsl.ch / +41 44 739 22 63<br>"); //$NON-NLS-1$
 				
-				if (locale.equals( new Locale("fr") )) { //$NON-NLS-1$
+				if (locale.equals(Locale.FRENCH)) {
 					sb.append("<br>"); //$NON-NLS-1$
 					sb.append("<b>" + "Traduction:" + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					sb.append("\tFrançois Fahrni / fahrni@bzwlyss.ch / +41 32 387 49 21<br>"); //$NON-NLS-1$
 				}
 				
-				if (locale.equals( new Locale("it") )) { //$NON-NLS-1$
+				if (locale.equals(Locale.ITALIAN)) {
 					sb.append("<br>"); //$NON-NLS-1$
 					sb.append("<b>" + "Traduzione:" + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					sb.append("\tFulvio Giudici / fulvio.guidici@gmail.com<br>"); //$NON-NLS-1$
 				}
 				
-				if (locale.equals( new Locale("en") )) { //$NON-NLS-1$
+				if (locale.equals(Locale.ENGLISH)) {
 					sb.append("<br>"); //$NON-NLS-1$
 					sb.append("<b>" + "Translation:" + "</b><br>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					sb.append("\tFritz Frutig<br>"); //$NON-NLS-1$
@@ -847,7 +847,7 @@ public class MainWindow extends JFrame {
         
 
         
-        if (locale.equals(new Locale("fr")) == true) {  //$NON-NLS-1$
+        if (locale.equals(Locale.FRENCH)) {
         	rootNodeAlteModelle.removeAllChildren(); //Die alten Modelle existeren nur auf deutsch
         	
         	//create and add info node
@@ -855,7 +855,7 @@ public class MainWindow extends JFrame {
         	rootNodeAlteModelle.add(infoNode);
         }
         
-        if (locale.equals(new Locale("it")) == true) {  //$NON-NLS-1$
+        if (locale.equals(Locale.ITALIAN)) {
         	rootNodeAlteModelle.removeAllChildren(); //Die alten Modelle existeren nur auf deutsch
         	
         	//create and add info node
@@ -863,7 +863,7 @@ public class MainWindow extends JFrame {
         	rootNodeAlteModelle.add(infoNode);
         }
         
-        if (locale.equals(new Locale("en")) == true) {  //$NON-NLS-1$
+        if (locale.equals(Locale.ENGLISH)) {
         	rootNodeAlteModelle.removeAllChildren(); //Die alten Modelle existeren nur auf deutsch
         	
         	//create and add info node

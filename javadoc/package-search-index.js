@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ch.wsl.fps.hepromo.api"},{"l":"ch.wsl.fps.hepromo.api.en"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ch.wsl.fps.hepromo.api"},{"l":"ch.wsl.fps.hepromo.api.chain"},{"l":"ch.wsl.fps.hepromo.api.en"}];updateSearchResults();
